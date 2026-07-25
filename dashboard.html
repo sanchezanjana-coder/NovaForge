@@ -42,7 +42,7 @@
 
         </aside>
 
-        <!-- Main -->
+        <!-- Contenido -->
         <main class="content">
 
             <header class="topbar">
@@ -57,14 +57,36 @@
 
             </header>
 
-            <section class="home">
+            <section class="chatArea">
 
-                <h2>What would you like to build today?</h2>
+                <div class="messages" id="messages">
 
-                <p>
-                    Create Roblox systems, generate LuaU scripts, fix bugs and
-                    build your next game with NovaForge AI.
-                </p>
+                    <div class="aiMessage">
+
+                        👋 <strong>Welcome to NovaForge AI!</strong><br><br>
+
+                        I'm ready to help you create Roblox systems, websites,
+                        LuaU scripts, fix errors and much more.
+
+                    </div>
+
+                </div>
+
+                <div class="chatInput">
+
+                    <input
+                        type="text"
+                        id="messageInput"
+                        placeholder="Message NovaForge..."
+                    >
+
+                    <button id="sendButton">
+
+                        ➜
+
+                    </button>
+
+                </div>
 
             </section>
 
