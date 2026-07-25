@@ -293,3 +293,184 @@ nav ul li a:hover{
     background:rgba(255,255,255,.05);
 
 }
+/* =======================================
+   FEATURES
+======================================= */
+
+.features{
+
+    padding:120px 8%;
+
+    text-align:center;
+
+}
+
+.features h2{
+
+    font-size:48px;
+
+    margin-bottom:15px;
+
+    font-weight:700;
+
+}
+
+.features > p{
+
+    color:#a9a9a9;
+
+    font-size:18px;
+
+    margin-bottom:70px;
+
+}
+
+.featureGrid{
+
+    display:grid;
+
+    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+
+    gap:30px;
+
+}
+
+.card{
+
+    background:rgba(255,255,255,.04);
+
+    border:1px solid rgba(255,255,255,.08);
+
+    backdrop-filter:blur(20px);
+
+    border-radius:22px;
+
+    padding:35px;
+
+    transition:.35s;
+
+}
+
+.card:hover{
+
+    transform:translateY(-10px);
+
+    border-color:#7b3cff;
+
+    box-shadow:0 0 35px rgba(123,60,255,.20);
+
+}
+
+.card h3{
+
+    font-size:25px;
+
+    margin-bottom:20px;
+
+}
+
+.card p{
+
+    color:#bdbdbd;
+
+    line-height:1.8;
+
+}
+
+/* =======================================
+   ABOUT
+======================================= */
+
+.about{
+
+    padding:140px 8%;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+}
+
+.aboutText{
+
+    max-width:900px;
+
+    background:rgba(255,255,255,.04);
+
+    border:1px solid rgba(255,255,255,.08);
+
+    border-radius:24px;
+
+    backdrop-filter:blur(18px);
+
+    padding:60px;
+
+}
+
+.about h2{
+
+    font-size:45px;
+
+    margin-bottom:25px;
+
+}
+
+.about p{
+
+    color:#bdbdbd;
+
+    line-height:2;
+
+    margin-bottom:35px;
+
+    font-size:18px;
+
+}
+
+.about ul{
+
+    list-style:none;
+
+}
+
+.about ul li{
+
+    margin-bottom:18px;
+
+    font-size:18px;
+
+}
+
+/* =======================================
+   CTA
+======================================= */
+
+.cta{
+
+    padding:120px 8%;
+
+    text-align:center;
+
+}
+
+.cta h2{
+
+    font-size:48px;
+
+    margin-bottom:20px;
+
+}
+
+.cta p{
+
+    color:#bdbdbd;
+
+    margin-bottom:40px;
+
+    font-size:20px;
+
+    line-height:1.8;
+
+}
