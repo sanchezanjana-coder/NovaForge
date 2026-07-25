@@ -909,3 +909,269 @@ CHAT
     background:#9569ff;
 
 }
+/* =====================================================
+   NOVAFORGE DASHBOARD V2
+===================================================== */
+
+:root{
+
+    --bg:#0b0b12;
+    --panel:#14141d;
+    --panel2:#1a1a24;
+
+    --purple:#7b3cff;
+    --purple2:#9865ff;
+
+    --border:rgba(255,255,255,.08);
+
+    --text:#ffffff;
+    --text2:#b8b8b8;
+
+    --shadow:0 0 40px rgba(123,60,255,.15);
+
+}
+
+.dashboard{
+
+    display:flex;
+
+    width:100%;
+
+    min-height:100vh;
+
+    background:var(--bg);
+
+}
+
+/* ===============================
+SIDEBAR
+=============================== */
+
+.sidebar{
+
+    width:290px;
+
+    background:linear-gradient(
+        180deg,
+        #14141d,
+        #101018
+    );
+
+    border-right:1px solid var(--border);
+
+    display:flex;
+
+    flex-direction:column;
+
+    padding:28px;
+
+}
+
+.logo{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:18px;
+
+    margin-bottom:35px;
+
+}
+
+.logoIcon{
+
+    width:55px;
+
+    height:55px;
+
+    background:var(--purple);
+
+    border-radius:16px;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    font-size:26px;
+
+    box-shadow:var(--shadow);
+
+}
+
+.logo h2{
+
+    font-size:28px;
+
+}
+
+.logo span{
+
+    color:var(--text2);
+
+    font-size:13px;
+
+}
+
+.newChat{
+
+    width:100%;
+
+    border:none;
+
+    background:var(--purple);
+
+    color:white;
+
+    padding:16px;
+
+    border-radius:14px;
+
+    cursor:pointer;
+
+    font-size:16px;
+
+    transition:.3s;
+
+    margin-bottom:35px;
+
+}
+
+.newChat:hover{
+
+    background:var(--purple2);
+
+    transform:translateY(-2px);
+
+}
+
+.menuTitle,
+.historyTitle{
+
+    color:#808080;
+
+    font-size:13px;
+
+    margin-bottom:14px;
+
+    text-transform:uppercase;
+
+    letter-spacing:2px;
+
+}
+
+.menu{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:8px;
+
+    margin-bottom:35px;
+
+}
+
+.menu a{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:14px;
+
+    text-decoration:none;
+
+    color:#d6d6d6;
+
+    padding:14px;
+
+    border-radius:14px;
+
+    transition:.25s;
+
+    cursor:pointer;
+
+}
+
+.menu a:hover{
+
+    background:rgba(255,255,255,.05);
+
+}
+
+.menu .active{
+
+    background:var(--purple);
+
+}
+
+.history{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:10px;
+
+}
+
+.history button{
+
+    background:transparent;
+
+    color:#d8d8d8;
+
+    border:none;
+
+    text-align:left;
+
+    padding:12px;
+
+    border-radius:12px;
+
+    cursor:pointer;
+
+    transition:.25s;
+
+}
+
+.history button:hover{
+
+    background:rgba(255,255,255,.05);
+
+}
+
+.bottom{
+
+    margin-top:auto;
+
+}
+
+.bottom button{
+
+    width:100%;
+
+    background:#1f1f2b;
+
+    color:white;
+
+    border:none;
+
+    padding:15px;
+
+    border-radius:14px;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+}
+
+.bottom button:hover{
+
+    background:#29293b;
+
+}
