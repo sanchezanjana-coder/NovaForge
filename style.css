@@ -819,3 +819,93 @@ footer p{
     line-height:1.8;
     font-size:18px;
 }
+/* =======================================
+CHAT
+======================================= */
+
+.chatArea{
+
+    display:flex;
+    flex-direction:column;
+    height:80vh;
+
+}
+
+.messages{
+
+    flex:1;
+    overflow-y:auto;
+    display:flex;
+    flex-direction:column;
+    gap:18px;
+    padding:10px;
+
+}
+
+.aiMessage{
+
+    background:rgba(255,255,255,.05);
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:18px 18px 18px 6px;
+    padding:18px;
+    max-width:70%;
+    line-height:1.8;
+
+}
+
+.userMessage{
+
+    align-self:flex-end;
+    background:#7b3cff;
+    border-radius:18px 18px 6px 18px;
+    padding:18px;
+    max-width:70%;
+    line-height:1.8;
+
+}
+
+.chatInput{
+
+    display:flex;
+    gap:15px;
+    margin-top:20px;
+
+}
+
+.chatInput input{
+
+    flex:1;
+    background:#171722;
+    color:white;
+    border:none;
+    outline:none;
+    padding:18px;
+    border-radius:16px;
+    font-size:16px;
+
+}
+
+.chatInput input::placeholder{
+
+    color:#888;
+
+}
+
+.chatInput button{
+
+    width:65px;
+    border:none;
+    border-radius:16px;
+    background:#7b3cff;
+    color:white;
+    font-size:22px;
+    cursor:pointer;
+    transition:.3s;
+
+}
+
+.chatInput button:hover{
+
+    background:#9569ff;
+
+}
