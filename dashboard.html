@@ -1,12 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>NovaForge Dashboard</title>
 
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="estilo.css">
+
 </head>
 
 <body>
@@ -14,33 +17,25 @@
     <div class="dashboard">
 
         <!-- Sidebar -->
-
         <aside class="sidebar">
 
-            <div class="logo">
+            <div class="logoArea">
 
                 <h2>NovaForge</h2>
 
-                <p>Your Intelligent Development Partner</p>
+                <span>Your Intelligent Development Partner</span>
 
             </div>
 
-            <nav class="sidebarMenu">
+            <nav class="menu">
 
-                <a href="#">🏠 Home</a>
-
+                <a href="#" class="active">🏠 Home</a>
                 <a href="#">💬 AI Chat</a>
-
                 <a href="#">📦 Scripts</a>
-
-                <a href="#">📚 Tutorials</a>
-
+                <a href="#">📚 Library</a>
                 <a href="#">🐞 Errors</a>
-
                 <a href="#">⭐ Favorites</a>
-
                 <a href="#">🕓 History</a>
-
                 <a href="#">⚙ Settings</a>
 
             </nav>
@@ -48,12 +43,11 @@
         </aside>
 
         <!-- Main -->
+        <main class="content">
 
-        <main class="mainContent">
+            <header class="topbar">
 
-            <header class="topBar">
-
-                <h1>Welcome back 👋</h1>
+                <h1>Welcome back!</h1>
 
                 <button class="navButton">
 
@@ -63,309 +57,23 @@
 
             </header>
 
-            <section class="chatArea">
+            <section class="home">
 
-                <h2>What do you want to build today?</h2>
+                <h2>What would you like to build today?</h2>
 
                 <p>
-
-                    Generate scripts, fix errors or learn LuaU with NovaForge AI.
-
+                    Create Roblox systems, generate LuaU scripts, fix bugs and
+                    build your next game with NovaForge AI.
                 </p>
 
-                <div class="quickActions">
-
-                    <button>Inventory</button>
-
-                    <button>NPC</button>
-
-                    <button>Shop</button>
-
-                    <button>Weapon</button>
-
-                    <button>DataStore</button>
-
-                    <button>GUI</button>
-
-                </div>
-
             </section>
-
-            <footer class="chatInput">
-
-                <input
-                    type="text"
-                    placeholder="Ask NovaForge anything..."
-                >
-
-                <button>
-
-                    Send
-
-                </button>
-
-            </footer>
 
         </main>
 
     </div>
 
+    <script src="script.js"></script>
+
 </body>
+
 </html>
-/* =======================================
-   DASHBOARD
-======================================= */
-
-.dashboard{
-
-    display:flex;
-
-    min-height:100vh;
-
-}
-
-/* =======================================
-   SIDEBAR
-======================================= */
-
-.sidebar{
-
-    width:280px;
-
-    background:rgba(255,255,255,.04);
-
-    border-right:1px solid rgba(255,255,255,.08);
-
-    backdrop-filter:blur(18px);
-
-    padding:35px;
-
-    display:flex;
-
-    flex-direction:column;
-
-}
-
-.sidebar .logo h2{
-
-    font-size:30px;
-
-    margin-bottom:8px;
-
-}
-
-.sidebar .logo p{
-
-    color:#9e9e9e;
-
-    font-size:14px;
-
-    margin-bottom:40px;
-
-}
-
-.sidebarMenu{
-
-    display:flex;
-
-    flex-direction:column;
-
-    gap:15px;
-
-}
-
-.sidebarMenu a{
-
-    text-decoration:none;
-
-    color:white;
-
-    padding:14px 18px;
-
-    border-radius:12px;
-
-    transition:.3s;
-
-}
-
-.sidebarMenu a:hover{
-
-    background:#7b3cff;
-
-}
-
-/* =======================================
-   MAIN CONTENT
-======================================= */
-
-.mainContent{
-
-    flex:1;
-
-    display:flex;
-
-    flex-direction:column;
-
-    padding:40px;
-
-}
-
-/* =======================================
-   TOP BAR
-======================================= */
-
-.topBar{
-
-    display:flex;
-
-    justify-content:space-between;
-
-    align-items:center;
-
-    margin-bottom:50px;
-
-}
-
-.topBar h1{
-
-    font-size:36px;
-
-}
-
-/* =======================================
-   CHAT AREA
-======================================= */
-
-.chatArea{
-
-    flex:1;
-
-    display:flex;
-
-    flex-direction:column;
-
-    justify-content:center;
-
-    align-items:center;
-
-    text-align:center;
-
-}
-
-.chatArea h2{
-
-    font-size:48px;
-
-    margin-bottom:20px;
-
-}
-
-.chatArea p{
-
-    color:#bdbdbd;
-
-    max-width:700px;
-
-    line-height:1.8;
-
-    margin-bottom:40px;
-
-}
-
-/* =======================================
-   QUICK ACTIONS
-======================================= */
-
-.quickActions{
-
-    display:flex;
-
-    flex-wrap:wrap;
-
-    justify-content:center;
-
-    gap:15px;
-
-}
-
-.quickActions button{
-
-    background:rgba(255,255,255,.05);
-
-    border:1px solid rgba(255,255,255,.08);
-
-    color:white;
-
-    padding:14px 24px;
-
-    border-radius:12px;
-
-    cursor:pointer;
-
-    transition:.3s;
-
-}
-
-.quickActions button:hover{
-
-    background:#7b3cff;
-
-}
-
-/* =======================================
-   CHAT INPUT
-======================================= */
-
-.chatInput{
-
-    display:flex;
-
-    gap:20px;
-
-    margin-top:40px;
-
-}
-
-.chatInput input{
-
-    flex:1;
-
-    background:rgba(255,255,255,.05);
-
-    border:1px solid rgba(255,255,255,.08);
-
-    color:white;
-
-    padding:18px;
-
-    border-radius:14px;
-
-    outline:none;
-
-    font-size:16px;
-
-}
-
-.chatInput button{
-
-    background:#7b3cff;
-
-    color:white;
-
-    border:none;
-
-    padding:18px 35px;
-
-    border-radius:14px;
-
-    cursor:pointer;
-
-    transition:.3s;
-
-}
-
-.chatInput button:hover{
-
-    background:#9569ff;
-
-}
