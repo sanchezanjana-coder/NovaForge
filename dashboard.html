@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="en">
 
 <head>
@@ -6,7 +7,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>NovaForge Dashboard</title>
+    <title>NovaForge AI</title>
 
     <link rel="stylesheet" href="style.css">
 
@@ -14,87 +15,396 @@
 
 <body>
 
-    <div class="dashboard">
+<div class="dashboard">
 
-        <!-- Sidebar -->
-        <aside class="sidebar">
+    <!-- ==========================
+            SIDEBAR
+    =========================== -->
 
-            <div class="logoArea">
+    <aside class="sidebar">
 
-                <h2>NovaForge</h2>
+        <div class="logo">
 
-                <span>Your Intelligent Development Partner</span>
+            <div class="logoIcon">
+
+                ✦
 
             </div>
 
-            <nav class="menu">
+            <div>
 
-                <a href="#" class="active">🏠 Home</a>
-                <a href="#">💬 AI Chat</a>
-                <a href="#">📦 Scripts</a>
-                <a href="#">📚 Library</a>
-                <a href="#">🐞 Errors</a>
-                <a href="#">⭐ Favorites</a>
-                <a href="#">🕓 History</a>
-                <a href="#">⚙ Settings</a>
+                <h2>NovaForge</h2>
 
-            </nav>
+                <span>AI Workspace</span>
 
-        </aside>
+            </div>
 
-        <!-- Contenido -->
-        <main class="content">
+        </div>
 
-            <header class="topbar">
+        <button class="newChat">
 
-                <h1>Welcome back!</h1>
+            ＋ New Chat
 
-                <button class="navButton">
+        </button>
 
-                    New Chat
+        <div class="menuTitle">
 
-                </button>
+            Workspace
 
-            </header>
+        </div>
 
-            <section class="chatArea">
+        <nav class="menu">
 
-                <div class="messages" id="messages">
+            <a class="active">
 
-                    <div class="aiMessage">
+                <span>🏠</span>
 
-                        👋 <strong>Welcome to NovaForge AI!</strong><br><br>
+                Home
 
-                        I'm ready to help you create Roblox systems, websites,
-                        LuaU scripts, fix errors and much more.
+            </a>
+
+            <a>
+
+                <span>💬</span>
+
+                AI Chat
+
+            </a>
+
+            <a>
+
+                <span>📚</span>
+
+                Library
+
+            </a>
+
+            <a>
+
+                <span>📦</span>
+
+                Scripts
+
+            </a>
+
+            <a>
+
+                <span>⭐</span>
+
+                Favorites
+
+            </a>
+
+            <a>
+
+                <span>🕓</span>
+
+                History
+
+            </a>
+
+            <a>
+
+                <span>🐞</span>
+
+                Error Fixer
+
+            </a>
+
+        </nav>
+
+        <div class="historyTitle">
+
+            Recent Chats
+
+        </div>
+
+        <div class="history">
+
+            <button>
+
+                Roblox Inventory
+
+            </button>
+
+            <button>
+
+                DataStore Help
+
+            </button>
+
+            <button>
+
+                Website Landing
+
+            </button>
+
+            <button>
+
+                LuaU Optimizer
+
+            </button>
+
+            <button>
+
+                UI Animation
+
+            </button>
+
+        </div>
+
+        <div class="bottom">
+
+            <button>
+
+                ⚙ Settings
+
+            </button>
+
+        </div>
+
+    </aside>
+
+    <!-- ==========================
+            CONTENT
+    =========================== -->
+
+    <main class="content">
+
+        <header class="topbar">
+
+            <div>
+
+                <h1>
+
+                    NovaForge AI
+
+                </h1>
+
+                <p>
+
+                    Your intelligent development partner.
+
+                </p>
+
+            </div>
+
+            <div class="profile">
+
+                <div class="status">
+
+                    ● Online
+
+                </div>
+
+                <div class="avatar">
+
+                    A
+
+                </div>
+
+            </div>
+
+        </header>
+
+        <section class="chatContainer">
+
+            <div
+                class="messages"
+                id="messages"
+            >
+
+                <div class="message ai">
+
+                    <div class="messageIcon">
+
+                        ✦
+
+                    </div>
+
+                    <div class="messageContent">
+
+                        <h3>
+
+                            NovaForge
+
+                        </h3>
+
+                        <p>
+
+                            Hello! 👋
+
+                        </p>
+
+                        <p>
+
+                            I'm your AI assistant.
+
+                        </p>
+
+                        <p>
+
+                            I can help you with:
+
+                        </p>
+
+                        <ul>
+
+                            <li>LuaU scripting</li>
+
+                            <li>Roblox Studio</li>
+
+                            <li>HTML</li>
+
+                            <li>CSS</li>
+
+                            <li>JavaScript</li>
+
+                            <li>Bug fixing</li>
+
+                            <li>Game systems</li>
+
+                        </ul>
 
                     </div>
 
                 </div>
 
-                <div class="chatInput">
+                <div class="message ai">
 
-                    <input
-                        type="text"
-                        id="messageInput"
-                        placeholder="Message NovaForge..."
-                    >
+                    <div class="messageIcon">
 
-                    <button id="sendButton">
+                        ✦
 
-                        ➜
+                    </div>
 
-                    </button>
+                    <div class="messageContent">
+
+                        <p>
+
+                            Ask me anything to get started.
+
+                        </p>
+
+                    </div>
+
+                </div>
+                <div class="message user">
+
+                    <div class="messageContent">
+
+                        <p>
+
+                            Can you create a Roblox inventory system?
+
+                        </p>
+
+                    </div>
+
+                    <div class="messageAvatar">
+
+                        You
+
+                    </div>
 
                 </div>
 
-            </section>
+                <div class="message ai">
 
-        </main>
+                    <div class="messageIcon">
 
-    </div>
+                        ✦
 
-    <script src="script.js"></script>
+                    </div>
+
+                    <div class="messageContent">
+
+                        <h3>
+
+                            NovaForge
+
+                        </h3>
+
+                        <p>
+
+                            Absolutely.
+
+                        </p>
+
+                        <p>
+
+                            I can build a complete inventory system with:
+
+                        </p>
+
+                        <ul>
+
+                            <li>✔ Item database</li>
+
+                            <li>✔ Saving with DataStore</li>
+
+                            <li>✔ Equip & Unequip</li>
+
+                            <li>✔ Drag & Drop</li>
+
+                            <li>✔ Stackable items</li>
+
+                            <li>✔ Rarities</li>
+
+                        </ul>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- ==========================
+                    INPUT
+            =========================== -->
+
+            <div class="chatInput">
+
+                <button
+                    class="attachButton"
+                    title="Attach File"
+                >
+
+                    📎
+
+                </button>
+
+                <textarea
+
+                    id="messageInput"
+
+                    placeholder="Message NovaForge..."
+
+                    rows="1"
+
+                ></textarea>
+
+                <button
+
+                    id="sendButton"
+
+                    class="sendButton"
+
+                >
+
+                    ➜
+
+                </button>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+<script src="script.js"></script>
 
 </body>
 
