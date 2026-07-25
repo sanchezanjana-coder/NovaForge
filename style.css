@@ -474,3 +474,264 @@ nav ul li a:hover{
     line-height:1.8;
 
 }
+/* =======================================
+   FOOTER
+======================================= */
+
+footer{
+
+    padding:80px 8% 40px;
+
+    text-align:center;
+
+    border-top:1px solid rgba(255,255,255,.08);
+
+    margin-top:80px;
+
+}
+
+footer h2{
+
+    font-size:34px;
+
+    margin-bottom:10px;
+
+}
+
+footer p{
+
+    color:#a9a9a9;
+
+    margin-bottom:30px;
+
+}
+
+.footerLinks{
+
+    display:flex;
+
+    justify-content:center;
+
+    gap:30px;
+
+    flex-wrap:wrap;
+
+    margin-bottom:35px;
+
+}
+
+.footerLinks a{
+
+    color:#d0d0d0;
+
+    text-decoration:none;
+
+    transition:.3s;
+
+}
+
+.footerLinks a:hover{
+
+    color:#8b5cff;
+
+}
+
+.copyright{
+
+    font-size:14px;
+
+    color:#777;
+
+}
+
+/* =======================================
+   SCROLLBAR
+======================================= */
+
+::-webkit-scrollbar{
+
+    width:10px;
+
+}
+
+::-webkit-scrollbar-track{
+
+    background:#111;
+
+}
+
+::-webkit-scrollbar-thumb{
+
+    background:#7b3cff;
+
+    border-radius:20px;
+
+}
+
+::-webkit-scrollbar-thumb:hover{
+
+    background:#9b73ff;
+
+}
+
+/* =======================================
+   ANIMATIONS
+======================================= */
+
+.heroContent{
+
+    animation:fadeUp 1s ease;
+
+}
+
+.card{
+
+    animation:fadeUp .8s ease;
+
+}
+
+.aboutText{
+
+    animation:fadeUp 1s ease;
+
+}
+
+.cta{
+
+    animation:fadeUp 1.2s ease;
+
+}
+
+@keyframes fadeUp{
+
+    from{
+
+        opacity:0;
+
+        transform:translateY(50px);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:translateY(0);
+
+    }
+
+}
+
+/* =======================================
+   RESPONSIVE
+======================================= */
+
+@media(max-width:1000px){
+
+    nav{
+
+        flex-direction:column;
+
+        gap:20px;
+
+    }
+
+    nav ul{
+
+        flex-wrap:wrap;
+
+        justify-content:center;
+
+        gap:20px;
+
+    }
+
+    .hero h1{
+
+        font-size:52px;
+
+    }
+
+}
+
+@media(max-width:768px){
+
+    .hero{
+
+        padding-top:120px;
+
+    }
+
+    .hero h1{
+
+        font-size:40px;
+
+    }
+
+    .hero p{
+
+        font-size:18px;
+
+    }
+
+    .heroButtons{
+
+        flex-direction:column;
+
+    }
+
+    .primaryButton,
+
+    .secondaryButton,
+
+    .navButton{
+
+        width:100%;
+
+    }
+
+    .features h2,
+
+    .about h2,
+
+    .cta h2{
+
+        font-size:34px;
+
+    }
+
+    .aboutText{
+
+        padding:35px;
+
+    }
+
+}
+
+@media(max-width:500px){
+
+    .logo h1{
+
+        font-size:24px;
+
+    }
+
+    nav{
+
+        width:95%;
+
+    }
+
+    .hero h1{
+
+        font-size:34px;
+
+    }
+
+    .hero p{
+
+        font-size:16px;
+
+    }
+
+}
