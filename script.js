@@ -1,17 +1,35 @@
-// ===============================
-// NovaForge
-// Main Script
-// ===============================
+const input = document.getElementById("messageInput");
+const button = document.getElementById("sendButton");
+const messages = document.getElementById("messages");
 
-// Botón principal de la Landing
-const getStartedButtons = document.querySelectorAll(".primaryButton, .navButton");
+function sendMessage() {
 
-getStartedButtons.forEach(button => {
+    const text = input.value.trim();
 
-    button.addEventListener("click", () => {
+    if (text === "") return;
 
-        window.location.href = "dashboard.html";
+    const userMessage = document.createElement("div");
 
-    });
+    userMessage.className = "userMessage";
+
+    userMessage.textContent = text;
+
+    messages.appendChild(userMessage);
+
+    input.value = "";
+
+    messages.scrollTop = messages.scrollHeight;
+
+}
+
+button.addEventListener("click", sendMessage);
+
+input.addEventListener("keydown", function(event) {
+
+    if (event.key === "Enter") {
+
+        sendMessage();
+
+    }
 
 });
