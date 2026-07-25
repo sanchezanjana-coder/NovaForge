@@ -1434,3 +1434,226 @@ CHAT
     margin-bottom:8px;
 
 }
+/* =====================================
+CHAT INPUT
+===================================== */
+
+.chatInput{
+
+    display:flex;
+
+    align-items:flex-end;
+
+    gap:18px;
+
+    padding:25px 40px;
+
+    border-top:1px solid rgba(255,255,255,.08);
+
+    background:#111119;
+
+}
+
+.attachButton{
+
+    width:52px;
+
+    height:52px;
+
+    border:none;
+
+    border-radius:16px;
+
+    background:#1d1d29;
+
+    color:white;
+
+    font-size:22px;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+}
+
+.attachButton:hover{
+
+    background:#2b2b3b;
+
+}
+
+.chatInput textarea{
+
+    flex:1;
+
+    resize:none;
+
+    min-height:58px;
+
+    max-height:180px;
+
+    padding:18px 22px;
+
+    border:none;
+
+    outline:none;
+
+    border-radius:18px;
+
+    background:#181823;
+
+    color:white;
+
+    font-size:16px;
+
+    line-height:1.6;
+
+    overflow-y:auto;
+
+}
+
+.chatInput textarea::placeholder{
+
+    color:#7d7d90;
+
+}
+
+.sendButton{
+
+    width:58px;
+
+    height:58px;
+
+    border:none;
+
+    border-radius:18px;
+
+    background:#7b3cff;
+
+    color:white;
+
+    font-size:24px;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+    box-shadow:0 0 25px rgba(123,60,255,.25);
+
+}
+
+.sendButton:hover{
+
+    background:#9569ff;
+
+    transform:translateY(-2px);
+
+}
+
+/* =====================================
+ANIMATIONS
+===================================== */
+
+@keyframes fadeUp{
+
+    from{
+
+        opacity:0;
+
+        transform:translateY(25px);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:translateY(0);
+
+    }
+
+}
+
+.message{
+
+    animation:fadeUp .35s ease;
+
+}
+
+/* =====================================
+RESPONSIVE
+===================================== */
+
+@media(max-width:1000px){
+
+    .sidebar{
+
+        width:240px;
+
+    }
+
+    .messageContent{
+
+        max-width:90%;
+
+    }
+
+}
+
+@media(max-width:850px){
+
+    .sidebar{
+
+        display:none;
+
+    }
+
+    .topbar{
+
+        padding:0 20px;
+
+    }
+
+    .messages{
+
+        padding:20px;
+
+    }
+
+    .chatInput{
+
+        padding:18px;
+
+    }
+
+}
+
+@media(max-width:600px){
+
+    .message{
+
+        gap:10px;
+
+    }
+
+    .messageIcon,
+
+    .messageAvatar{
+
+        width:40px;
+
+        height:40px;
+
+        font-size:18px;
+
+    }
+
+    .messageContent{
+
+        padding:16px;
+
+        font-size:15px;
+
+    }
+
+}
