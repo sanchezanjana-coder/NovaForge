@@ -10,7 +10,7 @@ getStartedButtons.forEach(button => {
 
     button.addEventListener("click", () => {
 
-        window.location.href = "panel.html";
+        window.location.href = "dashboard.html";
 
     });
 
