@@ -1,1 +1,295 @@
+/* =======================================
+   GOOGLE FONT
+======================================= */
 
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+
+/* =======================================
+   RESET
+======================================= */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+
+    background:#0b0b12;
+    color:white;
+    overflow-x:hidden;
+
+}
+
+/* =======================================
+   BACKGROUND
+======================================= */
+
+body::before{
+
+    content:"";
+
+    position:fixed;
+
+    inset:0;
+
+    background:
+    radial-gradient(circle at top,#7b3cff22 0%,transparent 40%),
+    radial-gradient(circle at bottom,#2a5cff15 0%,transparent 35%),
+    #0b0b12;
+
+    z-index:-2;
+
+}
+
+/* =======================================
+   NAVBAR
+======================================= */
+
+header{
+
+    position:fixed;
+
+    width:100%;
+
+    top:0;
+
+    left:0;
+
+    display:flex;
+
+    justify-content:center;
+
+    z-index:999;
+
+}
+
+nav{
+
+    width:90%;
+
+    margin-top:20px;
+
+    padding:18px 35px;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    background:rgba(255,255,255,.05);
+
+    border:1px solid rgba(255,255,255,.08);
+
+    backdrop-filter:blur(18px);
+
+    border-radius:18px;
+
+}
+
+.logo h1{
+
+    font-size:30px;
+
+    color:white;
+
+    font-weight:700;
+
+    letter-spacing:1px;
+
+}
+
+/* =======================================
+   MENU
+======================================= */
+
+nav ul{
+
+    display:flex;
+
+    list-style:none;
+
+    gap:35px;
+
+}
+
+nav ul li a{
+
+    text-decoration:none;
+
+    color:#d6d6d6;
+
+    transition:.3s;
+
+    font-size:15px;
+
+}
+
+nav ul li a:hover{
+
+    color:#8b5cff;
+
+}
+
+/* =======================================
+   BUTTON
+======================================= */
+
+.navButton{
+
+    background:#7b3cff;
+
+    color:white;
+
+    border:none;
+
+    padding:13px 24px;
+
+    border-radius:12px;
+
+    cursor:pointer;
+
+    font-weight:600;
+
+    transition:.35s;
+
+}
+
+.navButton:hover{
+
+    background:#9a6cff;
+
+    transform:translateY(-3px);
+
+    box-shadow:0 0 30px rgba(123,60,255,.45);
+
+}
+
+/* =======================================
+   HERO
+======================================= */
+
+.hero{
+
+    min-height:100vh;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    text-align:center;
+
+    padding:0 20px;
+
+}
+
+.heroContent{
+
+    max-width:850px;
+
+}
+
+.hero h1{
+
+    font-size:72px;
+
+    line-height:1.1;
+
+    margin-bottom:25px;
+
+    font-weight:800;
+
+}
+
+.hero p{
+
+    color:#bdbdbd;
+
+    font-size:21px;
+
+    line-height:1.8;
+
+    margin-bottom:40px;
+
+}
+
+/* =======================================
+   HERO BUTTONS
+======================================= */
+
+.heroButtons{
+
+    display:flex;
+
+    justify-content:center;
+
+    gap:20px;
+
+}
+
+.primaryButton{
+
+    background:#7b3cff;
+
+    color:white;
+
+    border:none;
+
+    padding:18px 38px;
+
+    border-radius:14px;
+
+    cursor:pointer;
+
+    font-size:16px;
+
+    font-weight:600;
+
+    transition:.35s;
+
+}
+
+.primaryButton:hover{
+
+    transform:translateY(-4px);
+
+    background:#9569ff;
+
+    box-shadow:0 0 40px rgba(123,60,255,.5);
+
+}
+
+.secondaryButton{
+
+    background:transparent;
+
+    border:1px solid rgba(255,255,255,.15);
+
+    color:white;
+
+    padding:18px 38px;
+
+    border-radius:14px;
+
+    cursor:pointer;
+
+    font-size:16px;
+
+    transition:.35s;
+
+}
+
+.secondaryButton:hover{
+
+    background:rgba(255,255,255,.05);
+
+}
