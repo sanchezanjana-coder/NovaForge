@@ -1,41 +1,22 @@
-/* ==========================================================================
-   NovaForge - Frontend Architecture & Chat Engine
-   Modular Plain JS Application Handler
-   ========================================================================== */
-
 document.addEventListener('DOMContentLoaded', () => {
 
-  /* ------------------------------------------------------------------------
-     1. APPLICATION STATE & DATA MODEL
-     ------------------------------------------------------------------------ */
   const AppState = {
     currentChatId: 'chat_default',
     attachedFiles: [],
     chats: [
       {
         id: 'chat_default',
-        title: 'Sistema de Guardado DataStore',
+        title: 'Interfaz al unirse',
         messages: [
           {
             sender: 'ai',
-            text: '¡Hola! Soy NovaForge, tu asistente especialista en Roblox Studio. ¿En qué sistema o script Luau puedo ayudarte hoy?'
+            text: '¡Hola! Soy NovaForge. ¿Qué sistema o script Luau necesitas construir hoy para tu juego de Roblox?'
           }
-        ]
-      },
-      {
-        id: 'chat_02',
-        title: 'Pet Follower Handler',
-        messages: [
-          { sender: 'user', text: '¿Cómo hago para que las mascotas sigan al jugador suavemente?' },
-          { sender: 'ai', text: 'Puedes usar BodyPosition o BodyGyro combinados con Lerp en el RenderStepped.' }
         ]
       }
     ]
   };
 
-  /* ------------------------------------------------------------------------
-     2. DOM ELEMENTS CACHE
-     ------------------------------------------------------------------------ */
   const DOM = {
     chatMessages: document.getElementById('chat-messages'),
     chatInput: document.getElementById('chat-input'),
@@ -48,30 +29,25 @@ document.addEventListener('DOMContentLoaded', () => {
     mobileToggle: document.getElementById('mobile-toggle'),
     sidebar: document.getElementById('sidebar'),
     toolItems: document.querySelectorAll('.tool-item'),
-    viewChat: document.getElementById('view-chat'),
-    viewPanel: document.getElementById('view-panel'),
-    panelTitle: document.getElementById('panel-title'),
-    panelContent: document.getElementById('panel-content'),
-    currentViewTitle: document.getElementById('current-view-title')
+    viewPanels: document.querySelectorAll('.view-panel'),
+    currentViewTitle: document.getElementById('current-view-title'),
+    btnFixError: document.getElementById('btn-fix-error'),
+    errorInput: document.getElementById('error-input'),
+    errorSolution: document.getElementById('error-solution')
   };
 
-  /* ------------------------------------------------------------------------
-     3. INITIALIZATION
-     ------------------------------------------------------------------------ */
   function init() {
     renderHistory();
     loadChat(AppState.currentChatId);
     setupEventListeners();
   }
 
-  /* ------------------------------------------------------------------------
-     4. EVENT LISTENERS SETUP
-     ------------------------------------------------------------------------ */
   function setupEventListeners() {
-    // Ajuste automático del Textarea
-    DOM.chatInput.addEventListener('input', autoResizeTextarea);
+    DOM.chatInput.addEventListener('input', () => {
+      DOM.chatInput.style.height = 'auto';
+      DOM.chatInput.style.height = DOM.chatInput.scrollHeight + 'px';
+    });
 
-    // Enviar con Enter (sin Shift)
     DOM.chatInput.addEventListener('keydown', (e) => {
       if (e.key === 'Enter' && !e.shiftKey) {
         e.preventDefault();
@@ -79,24 +55,16 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
 
-    // Clic en enviar
     DOM.btnSend.addEventListener('click', sendMessage);
-
-    // Manejo de adjuntos
     DOM.btnAttach.addEventListener('click', () => DOM.fileInput.click());
     DOM.fileInput.addEventListener('change', handleFileAttachment);
-
-    // Nuevo chat
     DOM.btnNewChat.addEventListener('click', createNewChat);
 
-    // Mobile Sidebar Toggle
     if (DOM.mobileToggle) {
-      DOM.mobileToggle.addEventListener('click', () => {
-        DOM.sidebar.classList.toggle('open');
-      });
+      DOM.mobileToggle.addEventListener('click', () => DOM.sidebar.classList.toggle('open'));
     }
 
-    // Navegación de Herramientas
+    // Selector de Menús
     DOM.toolItems.forEach(item => {
       item.addEventListener('click', () => {
         DOM.toolItems.forEach(i => i.classList.remove('active'));
@@ -105,11 +73,33 @@ document.addEventListener('DOMContentLoaded', () => {
         switchView(viewName);
       });
     });
+
+    // Fixer Handler
+    if (DOM.btnFixError) {
+      DOM.btnFixError.addEventListener('click', processErrorFixing);
+    }
   }
 
-  /* ------------------------------------------------------------------------
-     5. CHAT & MESSAGE RENDERING ENGINE
-     ------------------------------------------------------------------------ */
+  function switchView(viewName) {
+    DOM.viewPanels.forEach(panel => panel.classList.remove('active'));
+    
+    const targetPanel = document.getElementById(`view-${viewName}`);
+    if (targetPanel) {
+      targetPanel.classList.add('active');
+    }
+
+    const titles = {
+      'chat': 'Chat Assistant (Luau Engine)',
+      'library': 'Librería de Componentes',
+      'scripts': 'Gestor de Scripts',
+      'favorites': 'Snippets Favoritos',
+      'error-fixer': 'Roblox Error Fixer',
+      'settings': 'Configuración'
+    };
+
+    DOM.currentViewTitle.innerText = titles[viewName] || 'NovaForge';
+  }
+
   function renderHistory() {
     DOM.historyList.innerHTML = '';
     AppState.chats.forEach(chat => {
@@ -124,6 +114,8 @@ document.addEventListener('DOMContentLoaded', () => {
         renderHistory();
         loadChat(chat.id);
         switchView('chat');
+        DOM.toolItems.forEach(i => i.classList.remove('active'));
+        document.querySelector('[data-view="chat"]').classList.add('active');
       });
       DOM.historyList.appendChild(li);
     });
@@ -145,25 +137,16 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!text && AppState.attachedFiles.length === 0) return;
 
     const currentChat = AppState.chats.find(c => c.id === AppState.currentChatId);
-    
-    // Guardar mensaje de usuario
-    const userMsg = {
-      sender: 'user',
-      text: text,
-      files: [...AppState.attachedFiles]
-    };
-    currentChat.messages.push(userMsg);
+    currentChat.messages.push({ sender: 'user', text: text, files: [...AppState.attachedFiles] });
     appendMessageToDOM('user', text, AppState.attachedFiles);
 
-    // Resetear Input
     DOM.chatInput.value = '';
     DOM.chatInput.style.height = 'auto';
     AppState.attachedFiles = [];
     DOM.attachmentsPreview.innerHTML = '';
     scrollToBottom();
 
-    // Generar Respuesta IA Simula
-    simulateAIResponse(text);
+    simulateSmartAIResponse(text);
   }
 
   function appendMessageToDOM(sender, text, files = []) {
@@ -174,15 +157,11 @@ document.addEventListener('DOMContentLoaded', () => {
       ? `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>`
       : `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke="#fff"/></svg>`;
 
-    // Formatear Bloques de Código Luau si existen
     const formattedText = parseCodeBlocks(text);
 
-    let filesHTML = '';
-    if (files.length > 0) {
-      filesHTML = `<div class="attached-files-list">` + 
-        files.map(f => `<span class="file-chip">📄 ${f}</span>`).join('') + 
-        `</div>`;
-    }
+    let filesHTML = files.length > 0
+      ? `<div class="attached-files-list">` + files.map(f => `<span class="file-chip">📄 ${f}</span>`).join('') + `</div>`
+      : '';
 
     msgWrapper.innerHTML = `
       <div class="message-avatar">${avatarSvg}</div>
@@ -194,7 +173,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     DOM.chatMessages.appendChild(msgWrapper);
 
-    // Event listener para botones de copiar código
     msgWrapper.querySelectorAll('.btn-copy-code').forEach(btn => {
       btn.addEventListener('click', () => {
         const code = btn.parentElement.nextElementSibling.innerText;
@@ -205,11 +183,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  /* ------------------------------------------------------------------------
-     6. PARSER & AI RESPONSE SIMULATOR
-     ------------------------------------------------------------------------ */
   function parseCodeBlocks(text) {
-    // Transforma ```luau ... ``` en tarjetas de código con resaltado y botón copiar
     const regex = /```(luau|lua)?([\s\S]*?)```/g;
     return text.replace(regex, (match, lang, code) => {
       return `
@@ -228,43 +202,76 @@ document.addEventListener('DOMContentLoaded', () => {
     return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
   }
 
-  function simulateAIResponse(userQuery) {
-    // Respuestas realistas estructuradas para desarrolladores de Roblox
+  /* GENERADOR INTELIGENTE SEGÚN LA SOLICITUD DEL USUARIO */
+  function simulateSmartAIResponse(query) {
     setTimeout(() => {
-      let aiText = "He analizado tu petición. Aquí tienes la solución estructurada en Luau para Roblox Studio:";
+      let aiText = "";
+      const q = query.toLowerCase();
 
-      if (userQuery.toLowerCase().includes('datastore') || userQuery.toLowerCase().includes('guardar')) {
-        aiText += `\n\n\`\`\`luau
+      if (q.includes("interfaz") || q.includes("gui") || q.includes("unirse") || q.includes("pantalla")) {
+        aiText = `Aquí tienes un **LocalScript** completo en Luau. Colócalo en \`StarterPlayer -> StarterPlayerScripts\` o dentro de un \`ScreenGui\` en \`StarterGui\` para activar la interfaz cuando el jugador entre al servidor:
+
+\`\`\`luau
+-- LocalScript: Gestor de Interfaz al Unirse
+local Players = game:GetService("Players")
+local TweenService = game:GetService("TweenService")
+
+local localPlayer = Players.LocalPlayer
+local playerGui = localPlayer:WaitForChild("PlayerGui")
+
+-- Referencia al ScreenGui de Bienvenida
+local mainGui = playerGui:WaitForChild("MainScreenGui")
+local welcomeFrame = mainGui:WaitForChild("WelcomeFrame")
+
+local function onPlayerLoaded()
+    welcomeFrame.Visible = true
+    welcomeFrame.BackgroundTransparency = 1
+    
+    -- Animación de entrada suave (Fade In)
+    local tweenInfo = TweenInfo.new(1.2, Enum.EasingStyle.Quart, Enum.EasingDirection.Out)
+    local tween = TweenService:Create(welcomeFrame, tweenInfo, {BackgroundTransparency = 0.1})
+    tween:Play()
+    
+    print("Interfaz cargada con éxito para: " .. localPlayer.Name)
+end
+
+onPlayerLoaded()
+\`\`\``;
+      } else if (q.includes("datastore") || q.includes("guardar")) {
+        aiText = `Para guardar los datos de los jugadores en Roblox, utiliza este **Script** en \`ServerScriptService\`:
+
+\`\`\`luau
+-- ServerScript: DataStore System
 local DataStoreService = game:GetService("DataStoreService")
-local myDataStore = DataStoreService:GetDataStore("PlayerSavedStats")
+local playerDataStore = DataStoreService:GetDataStore("NovaForge_Data_v1")
 
-game.Players.PlayerRemoving:Connect(function(player)
-    local userId = "Player_" .. player.UserId
-    local dataToSave = { Coins = 100, Level = 5 }
+game.Players.PlayerAdded:Connect(function(player)
+    local userKey = "User_" .. player.UserId
+    local data = nil
     
     local success, err = pcall(function()
-        myDataStore:SetAsync(userId, dataToSave)
+        data = playerDataStore:GetAsync(userKey)
     end)
     
-    if not success then
-        warn("Error guardando datos: " .. tostring(err))
+    if success and data then
+        print("Datos cargados para " .. player.Name)
+    else
+        print("Nuevo jugador registrado.")
     end
 end)
 \`\`\``;
       } else {
-        aiText += `\n\n\`\`\`luau
--- Script de prueba generado en Luau
+        aiText = `He procesado tu consulta sobre Roblox Studio. Aquí tienes el código base en **Luau**:
+
+\`\`\`luau
+-- Script General Luau (ServerScriptService)
 local Workspace = game:GetService("Workspace")
 
-local function createPart()
-    local part = Instance.new("Part")
-    part.Size = Vector3.new(4, 1, 2)
-    part.Anchored = true
-    part.BrickColor = BrickColor.new("Royal purple")
-    part.Parent = Workspace
+local function initSystem()
+    print("Sistema NovaForge inicializado en Roblox Studio.")
 end
 
-createPart()
+initSystem()
 \`\`\``;
       }
 
@@ -275,12 +282,20 @@ createPart()
     }, 1000);
   }
 
-  /* ------------------------------------------------------------------------
-     7. UTILITIES & ATTACHMENTS
-     ------------------------------------------------------------------------ */
-  function autoResizeTextarea() {
-    DOM.chatInput.style.height = 'auto';
-    DOM.chatInput.style.height = DOM.chatInput.scrollHeight + 'px';
+  function processErrorFixing() {
+    const errorText = DOM.errorInput.value.trim();
+    if (!errorText) return;
+
+    DOM.errorSolution.innerHTML = `
+      <div class="glass-card" style="border-color: var(--status-success); margin-top: 15px;">
+        <h4 style="color: var(--status-success);">✔ Análisis Finalizado</h4>
+        <p style="margin-top: 8px;">El error se debe a un intento de indexar un objeto inexistente antes de que cargue.</p>
+        <div class="code-block" style="margin-top: 10px;">
+          <pre class="code-content"><code>-- Solución recomendada: Usa WaitForChild()
+local frame = playerGui:WaitForChild("MainFrame")</code></pre>
+        </div>
+      </div>
+    `;
   }
 
   function handleFileAttachment(e) {
@@ -302,10 +317,8 @@ createPart()
     const newId = 'chat_' + Date.now();
     const newChat = {
       id: newId,
-      title: 'Nueva Consulta Luau',
-      messages: [
-        { sender: 'ai', text: 'Nueva sesión lista. ¿En qué script trabajaremos ahora?' }
-      ]
+      title: 'Nueva Sesión Luau',
+      messages: [{ sender: 'ai', text: 'Nueva sesión de código activa.' }]
     };
     AppState.chats.unshift(newChat);
     AppState.currentChatId = newId;
@@ -314,20 +327,5 @@ createPart()
     switchView('chat');
   }
 
-  function switchView(viewName) {
-    if (viewName === 'chat') {
-      DOM.viewChat.classList.add('active');
-      DOM.viewPanel.classList.remove('active');
-      DOM.currentViewTitle.innerText = "Chat Assistant (Luau Engine)";
-    } else {
-      DOM.viewChat.classList.remove('active');
-      DOM.viewPanel.classList.add('active');
-      DOM.currentViewTitle.innerText = viewName.toUpperCase() + " Module";
-      DOM.panelTitle.innerText = viewName.toUpperCase();
-      DOM.panelContent.innerText = `Módulo de ${viewName} activado. Listo para integraciones avanzadas con tu flujo de trabajo de Roblox Studio.`;
-    }
-  }
-
-  // Ejecutar inicialización
   init();
 });
