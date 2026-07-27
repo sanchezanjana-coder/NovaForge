@@ -1,411 +1,142 @@
 <!DOCTYPE html>
-
-<html lang="en">
-
+<html lang="es">
 <head>
-
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>NovaForge AI</title>
-
-    <link rel="stylesheet" href="style.css">
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NovaForge | Workbench Dashboard</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
 </head>
-
 <body>
 
-<div class="dashboard">
+  <div class="dashboard-container">
+    
+    <!-- Sidebar Izquierda -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <a href="index.html" class="brand-logo">
+          <svg class="brand-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke="#7b3cff"/>
+          </svg>
+          <span class="gradient-text">NovaForge</span>
+        </a>
+      </div>
 
-    <!-- ==========================
-            SIDEBAR
-    =========================== -->
+      <button class="btn-primary btn-new-chat" id="btn-new-chat">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+        Nuevo Chat
+      </button>
 
-    <aside class="sidebar">
-
-        <div class="logo">
-
-            <div class="logoIcon">
-
-                ✦
-
-            </div>
-
-            <div>
-
-                <h2>NovaForge</h2>
-
-                <span>AI Workspace</span>
-
-            </div>
-
+      <nav class="sidebar-nav">
+        <!-- Grupo 1: Herramientas del Sistema -->
+        <div class="nav-group">
+          <span class="nav-group-title">Herramientas</span>
+          <ul class="tools-list">
+            <li class="tool-item active" data-view="chat">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+              <span>Asistente IA</span>
+            </li>
+            <li class="tool-item" data-view="library">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 016.5 17H20M4 4.5A2.5 2.5 0 016.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15z"/></svg>
+              <span>Library</span>
+            </li>
+            <li class="tool-item" data-view="scripts">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8l-6-6z"/></svg>
+              <span>Scripts</span>
+            </li>
+            <li class="tool-item" data-view="favorites">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <span>Favorites</span>
+            </li>
+            <li class="tool-item" data-view="error-fixer">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0zM12 9v4m0 4h.01"/></svg>
+              <span>Error Fixer</span>
+            </li>
+            <li class="tool-item" data-view="settings">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-2 2 2 2 0 01-2-2v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83 0 2 2 0 010-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H3a2 2 0 01-2-2 2 2 0 012-2h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 010-2.83 2 2 0 012.83 0l.06.06a1.65 1.65 0 001.82.33H9a1.65 1.65 0 001-1.51V3a2 2 0 012-2 2 2 0 012 2v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 0 2 2 0 010 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9a1.65 1.65 0 001.51 1H21a2 2 0 012 2 2 2 0 01-2 2h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
+              <span>Settings</span>
+            </li>
+          </ul>
         </div>
 
-        <button class="newChat">
-
-            ＋ New Chat
-
-        </button>
-
-        <div class="menuTitle">
-
-            Workspace
-
+        <!-- Grupo 2: Historial -->
+        <div class="nav-group">
+          <span class="nav-group-title">Historial</span>
+          <ul class="history-list" id="history-list">
+            <!-- Cargado dinámicamente mediante JS -->
+          </ul>
         </div>
+      </nav>
 
-        <nav class="menu">
-
-            <a class="active">
-
-                <span>🏠</span>
-
-                Home
-
-            </a>
-
-            <a>
-
-                <span>💬</span>
-
-                AI Chat
-
-            </a>
-
-            <a>
-
-                <span>📚</span>
-
-                Library
-
-            </a>
-
-            <a>
-
-                <span>📦</span>
-
-                Scripts
-
-            </a>
-
-            <a>
-
-                <span>⭐</span>
-
-                Favorites
-
-            </a>
-
-            <a>
-
-                <span>🕓</span>
-
-                History
-
-            </a>
-
-            <a>
-
-                <span>🐞</span>
-
-                Error Fixer
-
-            </a>
-
-        </nav>
-
-        <div class="historyTitle">
-
-            Recent Chats
-
+      <div class="sidebar-footer">
+        <div class="user-profile">
+          <div class="user-avatar">NF</div>
+          <div class="user-info">
+            <span class="user-name">Roblox Developer</span>
+            <span class="user-role">Pro Plan</span>
+          </div>
         </div>
-
-        <div class="history">
-
-            <button>
-
-                Roblox Inventory
-
-            </button>
-
-            <button>
-
-                DataStore Help
-
-            </button>
-
-            <button>
-
-                Website Landing
-
-            </button>
-
-            <button>
-
-                LuaU Optimizer
-
-            </button>
-
-            <button>
-
-                UI Animation
-
-            </button>
-
-        </div>
-
-        <div class="bottom">
-
-            <button>
-
-                ⚙ Settings
-
-            </button>
-
-        </div>
-
+      </div>
     </aside>
 
-    <!-- ==========================
-            CONTENT
-    =========================== -->
-
-    <main class="content">
-
-        <header class="topbar">
-
-            <div>
-
-                <h1>
-
-                    NovaForge AI
-
-                </h1>
-
-                <p>
-
-                    Your intelligent development partner.
-
-                </p>
-
-            </div>
-
-            <div class="profile">
-
-                <div class="status">
-
-                    ● Online
-
-                </div>
-
-                <div class="avatar">
-
-                    A
-
-                </div>
-
-            </div>
-
-        </header>
-
-        <section class="chatContainer">
-
-            <div
-                class="messages"
-                id="messages"
-            >
-
-                <div class="message ai">
-
-                    <div class="messageIcon">
-
-                        ✦
-
-                    </div>
-
-                    <div class="messageContent">
-
-                        <h3>
-
-                            NovaForge
-
-                        </h3>
-
-                        <p>
-
-                            Hello! 👋
-
-                        </p>
-
-                        <p>
-
-                            I'm your AI assistant.
-
-                        </p>
-
-                        <p>
-
-                            I can help you with:
-
-                        </p>
-
-                        <ul>
-
-                            <li>LuaU scripting</li>
-
-                            <li>Roblox Studio</li>
-
-                            <li>HTML</li>
-
-                            <li>CSS</li>
-
-                            <li>JavaScript</li>
-
-                            <li>Bug fixing</li>
-
-                            <li>Game systems</li>
-
-                        </ul>
-
-                    </div>
-
-                </div>
-
-                <div class="message ai">
-
-                    <div class="messageIcon">
-
-                        ✦
-
-                    </div>
-
-                    <div class="messageContent">
-
-                        <p>
-
-                            Ask me anything to get started.
-
-                        </p>
-
-                    </div>
-
-                </div>
-                <div class="message user">
-
-                    <div class="messageContent">
-
-                        <p>
-
-                            Can you create a Roblox inventory system?
-
-                        </p>
-
-                    </div>
-
-                    <div class="messageAvatar">
-
-                        You
-
-                    </div>
-
-                </div>
-
-                <div class="message ai">
-
-                    <div class="messageIcon">
-
-                        ✦
-
-                    </div>
-
-                    <div class="messageContent">
-
-                        <h3>
-
-                            NovaForge
-
-                        </h3>
-
-                        <p>
-
-                            Absolutely.
-
-                        </p>
-
-                        <p>
-
-                            I can build a complete inventory system with:
-
-                        </p>
-
-                        <ul>
-
-                            <li>✔ Item database</li>
-
-                            <li>✔ Saving with DataStore</li>
-
-                            <li>✔ Equip & Unequip</li>
-
-                            <li>✔ Drag & Drop</li>
-
-                            <li>✔ Stackable items</li>
-
-                            <li>✔ Rarities</li>
-
-                        </ul>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-            <!-- ==========================
-                    INPUT
-            =========================== -->
-
-            <div class="chatInput">
-
-                <button
-                    class="attachButton"
-                    title="Attach File"
-                >
-
-                    📎
-
+    <!-- Zona Central de la Aplicación -->
+    <main class="main-workspace">
+      
+      <!-- Encabezado superior -->
+      <header class="workspace-header">
+        <div class="workspace-title">
+          <button class="btn-icon mobile-toggle" id="mobile-toggle">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
+          </button>
+          <span class="status-indicator"></span>
+          <span id="current-view-title">Chat Assistant (Luau Engine)</span>
+        </div>
+        <div class="badge">Roblox Studio 5.1</div>
+      </header>
+
+      <!-- Vista 1: Chat Principal -->
+      <section class="chat-screen active" id="view-chat">
+        <div class="chat-container" id="chat-messages">
+          <!-- Mensajes renderizados dinámicamente -->
+        </div>
+
+        <!-- Barra Inferior de Entrada -->
+        <div class="input-container">
+          <div class="input-box">
+            <div class="attachments-preview" id="attachments-preview"></div>
+            <textarea class="chat-textarea" id="chat-input" placeholder="Escribe tu consulta sobre Luau o describe el sistema que necesitas para Roblox..." rows="1"></textarea>
+            
+            <div class="input-actions">
+              <div class="action-tools">
+                <button class="btn-icon" id="btn-attach" title="Adjuntar Archivos / Scripts">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.44 11.05l-9.19 9.19a6 6 0 01-8.49-8.49l9.19-9.19a4 4 0 015.66 5.66l-9.2 9.19a2 2 0 01-2.83-2.83l8.49-8.48"/></svg>
                 </button>
+                <input type="file" id="file-input" multiple>
+              </div>
 
-                <textarea
-
-                    id="messageInput"
-
-                    placeholder="Message NovaForge..."
-
-                    rows="1"
-
-                ></textarea>
-
-                <button
-
-                    id="sendButton"
-
-                    class="sendButton"
-
-                >
-
-                    ➜
-
-                </button>
-
+              <button class="btn-primary" id="btn-send">
+                <span>Enviar</span>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg>
+              </button>
             </div>
+          </div>
+        </div>
+      </section>
 
-        </section>
+      <!-- Vista 2: Modal Generico / Paneles Secundarios -->
+      <section class="view-panel" id="view-panel">
+        <div class="glass-card">
+          <h2 id="panel-title">Módulo</h2>
+          <p id="panel-content" style="color:var(--text-secondary); margin-top: 10px;">Cargando datos...</p>
+        </div>
+      </section>
 
     </main>
 
-</div>
+  </div>
 
-<script src="script.js"></script>
-
+  <script src="script.js"></script>
 </body>
-
 </html>
