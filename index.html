@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>NovaForge | IA Avanzada para Roblox Studio</title>
+  <title>NovaForge | IA para Roblox Studio</title>
+  
   <link rel="stylesheet" href="style.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -11,97 +12,91 @@
 </head>
 <body>
 
-  <!-- Navegación Glassmorphic -->
-  <nav class="landing-nav">
-    <a href="index.html" class="brand-logo">
-      <svg class="brand-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke="#7b3cff" />
-      </svg>
-      <span class="gradient-text">NovaForge</span>
-    </a>
+  <!-- Navegación con tu Logo -->
+  <header class="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="brand-logo">
+        <img src="logo.png" alt="NovaForge Logo" class="brand-img-logo">
+        <span class="gradient-text">NovaForge</span>
+      </a>
 
-    <ul class="nav-links">
-      <li><a href="#features">Características</a></li>
-      <li><a href="#luau">Motor Luau</a></li>
-      <li><a href="#docs">Documentación</a></li>
-    </ul>
+      <nav class="nav-links">
+        <a href="#features">Características</a>
+        <a href="#luau">Motor Luau</a>
+        <a href="#docs">Documentación</a>
+      </nav>
 
-    <a href="dashboard.html" class="btn-primary">Abrir App</a>
-  </nav>
+      <div class="nav-actions">
+        <a href="dashboard.html" class="btn-primary">Abrir App</a>
+      </div>
+    </div>
+  </header>
 
   <!-- Hero Section -->
   <section class="hero-section">
-    <span class="badge">Roblox Studio Intelligence Engine</span>
-    <h1 class="hero-title">
-      Crea experiencias en Roblox a la velocidad de la <span class="gradient-text">Imaginación</span>
-    </h1>
-    <p class="hero-subtitle">
-      NovaForge es el entorno de desarrollo asistido por IA definitivo para Roblox Studio. Genera scripts Luau optimizados, depura errores y diseña mecánicas complejas en segundos.
-    </p>
-
-    <div class="hero-actions">
-      <a href="dashboard.html" class="btn-primary">
-        Probar NovaForge Gratis
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-      </a>
-      <a href="#features" class="btn-secondary">Saber más</a>
-    </div>
-
-    <!-- Vista Previa / Card Destacada -->
-    <div class="glass-card" style="max-width: 800px; width: 100%; text-align: left; background: var(--code-bg);">
-      <div class="code-header">
-        <span>ServerScriptService.DataStoreManager.luau</span>
-        <span>Luau 5.1</span>
+    <div class="hero-container">
+      <div class="badge-hero">
+        <span>Roblox Studio Intelligence Engine</span>
       </div>
-      <pre class="code-content"><code><span style="color:var(--code-keyword)">local</span> DataStoreService = <span style="color:var(--code-function)">game:GetService</span>(<span style="color:var(--code-string)">"DataStoreService"</span>)
-<span style="color:var(--code-keyword)">local</span> PlayerDataStore = DataStoreService:<span style="color:var(--code-function)">GetDataStore</span>(<span style="color:var(--code-string)">"NovaForge_SaveData_v1"</span>)
+      <h1 class="hero-title">Crea experiencias en Roblox a la velocidad de la <span class="gradient-text">Imaginación</span></h1>
+      <p class="hero-subtitle">
+        NovaForge es el entorno de desarrollo asistido por IA definitivo para Roblox Studio. Genera scripts Luau optimizados, depura errores y diseña mecánicas complejas en segundos.
+      </p>
 
-<span style="color:var(--code-comment)">-- Generado automáticamente por NovaForge AI</span>
-<span style="color:var(--code-keyword)">local function</span> <span style="color:var(--code-function)">onPlayerAdded</span>(player)
-    <span style="color:var(--code-keyword)">local</span> leaderstats = Instance.new(<span style="color:var(--code-string)">"Folder"</span>)
-    leaderstats.Name = <span style="color:var(--code-string)">"leaderstats"</span>
+      <div class="hero-cta">
+        <a href="dashboard.html" class="btn-primary btn-lg">Probar NovaForge Gratis →</a>
+        <a href="#features" class="btn-secondary btn-lg">Saber más</a>
+      </div>
+
+      <div class="hero-preview glass-card">
+        <div class="code-window">
+          <div class="code-window-header">
+            <div class="window-dots">
+              <span class="dot red"></span>
+              <span class="dot yellow"></span>
+              <span class="dot green"></span>
+            </div>
+            <span class="window-title">ServerScriptService.DataStoreManager.luau</span>
+            <span class="badge-sm">Luau 5.1</span>
+          </div>
+          <pre class="code-content"><code><span class="code-keyword">local</span> DataStoreService = game:<span class="code-func">GetService</span>(<span class="code-str">"DataStoreService"</span>)
+<span class="code-keyword">local</span> PlayerDataStore = DataStoreService:<span class="code-func">GetDataStore</span>(<span class="code-str">"NovaForge_SaveData_v1"</span>)
+
+<span class="code-comment">-- Generado automáticamente por NovaForge AI</span>
+<span class="code-keyword">local function</span> <span class="code-func">onPlayerAdded</span>(player)
+    <span class="code-keyword">local</span> leaderstats = Instance.<span class="code-func">new</span>(<span class="code-str">"Folder"</span>)
+    leaderstats.Name = <span class="code-str">"leaderstats"</span>
     leaderstats.Parent = player
-<span style="color:var(--code-keyword)">end</span>
+<span class="code-keyword">end</span>
 
-game.Players.PlayerAdded:<span style="color:var(--code-function)">Connect</span>(onPlayerAdded)</code></pre>
-    </div>
-  </section>
-
-  <!-- Sección de Características -->
-  <section id="features" class="features-section">
-    <h2 class="section-title">Diseñado para Desarrolladores de Roblox</h2>
-
-    <div class="features-grid">
-      <div class="glass-card">
-        <div class="feature-icon">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 18l6-6-6-6M8 6l-6 6 6 6"/></svg>
+game.Players.PlayerAdded:<span class="code-func">Connect</span>(onPlayerAdded)</code></pre>
         </div>
-        <h3 class="feature-title">Generación de Luau Puro</h3>
-        <p class="feature-desc">Código adaptado estrictamente a los estándares modernos de Luau en Roblox, incluyendo Type Checking y sintaxis optimizada.</p>
-      </div>
-
-      <div class="glass-card">
-        <div class="feature-icon">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
-        </div>
-        <h3 class="feature-title">Error Fixer Inteligente</h3>
-        <p class="feature-desc">Copia el stack trace o los mensajes de error de la Output Window de Roblox y deja que NovaForge encuentre y solucione la causa.</p>
-      </div>
-
-      <div class="glass-card">
-        <div class="feature-icon">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2"/></svg>
-        </div>
-        <h3 class="feature-title">Librería de Componentes</h3>
-        <p class="feature-desc">Guarda tus scripts más valiosos, sistemas de inventario o economías DataStore y reutilízalos en cualquier proyecto.</p>
       </div>
     </div>
   </section>
 
-  <!-- Pie de página -->
-  <footer class="footer-landing">
-    <p>&copy; 2026 NovaForge Inc. Especializado en optimización y desarrollo para Roblox Studio.</p>
-  </footer>
+  <section class="features-section" id="features">
+    <div class="section-container">
+      <h2 class="section-title">Diseñado para Desarrolladores de Roblox</h2>
+      <div class="features-grid">
+        <div class="glass-card feature-card">
+          <div class="feature-icon">⚡</div>
+          <h3>Generación de Luau Puro</h3>
+          <p>Código adaptado estrictamente a los estándares modernos de Luau en Roblox, incluyendo Type Checking y sintaxis optimizada.</p>
+        </div>
+        <div class="glass-card feature-card">
+          <div class="feature-icon">🔍</div>
+          <h3>Error Fixer Inteligente</h3>
+          <p>Copia el stack trace o los mensajes de error de la Output Window de Roblox y deja que NovaForge encuentre y solucione la causa.</p>
+        </div>
+        <div class="glass-card feature-card">
+          <div class="feature-icon">📦</div>
+          <h3>Librería de Componentes</h3>
+          <p>Accede instantáneamente a plantillas de DataStores, sistemas de inventario, leaderboards e interfaces animadas.</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
 </body>
 </html>
