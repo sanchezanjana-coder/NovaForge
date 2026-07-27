@@ -1,807 +1,97 @@
-/* ==========================================================================
-   NovaForge - System Design & Core Architecture
-   Theme: Dark Modern / Neo-Futuristic Glassmorphism
-   Target Platform: Roblox Studio AI Workbench
-   ========================================================================== */
-
-/* --------------------------------------------------------------------------
-   1. CSS VARIABLES & SYSTEM DESIGN TOKENS
-   -------------------------------------------------------------------------- */
-:root {
-  /* Color Palette - Core Neutrals (Dark Mode First) */
-  --bg-primary: #0b0d14;
-  --bg-secondary: #121520;
-  --bg-tertiary: #1a1e2e;
-  --bg-surface: rgba(255, 255, 255, 0.03);
-  --bg-surface-hover: rgba(255, 255, 255, 0.07);
-  --bg-surface-active: rgba(255, 255, 255, 0.12);
-
-  /* Brand Accents (Nova Purple & Electric Cyan) */
-  --brand-purple: #7b3cff;
-  --brand-purple-hover: #9156ff;
-  --brand-purple-glow: rgba(123, 60, 255, 0.35);
-  --brand-cyan: #00f2fe;
-  --brand-cyan-glow: rgba(0, 242, 254, 0.25);
-  --brand-gradient: linear-gradient(135deg, #7b3cff 0%, #00f2fe 100%);
-  --brand-gradient-hover: linear-gradient(135deg, #9156ff 0%, #38f9ff 100%);
-
-  /* UI Text Colors */
-  --text-primary: #f0f3f9;
-  --text-secondary: #94a3b8;
-  --text-muted: #64748b;
-  --text-highlight: #ffffff;
-
-  /* Code Editor & Syntax Colors (Roblox Luau / VS Code Aesthetic) */
-  --code-bg: #0d1117;
-  --code-border: rgba(255, 255, 255, 0.1);
-  --code-keyword: #ff7b72;
-  --code-function: #d2a8ff;
-  --code-string: #a5d6ff;
-  --code-comment: #8b949e;
-
-  /* Glassmorphism & Borders */
-  --glass-bg: rgba(18, 21, 32, 0.65);
-  --glass-border: rgba(255, 255, 255, 0.08);
-  --glass-border-light: rgba(255, 255, 255, 0.15);
-  --glass-backdrop-blur: blur(16px);
-
-  /* Functional Status Colors */
-  --status-success: #10b981;
-  --status-warning: #f59e0b;
-  --status-error: #ef4444;
-  --status-info: #3b82f6;
-
-  /* Spacing System */
-  --space-xs: 0.25rem; /* 4px */
-  --space-sm: 0.5rem;  /* 8px */
-  --space-md: 1rem;    /* 16px */
-  --space-lg: 1.5rem;  /* 24px */
-  --space-xl: 2.5rem;  /* 40px */
-  --space-2xl: 4rem;   /* 64px */
-
-  /* Borders & Shadows */
-  --radius-sm: 6px;
-  --radius-md: 12px;
-  --radius-lg: 18px;
-  --radius-full: 9999px;
-
-  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.2);
-  --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.35);
-  --shadow-lg: 0 16px 40px rgba(0, 0, 0, 0.5);
-  --shadow-glow: 0 0 25px var(--brand-purple-glow);
-
-  /* Transitions & Animations */
-  --transition-fast: 0.15s ease;
-  --transition-normal: 0.25s ease;
-  --transition-slow: 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-
-  /* Layout Constants */
-  --sidebar-width: 280px;
-  --header-height: 64px;
-}
-
-/* --------------------------------------------------------------------------
-   2. GLOBAL RESETS & BASE STYLES
-   -------------------------------------------------------------------------- */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-html, body {
-  width: 100%;
-  height: 100%;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-  background-color: var(--bg-primary);
-  color: var(--text-primary);
-  line-height: 1.6;
-  overflow-x: hidden;
-  -webkit-font-smoothing: antialiased;
-}
-
-/* Custom Scrollbars */
-::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
-}
-
-::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-::-webkit-scrollbar-thumb {
-  background: var(--bg-surface-active);
-  border-radius: var(--radius-full);
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: var(--brand-purple);
-}
-
-a {
-  color: inherit;
-  text-decoration: none;
-}
-
-button, input, textarea {
-  font-family: inherit;
-  font-size: inherit;
-  color: inherit;
-  background: none;
-  border: none;
-  outline: none;
-}
-
-button {
-  cursor: pointer;
-}
-
-/* --------------------------------------------------------------------------
-   3. REUSABLE GLASS & UI UTILITIES
-   -------------------------------------------------------------------------- */
-.glass-panel {
-  background: var(--glass-bg);
-  backdrop-filter: var(--glass-backdrop-blur);
-  -webkit-backdrop-filter: var(--glass-backdrop-blur);
-  border: 1px solid var(--glass-border);
-  border-radius: var(--radius-md);
-}
-
-.glass-card {
-  background: rgba(255, 255, 255, 0.02);
-  backdrop-filter: var(--glass-backdrop-blur);
-  border: 1px solid var(--glass-border);
-  border-radius: var(--radius-lg);
-  padding: var(--space-lg);
-  transition: transform var(--transition-slow), border-color var(--transition-normal), box-shadow var(--transition-normal);
-}
-
-.glass-card:hover {
-  transform: translateY(-4px);
-  border-color: var(--glass-border-light);
-  box-shadow: 0 12px 30px rgba(123, 60, 255, 0.15);
-}
-
-.gradient-text {
-  background: var(--brand-gradient);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  display: inline-block;
-}
-
-/* Buttons */
-.btn-primary {
-  background: var(--brand-purple);
-  color: #ffffff;
-  padding: 0.75rem 1.5rem;
-  border-radius: var(--radius-md);
-  font-weight: 600;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: var(--space-sm);
-  transition: background var(--transition-fast), box-shadow var(--transition-fast), transform var(--transition-fast);
-  box-shadow: 0 4px 15px var(--brand-purple-glow);
-}
-
-.btn-primary:hover {
-  background: var(--brand-purple-hover);
-  box-shadow: 0 6px 20px rgba(123, 60, 255, 0.5);
-  transform: translateY(-1px);
-}
-
-.btn-secondary {
-  background: var(--bg-surface-hover);
-  border: 1px solid var(--glass-border);
-  color: var(--text-primary);
-  padding: 0.75rem 1.5rem;
-  border-radius: var(--radius-md);
-  font-weight: 500;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: var(--space-sm);
-  transition: background var(--transition-fast), border-color var(--transition-fast);
-}
-
-.btn-secondary:hover {
-  background: var(--bg-surface-active);
-  border-color: var(--glass-border-light);
-}
-
-.badge {
-  display: inline-block;
-  padding: 0.25rem 0.75rem;
-  border-radius: var(--radius-full);
-  font-size: 0.75rem;
-  font-weight: 600;
-  letter-spacing: 0.5px;
-  text-transform: uppercase;
-  background: rgba(123, 60, 255, 0.15);
-  border: 1px solid rgba(123, 60, 255, 0.3);
-  color: var(--brand-cyan);
-}
-
-/* --------------------------------------------------------------------------
-   4. LANDING PAGE STYLES (index.html)
-   -------------------------------------------------------------------------- */
-.landing-nav {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: var(--header-height);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 var(--space-xl);
-  z-index: 1000;
-  border-bottom: 1px solid var(--glass-border);
-  background: rgba(11, 13, 20, 0.8);
-  backdrop-filter: var(--glass-backdrop-blur);
-}
-
-.brand-logo {
-  display: flex;
-  align-items: center;
-  gap: var(--space-sm);
-  font-size: 1.25rem;
-  font-weight: 700;
-  letter-spacing: -0.5px;
-}
-
-.brand-icon-svg {
-  width: 28px;
-  height: 28px;
-}
-
-.nav-links {
-  display: flex;
-  align-items: center;
-  gap: var(--space-xl);
-  list-style: none;
-}
-
-.nav-links a {
-  color: var(--text-secondary);
-  font-size: 0.9rem;
-  transition: color var(--transition-fast);
-}
-
-.nav-links a:hover {
-  color: var(--text-primary);
-}
-
-/* Hero Section */
-.hero-section {
-  position: relative;
-  min-height: 100vh;
+/* Layout Fixes para el Sistema de Vistas */
+.main-workspace {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  padding: calc(var(--header-height) + var(--space-2xl)) var(--space-md) var(--space-2xl);
-  background: radial-gradient(circle at 50% 20%, rgba(123, 60, 255, 0.18) 0%, transparent 60%);
-}
-
-.hero-title {
-  font-size: 3.5rem;
-  font-weight: 800;
-  line-height: 1.1;
-  max-width: 900px;
-  margin: var(--space-md) 0;
-  letter-spacing: -1.5px;
-}
-
-.hero-subtitle {
-  font-size: 1.2rem;
-  color: var(--text-secondary);
-  max-width: 650px;
-  margin-bottom: var(--space-xl);
-}
-
-.hero-actions {
-  display: flex;
-  gap: var(--space-md);
-  margin-bottom: var(--space-2xl);
-}
-
-/* Features Grid */
-.features-section {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: var(--space-2xl) var(--space-md);
-}
-
-.section-title {
-  text-align: center;
-  font-size: 2.2rem;
-  margin-bottom: var(--space-2xl);
-  letter-spacing: -0.5px;
-}
-
-.features-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: var(--space-lg);
-}
-
-.feature-icon {
-  width: 48px;
-  height: 48px;
-  border-radius: var(--radius-md);
-  background: rgba(123, 60, 255, 0.12);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: var(--space-md);
-  color: var(--brand-purple-hover);
-}
-
-.feature-title {
-  font-size: 1.25rem;
-  margin-bottom: var(--space-xs);
-}
-
-.feature-desc {
-  color: var(--text-secondary);
-  font-size: 0.95rem;
-}
-
-.footer-landing {
-  border-top: 1px solid var(--glass-border);
-  padding: var(--space-xl) var(--space-md);
-  text-align: center;
-  color: var(--text-muted);
-  font-size: 0.875rem;
-}
-
-/* --------------------------------------------------------------------------
-   5. DASHBOARD LAYOUT & SIDEBAR STYLES (dashboard.html)
-   -------------------------------------------------------------------------- */
-.dashboard-container {
-  display: flex;
-  width: 100vw;
   height: 100vh;
   overflow: hidden;
 }
 
-/* Sidebar */
-.sidebar {
-  width: var(--sidebar-width);
-  height: 100%;
-  background: var(--bg-secondary);
-  border-right: 1px solid var(--glass-border);
-  display: flex;
-  flex-direction: column;
-  padding: var(--space-md);
-  transition: transform var(--transition-slow);
-  z-index: 100;
-  flex-shrink: 0;
-}
-
-.sidebar-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding-bottom: var(--space-md);
-  border-bottom: 1px solid var(--glass-border);
-  margin-bottom: var(--space-md);
-}
-
-.btn-new-chat {
-  width: 100%;
-  margin-bottom: var(--space-md);
-  justify-content: flex-start;
-  padding-left: var(--space-md);
-}
-
-.sidebar-nav {
-  flex: 1;
-  overflow-y: auto;
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-md);
-  padding-right: var(--space-xs);
-}
-
-.nav-group {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-}
-
-.nav-group-title {
-  font-size: 0.75rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  color: var(--text-muted);
-  letter-spacing: 0.8px;
-  margin-bottom: var(--space-xs);
-  padding-left: var(--space-xs);
-}
-
-.history-list, .tools-list {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-}
-
-.history-item, .tool-item {
-  display: flex;
-  align-items: center;
-  gap: var(--space-sm);
-  padding: 0.6rem 0.75rem;
-  border-radius: var(--radius-sm);
-  color: var(--text-secondary);
-  font-size: 0.875rem;
-  transition: background var(--transition-fast), color var(--transition-fast);
-  cursor: pointer;
-}
-
-.history-item:hover, .tool-item:hover, .history-item.active, .tool-item.active {
-  background: var(--bg-surface-hover);
-  color: var(--text-primary);
-}
-
-.history-item.active, .tool-item.active {
-  border-left: 3px solid var(--brand-purple);
-  background: rgba(123, 60, 255, 0.12);
-  color: #ffffff;
-}
-
-.history-item .item-title {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  flex: 1;
-}
-
-.sidebar-footer {
-  padding-top: var(--space-md);
-  border-top: 1px solid var(--glass-border);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.user-profile {
-  display: flex;
-  align-items: center;
-  gap: var(--space-sm);
-}
-
-.user-avatar {
-  width: 34px;
-  height: 34px;
-  border-radius: var(--radius-full);
-  background: var(--brand-gradient);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 700;
-  font-size: 0.85rem;
-  color: #fff;
-  box-shadow: 0 0 10px var(--brand-purple-glow);
-}
-
-.user-info {
-  display: flex;
-  flex-direction: column;
-}
-
-.user-name {
-  font-size: 0.85rem;
-  font-weight: 600;
-  color: var(--text-primary);
-}
-
-.user-role {
-  font-size: 0.7rem;
-  color: var(--text-muted);
-}
-
-/* --------------------------------------------------------------------------
-   6. MAIN WORKSPACE & CHAT UI
-   -------------------------------------------------------------------------- */
-.main-workspace {
-  flex: 1;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  background: var(--bg-primary);
-  position: relative;
-  overflow: hidden;
-}
-
-.workspace-header {
-  height: var(--header-height);
-  border-bottom: 1px solid var(--glass-border);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 var(--space-lg);
-  background: var(--bg-secondary);
-  flex-shrink: 0;
-}
-
-.workspace-title {
-  display: flex;
-  align-items: center;
-  gap: var(--space-sm);
-  font-size: 1rem;
-  font-weight: 600;
-}
-
-.status-indicator {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background-color: var(--status-success);
-  box-shadow: 0 0 8px var(--status-success);
-}
-
-/* Modal View Controls */
 .view-panel {
   display: none;
   flex: 1;
-  padding: var(--space-xl);
   overflow-y: auto;
+  padding: var(--space-xl);
 }
 
 .view-panel.active {
-  display: block;
+  display: flex;
+  flex-direction: column;
 }
 
-/* Chat Screen */
+/* Ajuste específico para el Chat */
+#view-chat.active {
+  padding: 0;
+}
+
 .chat-screen {
   display: flex;
   flex-direction: column;
-  flex: 1;
   height: calc(100vh - var(--header-height));
-  overflow: hidden;
+  width: 100%;
 }
 
 .chat-container {
   flex: 1;
   overflow-y: auto;
   padding: var(--space-lg) var(--space-2xl);
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-lg);
-  scroll-behavior: smooth;
 }
 
-.message-wrapper {
-  display: flex;
-  gap: var(--space-md);
+/* Paneles de Contenido */
+.panel-container {
   max-width: 900px;
-  margin: 0 auto;
   width: 100%;
-  animation: fadeIn var(--transition-normal);
+  margin: 0 auto;
 }
 
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(8px); }
-  to { opacity: 1; transform: translateY(0); }
+.panel-subtitle {
+  color: var(--text-secondary);
+  margin-bottom: var(--space-lg);
 }
 
-.message-avatar {
-  width: 36px;
-  height: 36px;
-  border-radius: var(--radius-sm);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: var(--space-md);
 }
 
-.message-wrapper.user .message-avatar {
-  background: var(--bg-surface-active);
-  color: var(--text-primary);
-  border: 1px solid var(--glass-border);
-}
-
-.message-wrapper.ai .message-avatar {
-  background: var(--brand-purple);
-  color: #ffffff;
-  box-shadow: 0 0 12px var(--brand-purple-glow);
-}
-
-.message-body {
-  flex: 1;
-  background: var(--bg-secondary);
-  border: 1px solid var(--glass-border);
-  border-radius: var(--radius-md);
-  padding: var(--space-md) var(--space-lg);
-  color: var(--text-primary);
-  font-size: 0.95rem;
-}
-
-.message-wrapper.user .message-body {
-  background: rgba(255, 255, 255, 0.03);
-}
-
-/* Attached Files List in Messages */
-.attached-files-list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-xs);
-  margin-bottom: var(--space-xs);
-}
-
-.file-chip {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  background: rgba(123, 60, 255, 0.2);
-  border: 1px solid rgba(123, 60, 255, 0.4);
-  padding: 2px 8px;
-  border-radius: var(--radius-sm);
-  font-size: 0.75rem;
-  color: var(--brand-cyan);
-}
-
-/* Syntax Highlighting Blocks inside Chat */
-.code-block {
-  background: var(--code-bg);
-  border: 1px solid var(--code-border);
-  border-radius: var(--radius-sm);
-  margin: var(--space-sm) 0;
-  overflow: hidden;
-  font-family: 'Fira Code', 'Courier New', Courier, monospace;
-  font-size: 0.85rem;
-}
-
-.code-header {
-  background: rgba(255, 255, 255, 0.03);
+.btn-sm {
   padding: 0.4rem 0.8rem;
+  font-size: 0.8rem;
+  margin-top: var(--space-sm);
+}
+
+.script-item {
   display: flex;
-  align-items: center;
   justify-content: space-between;
-  border-bottom: 1px solid var(--code-border);
-  color: var(--text-muted);
-  font-size: 0.75rem;
+  align-items: center;
+  margin-bottom: var(--space-sm);
 }
 
-.btn-copy-code {
-  background: transparent;
-  color: var(--text-secondary);
-  font-size: 0.75rem;
-  padding: 2px 6px;
+.error-textarea {
+  width: 100%;
+  min-height: 120px;
+  background: var(--code-bg);
+  border: 1px solid var(--glass-border);
   border-radius: var(--radius-sm);
-  transition: color var(--transition-fast);
-}
-
-.btn-copy-code:hover {
-  color: var(--text-primary);
-}
-
-.code-content {
   padding: var(--space-md);
-  overflow-x: auto;
-  white-space: pre;
   color: var(--text-primary);
+  font-family: 'Fira Code', monospace;
+  font-size: 0.875rem;
+  margin-bottom: var(--space-md);
 }
 
-/* Chat Input Bar (Bottom Area) */
-.input-container {
-  padding: var(--space-sm) var(--space-2xl) var(--space-lg);
-  max-width: 950px;
-  width: 100%;
-  margin: 0 auto;
-  flex-shrink: 0;
-}
-
-.input-box {
-  background: var(--bg-secondary);
-  border: 1px solid var(--glass-border-light);
-  border-radius: var(--radius-lg);
-  padding: var(--space-sm) var(--space-md);
+.setting-row {
   display: flex;
-  flex-direction: column;
-  gap: var(--space-xs);
-  box-shadow: var(--shadow-md);
-  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
-}
-
-.input-box:focus-within {
-  border-color: var(--brand-purple);
-  box-shadow: 0 0 20px var(--brand-purple-glow);
-}
-
-.attachments-preview {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-xs);
-}
-
-.chat-textarea {
-  width: 100%;
-  max-height: 180px;
-  min-height: 48px;
-  resize: none;
-  line-height: 1.5;
-  color: var(--text-primary);
-}
-
-.input-actions {
-  display: flex;
-  align-items: center;
   justify-content: space-between;
-  padding-top: var(--space-xs);
-  border-top: 1px solid rgba(255, 255, 255, 0.03);
-}
-
-.action-tools {
-  display: flex;
-  gap: var(--space-xs);
-}
-
-.btn-icon {
-  width: 34px;
-  height: 34px;
-  border-radius: var(--radius-sm);
-  display: flex;
   align-items: center;
-  justify-content: center;
-  color: var(--text-secondary);
-  transition: background var(--transition-fast), color var(--transition-fast);
+  padding: var(--space-sm) 0;
+  border-bottom: 1px solid var(--glass-border);
 }
 
-.btn-icon:hover {
-  background: var(--bg-surface-hover);
+.custom-select {
+  background: var(--bg-tertiary);
   color: var(--text-primary);
-}
-
-/* Hidden File Input */
-#file-input {
-  display: none;
-}
-
-/* Mobile Toggle Hamburger */
-.mobile-toggle {
-  display: none;
-  cursor: pointer;
-}
-
-/* --------------------------------------------------------------------------
-   7. RESPONSIVE BREAKPOINTS
-   -------------------------------------------------------------------------- */
-@media (max-width: 768px) {
-  .mobile-toggle {
-    display: flex;
-  }
-
-  .sidebar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    transform: translateX(-100%);
-    box-shadow: var(--shadow-lg);
-  }
-
-  .sidebar.open {
-    transform: translateX(0);
-  }
-
-  .hero-title {
-    font-size: 2.2rem;
-  }
-
-  .chat-container {
-    padding: var(--space-md);
-  }
-
-  .input-container {
-    padding: var(--space-sm) var(--space-md);
-  }
-
-  .nav-links {
-    display: none;
-  }
+  padding: 0.5rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--glass-border);
 }
