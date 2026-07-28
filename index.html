@@ -8,200 +8,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   
-  <style>
-    :root {
-      --bg-dark: #090514;
-      --panel-bg: rgba(255, 255, 255, 0.03);
-      --glass-border: rgba(255, 255, 255, 0.08);
-      --accent-purple: #7b3cff;
-      --accent-pink: #c43cff;
-      --accent-gradient: linear-gradient(135deg, #7b3cff, #c43cff);
-      --text-primary: #ffffff;
-      --text-secondary: #9a95b0;
-      --code-bg: #05030a;
-      --font-main: 'Inter', system-ui, sans-serif;
-      --font-mono: 'Fira Code', monospace;
-    }
-
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-
-    body {
-      background-color: var(--bg-dark);
-      color: var(--text-primary);
-      font-family: var(--font-main);
-      line-height: 1.6;
-      overflow-x: hidden;
-    }
-
-    /* NAV */
-    nav {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 20px 5%;
-      border-bottom: 1px solid var(--glass-border);
-      background: rgba(9, 5, 20, 0.8);
-      backdrop-filter: blur(10px);
-      position: sticky;
-      top: 0;
-      z-index: 100;
-    }
-
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .brand img {
-      width: 38px !important;
-      height: 38px !important;
-      object-fit: contain;
-      border-radius: 8px;
-    }
-
-    .brand span {
-      font-weight: 700;
-      font-size: 1.3rem;
-      background: var(--accent-gradient);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
-    .nav-links {
-      display: flex;
-      gap: 20px;
-      align-items: center;
-    }
-
-    .nav-links a {
-      color: var(--text-secondary);
-      text-decoration: none;
-      font-size: 0.95rem;
-      transition: color 0.2s;
-    }
-
-    .nav-links a:hover { color: #fff; }
-
-    .btn-app {
-      background: var(--accent-gradient);
-      color: #fff;
-      padding: 8px 18px;
-      border-radius: 8px;
-      font-weight: 600;
-      text-decoration: none;
-      box-shadow: 0 4px 15px rgba(123, 60, 255, 0.3);
-      transition: transform 0.2s;
-    }
-
-    .btn-app:hover { transform: translateY(-2px); }
-
-    /* HERO */
-    .hero {
-      text-align: center;
-      padding: 80px 20px 60px;
-      max-width: 900px;
-      margin: 0 auto;
-    }
-
-    .badge {
-      display: inline-block;
-      background: rgba(123, 60, 255, 0.15);
-      border: 1px solid var(--accent-purple);
-      color: #c43cff;
-      padding: 4px 14px;
-      border-radius: 20px;
-      font-size: 0.85rem;
-      font-weight: 600;
-      margin-bottom: 20px;
-    }
-
-    .hero h1 {
-      font-size: 3rem;
-      font-weight: 800;
-      line-height: 1.2;
-      margin-bottom: 20px;
-    }
-
-    .hero p {
-      font-size: 1.15rem;
-      color: var(--text-secondary);
-      margin-bottom: 35px;
-    }
-
-    .cta-group {
-      display: flex;
-      gap: 15px;
-      justify-content: center;
-    }
-
-    .btn-secondary {
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid var(--glass-border);
-      color: #fff;
-      padding: 12px 24px;
-      border-radius: 8px;
-      text-decoration: none;
-      font-weight: 600;
-    }
-
-    /* CODE PREVIEW */
-    .code-preview {
-      max-width: 800px;
-      margin: 40px auto 80px;
-      background: var(--code-bg);
-      border: 1px solid var(--glass-border);
-      border-radius: 12px;
-      overflow: hidden;
-      box-shadow: 0 20px 50px rgba(0,0,0,0.5);
-    }
-
-    .code-header {
-      background: rgba(255, 255, 255, 0.03);
-      padding: 10px 18px;
-      display: flex;
-      justify-content: space-between;
-      border-bottom: 1px solid var(--glass-border);
-      font-size: 0.85rem;
-      color: var(--text-secondary);
-    }
-
-    pre {
-      padding: 20px;
-      color: #00e676;
-      font-family: var(--font-mono);
-      font-size: 0.9rem;
-      text-align: left;
-      overflow-x: auto;
-    }
-
-    /* FEATURES */
-    .features {
-      max-width: 1100px;
-      margin: 0 auto 100px;
-      padding: 0 20px;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 25px;
-    }
-
-    .feature-card {
-      background: var(--panel-bg);
-      border: 1px solid var(--glass-border);
-      padding: 30px;
-      border-radius: 12px;
-    }
-
-    .feature-card h3 {
-      font-size: 1.2rem;
-      margin-bottom: 10px;
-    }
-
-    .feature-card p {
-      color: var(--text-secondary);
-      font-size: 0.95rem;
-    }
-  </style>
+  <!-- Estilos externos -->
+  <link rel="stylesheet" href="./style.css?v=3.0">
 </head>
 <body>
 
@@ -223,7 +31,7 @@
     <p>ForgerNova es el entorno de desarrollo asistido por IA definitivo para Roblox Studio. Genera scripts Luau optimizados, depura errores y diseña mecánicas complejas en segundos.</p>
     
     <div class="cta-group">
-      <a href="dashboard.html" class="btn-app" style="padding: 12px 28px; font-size: 1rem;">Probar ForgerNova Gratis →</a>
+      <a href="dashboard.html" class="btn-app" style="padding: 12px 28px;">Probar ForgerNova Gratis →</a>
       <a href="#features" class="btn-secondary">Saber más</a>
     </div>
 
@@ -249,17 +57,19 @@ game.Players.PlayerAdded:Connect(onPlayerAdded)</code></pre>
   <section class="features" id="features">
     <div class="feature-card">
       <h3>⚡ Generación de Luau Puro</h3>
-      <p>Código adaptado estrictamente a los estándares modernos de Luau en Roblox, incluyendo Type Checking y sintaxis optimizada.</p>
+      <p>Código adaptado estrictamente a los estándares modernos de Luau en Roblox, incluyendo Type Checking.</p>
     </div>
     <div class="feature-card">
       <h3>🔍 Error Fixer Inteligente</h3>
-      <p>Copia el stack trace o los mensajes de error de la Output Window de Roblox y deja que ForgerNova encuentre y solucione la causa.</p>
+      <p>Copia el mensaje de error de la Output Window de Roblox y deja que ForgerNova encuentre la solución.</p>
     </div>
     <div class="feature-card">
       <h3>📦 Librería de Componentes</h3>
-      <p>Módulos listos para usar: sistemas de inventario, data stores con pcall, físicas de cámara y controladores de interfaz.</p>
+      <p>Módulos listos para usar: sistemas de inventario, DataStores con pcall y físicas de cámara.</p>
     </div>
   </section>
 
+  <!-- Lógica externa -->
+  <script src="./script.js?v=3.0"></script>
 </body>
 </html>
