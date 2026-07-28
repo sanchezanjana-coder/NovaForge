@@ -92,80 +92,9 @@ local function onPlayerAdded(player)
 end
 
 Players.PlayerAdded:Connect(onPlayerAdded)`
-    },
-    {
-      id: 'lib-4',
-      title: 'DataStore Seguro con Pcall',
-      category: 'Databases',
-      description: 'Carga y guardado de datos en servidores de Roblox previniendo Data Loss.',
-      code: `-- ServerScript: Basic DataStore System
-local DataStoreService = game:GetService("DataStoreService")
-local PlayerDataStore = DataStoreService:GetDataStore("SaveSystem_v1")
-local Players = game:GetService("Players")
-
-Players.PlayerAdded:Connect(function(player)
-    local leaderstats = Instance.new("Folder")
-    leaderstats.Name = "leaderstats"
-    leaderstats.Parent = player
-
-    local coins = Instance.new("IntValue")
-    coins.Name = "Coins"
-    coins.Value = 0
-    coins.Parent = leaderstats
-
-    local success, result = pcall(function()
-        return PlayerDataStore:GetAsync(tostring(player.UserId))
-    end)
-
-    if success and result then
-        coins.Value = result
-    end
-end)
-
-Players.PlayerRemoving:Connect(function(player)
-    if player:FindFirstChild("leaderstats") then
-        local coins = player.leaderstats.Coins.Value
-        pcall(function()
-            PlayerDataStore:SetAsync(tostring(player.UserId), coins)
-        end)
-    end
-end)`
-    },
-    {
-      id: 'lib-5',
-      title: 'ProximityPrompt Handler',
-      category: 'UI',
-      description: 'Interactúa con objetos (mantener tecla E) para otorgar recompensas o activar acciones.',
-      code: `-- ServerScript: ProximityPrompt
-local prompt = script.Parent -- Colocar dentro del ProximityPrompt
-
-prompt.Triggered:Connect(function(player)
-    print(player.Name .. " interactuó con el objeto.")
-    
-    local leaderstats = player:FindFirstChild("leaderstats")
-    if leaderstats and leaderstats:FindFirstChild("Coins") then
-        leaderstats.Coins.Value += 10
-    end
-end)`
-    },
-    {
-      id: 'lib-6',
-      title: 'Kill Brick (Lava Hazard)',
-      category: 'Gameplay',
-      description: 'Bloque dañino que elimina al jugador al tocarlo.',
-      code: `-- ServerScript: Kill Brick
-local part = script.Parent
-
-part.Touched:Connect(function(hit)
-    local humanoid = hit.Parent:FindFirstChildWhichIsA("Humanoid")
-    if humanoid then
-        humanoid.Health = 0
-    end
-end)`
     }
   ],
 
-  // Scripts guardados en el Gestor de Scripts
   savedScripts: [
     {
       id: 'script-1',
@@ -173,25 +102,9 @@ end)`
       description: 'Maneja la transición de la pantalla de carga al unirse un jugador.',
       code: `-- LocalScript: Interfaz al unirse
 local Players = game:GetService("Players")
-local TweenService = game:GetService("TweenService")
-
 local localPlayer = Players.LocalPlayer
-local playerGui = localPlayer:WaitForChild("PlayerGui")
 
 print("Pantalla de inicio cargada correctamente para: " .. localPlayer.Name)`
-    },
-    {
-      id: 'script-2',
-      title: 'LeaderstatsManager.server.luau',
-      description: 'Creación automática de Monedas y Nivel en el leaderboard.',
-      code: `-- ServerScript: Leaderstats
-local Players = game:GetService("Players")
-
-Players.PlayerAdded:Connect(function(player)
-    local leaderstats = Instance.new("Folder")
-    leaderstats.Name = "leaderstats"
-    leaderstats.Parent = player
-end)`
     }
   ]
 };
@@ -230,6 +143,13 @@ function initNavigation() {
       if (viewTitle) viewTitle.innerText = `${titleText} (ForgerNova Engine)`;
     });
   });
+}
+
+// --- SEGURIDAD: FUNCIÓN PARA ESCAPAR TEXTO PLANO (PREVENIR XSS) ---
+function escapeHTML(str) {
+  const div = document.createElement('div');
+  div.textContent = str;
+  return div.innerHTML;
 }
 
 // --- NOTIFICACIONES TOAST ---
@@ -281,13 +201,13 @@ function renderLibraryGrid() {
   filteredScripts.forEach(script => {
     const card = document.createElement('div');
     card.className = 'glass-card';
-    card.style.cssText = 'display: flex; flex-direction: column; justify-space-between; gap: 10px;';
+    card.style.cssText = 'display: flex; flex-direction: column; justify-content: space-between; gap: 10px;';
     
     card.innerHTML = `
       <div>
-        <span style="font-size: 0.7rem; background: rgba(123,60,255,0.2); border: 1px solid var(--glass-border); padding: 2px 8px; border-radius: 4px; color: #c43cff;">${script.category}</span>
-        <h3 style="margin-top: 8px; font-size: 1.1rem; color: #fff;">${script.title}</h3>
-        <p style="color: var(--text-secondary); font-size: 0.85rem; margin-top: 6px;">${script.description}</p>
+        <span style="font-size: 0.7rem; background: rgba(123,60,255,0.2); border: 1px solid var(--glass-border); padding: 2px 8px; border-radius: 4px; color: #c43cff;">${escapeHTML(script.category)}</span>
+        <h3 style="margin-top: 8px; font-size: 1.1rem; color: #fff;">${escapeHTML(script.title)}</h3>
+        <p style="color: var(--text-secondary); font-size: 0.85rem; margin-top: 6px;">${escapeHTML(script.description)}</p>
       </div>
       <div style="display: flex; gap: 8px; margin-top: 10px;">
         <button class="btn-primary btn-sm" style="flex: 1;" onclick="openScriptModal('${script.id}', 'library')">Ver Script</button>
@@ -298,7 +218,7 @@ function renderLibraryGrid() {
   });
 }
 
-// --- GESTOR DE SCRIPTS (VER / COPIAR / DESCARGAR) ---
+// --- GESTOR DE SCRIPTS ---
 function initScriptManager() {
   renderScriptsList();
 }
@@ -314,8 +234,8 @@ function renderScriptsList() {
     card.style.cssText = 'display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; border: 1px solid var(--glass-border); padding: 15px; border-radius: 8px;';
     card.innerHTML = `
       <div>
-        <strong style="color: #fff; font-size: 1rem;">${script.title}</strong>
-        <p style="color: var(--text-secondary); font-size: 0.85rem; margin-top: 4px;">${script.description}</p>
+        <strong style="color: #fff; font-size: 1rem;">${escapeHTML(script.title)}</strong>
+        <p style="color: var(--text-secondary); font-size: 0.85rem; margin-top: 4px;">${escapeHTML(script.description)}</p>
       </div>
       <button class="btn-primary btn-sm" onclick="openScriptModal('${script.id}', 'saved')">Ver Script</button>
     `;
@@ -356,8 +276,8 @@ window.openScriptModal = function(scriptId, source) {
   const script = collection.find(s => s.id === scriptId);
   if (!script) return;
 
-  document.getElementById('modal-title').innerText = script.title;
-  document.getElementById('modal-code').innerText = script.code;
+  document.getElementById('modal-title').textContent = script.title;
+  document.getElementById('modal-code').textContent = script.code;
   
   document.getElementById('script-modal').style.display = 'flex';
 
@@ -390,7 +310,7 @@ window.closeScriptModal = function() {
   document.getElementById('script-modal').style.display = 'none';
 };
 
-// --- CHAT INTERACTIVO ---
+// --- CHAT INTERACTIVO (CON INSERCIÓN SEGURA PREVINIENDO XSS) ---
 function initChat() {
   const btnSend = document.getElementById('btn-send-message');
   const input = document.getElementById('chat-input');
@@ -401,25 +321,40 @@ function initChat() {
       const text = input.value.trim();
       if (!text) return;
 
-      // Mensaje Usuario
+      // Mensaje Usuario - Seguro usando textContent
       const userMsg = document.createElement('div');
       userMsg.className = 'message-card user-message';
       userMsg.style.cssText = 'background: rgba(123,60,255,0.15); margin-bottom: 15px; padding: 12px; border-radius: 8px; align-self: flex-end;';
-      userMsg.innerHTML = `<strong>Tú</strong><p style="margin-top: 4px; color: #fff;">${text}</p>`;
+      
+      const userHeader = document.createElement('strong');
+      userHeader.textContent = 'Tú';
+      
+      const userBody = document.createElement('p');
+      userBody.style.cssText = 'margin-top: 4px; color: #fff;';
+      userBody.textContent = text; // ESTO EVITA CUALQUIER ATAQUE XSS
+
+      userMsg.appendChild(userHeader);
+      userMsg.appendChild(userBody);
       messagesScroll.appendChild(userMsg);
 
       input.value = '';
       messagesScroll.scrollTop = messagesScroll.scrollHeight;
 
-      // Respuesta simulada
+      // Respuesta temporal antes de conectar el backend
       setTimeout(() => {
         const aiMsg = document.createElement('div');
         aiMsg.className = 'message-card ai-message';
         aiMsg.style.cssText = 'background: rgba(255,255,255,0.05); margin-bottom: 15px; padding: 12px; border-radius: 8px;';
-        aiMsg.innerHTML = `
-          <strong>ForgerNova AI</strong>
-          <p style="margin-top: 4px; color: #fff;">Entendido. Procesando tu consulta sobre Luau para Roblox Studio...</p>
-        `;
+        
+        const aiHeader = document.createElement('strong');
+        aiHeader.textContent = 'ForgerNova AI';
+        
+        const aiBody = document.createElement('p');
+        aiBody.style.cssText = 'margin-top: 4px; color: #fff;';
+        aiBody.textContent = 'Procesando tu solicitud para Luau en Roblox Studio...';
+
+        aiMsg.appendChild(aiHeader);
+        aiMsg.appendChild(aiBody);
         messagesScroll.appendChild(aiMsg);
         messagesScroll.scrollTop = messagesScroll.scrollHeight;
       }, 800);
