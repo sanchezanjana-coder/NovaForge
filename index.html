@@ -3,79 +3,147 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ForgerNova - Roblox Studio Intelligence Engine</title>
-    <link rel="stylesheet" href="style.css?v=5.0">
+    <title>ForgerNova - Dashboard</title>
+    <link rel="stylesheet" href="style.css?v=6.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
-<body class="landing-body">
+<body class="dashboard-body">
 
-    <!-- NAVBAR -->
-    <nav class="landing-nav">
-        <div class="nav-brand">
-            <i class="fas fa-cube logo-icon"></i>
-            <span>ForgerNova</span>
-        </div>
-        <div class="nav-links">
-            <a href="#features">Características</a>
-            <a href="#engine">Motor Luau</a>
-            <a href="dashboard.html" class="btn-primary">Abrir App <i class="fas fa-arrow-right"></i></a>
-        </div>
-    </nav>
-
-    <!-- HERO SECTION -->
-    <header class="hero-section">
-        <div class="hero-content">
-            <span class="badge">Roblox Studio Intelligence Engine</span>
-            <h1>Crea experiencias en Roblox a la velocidad de la Imaginación</h1>
-            <p>ForgerNova es el entorno de desarrollo asistido por IA definitivo para Roblox Studio. Genera scripts Luau optimizados, depura errores y diseña mecánicas complejas en segundos.</p>
-            <div class="hero-buttons">
-                <a href="dashboard.html" class="btn-primary btn-lg">Probar ForgerNova Gratis <i class="fas fa-arrow-right"></i></a>
-                <a href="#features" class="btn-secondary btn-lg">Saber más</a>
+    <div class="app-layout">
+        <!-- BARRA LATERAL (SIDEBAR) -->
+        <aside class="sidebar">
+            <div class="sidebar-brand">
+                <i class="fas fa-cube logo-icon"></i>
+                <h2>ForgerNova</h2>
             </div>
-        </div>
-    </header>
+            
+            <nav class="sidebar-nav">
+                <button class="nav-item active" data-view="chat">
+                    <i class="fas fa-comments"></i> Chat IA
+                </button>
+                <button class="nav-item" data-view="library">
+                    <i class="fas fa-book"></i> Librería
+                </button>
+                <button class="nav-item" data-view="fixer">
+                    <i class="fas fa-bug"></i> Error Fixer
+                </button>
+                <button class="nav-item" data-view="settings">
+                    <i class="fas fa-cog"></i> Configuración
+                </button>
+            </nav>
 
-    <!-- DEMO / SCRIPT PREVIEW -->
-    <section class="demo-section" id="engine">
-        <div class="code-preview-card">
-            <div class="code-header">
-                <span class="dot red"></span>
-                <span class="dot yellow"></span>
-                <span class="dot green"></span>
-                <span class="file-name">ServerScriptService.DataStoreManager.luau — Luau 5.1</span>
+            <div class="sidebar-footer">
+                <span style="font-size: 0.8rem; color: var(--text-secondary);">v6.0 Estable</span>
             </div>
-            <pre><code><span class="kwd">local</span> DataStoreService = game:<span class="fn">GetService</span>(<span class="str">"DataStoreService"</span>)
-<span class="kwd">local</span> PlayerDataStore = DataStoreService:<span class="fn">GetDataStore</span>(<span class="str">"ForgerNova_SaveData_v1"</span>)
+        </aside>
 
-<span class="com">-- Generado automáticamente por ForgerNova AI</span>
-<span class="kwd">local function</span> <span class="fn">onPlayerAdded</span>(player)
-    <span class="kwd">local</span> leaderstats = Instance.<span class="fn">new</span>(<span class="str">"Folder"</span>)
-    leaderstats.Name = <span class="str">"leaderstats"</span>
+        <!-- CONTENIDO PRINCIPAL -->
+        <main class="main-content">
+            
+            <!-- VISTA: CHAT IA -->
+            <section id="view-chat" class="view-section active">
+                <header class="view-header">
+                    <h1>Asistente IA para Roblox</h1>
+                    <p>Genera scripts en Luau, resuelve dudas o diseña mecánicas.</p>
+                </header>
+                
+                <div class="chat-container">
+                    <div class="chat-messages" id="chat-messages">
+                        <div class="message ai-message">
+                            <i class="fas fa-robot avatar"></i>
+                            <div class="message-content">
+                                ¡Hola! Soy el asistente de ForgerNova. ¿Qué script o sistema necesitas crear hoy para tu juego?
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <form class="chat-input-area" id="chat-form">
+                        <input type="text" id="chat-input" placeholder="Ej: Hazme un script para un bloque que daña al tocarlo..." required autocomplete="off">
+                        <button type="submit" class="btn-primary">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </form>
+                </div>
+            </section>
+
+            <!-- VISTA: LIBRERÍA -->
+            <section id="view-library" class="view-section">
+                <header class="view-header">
+                    <h1>Librería de Componentes</h1>
+                    <p>Snippets y módulos de código listos para copiar y pegar.</p>
+                </header>
+
+                <div class="library-grid">
+                    <div class="card">
+                        <h3>Leaderstats Base</h3>
+                        <p>Sistema básico de guardado de datos y monedas para jugadores.</p>
+                        <pre><code>local Players = game:GetService("Players")
+
+Players.PlayerAdded:Connect(function(player)
+    local leaderstats = Instance.new("Folder")
+    leaderstats.Name = "leaderstats"
     leaderstats.Parent = player
-<span class="kwd">end</span>
 
-game.Players.PlayerAdded:<span class="fn">Connect</span>(onPlayerAdded)</code></pre>
-        </div>
-    </section>
+    local coins = Instance.new("IntValue")
+    coins.Name = "Coins"
+    coins.Value = 0
+    coins.Parent = leaderstats
+end)</code></pre>
+                        <button class="btn-secondary copy-btn"><i class="fas fa-copy"></i> Copiar Código</button>
+                    </div>
 
-    <!-- FEATURES -->
-    <section class="features-section" id="features">
-        <div class="feature-card">
-            <i class="fas fa-bolt feature-icon"></i>
-            <h3>Generación de Luau Puro</h3>
-            <p>Código adaptado estrictamente a los estándares modernos de Luau en Roblox, incluyendo Type Checking.</p>
-        </div>
-        <div class="feature-card">
-            <i class="fas fa-bug feature-icon"></i>
-            <h3>Depurador Inteligente</h3>
-            <p>Pega tus errores de la consola de Roblox Studio y obtén explicaciones y parches instantáneos.</p>
-        </div>
-        <div class="feature-card">
-            <i class="fas fa-cubes feature-icon"></i>
-            <h3>Librería Módulo-Base</h3>
-            <p>Accede a estructuras limpias de DataStores, Leaderstats y mecánicas frecuentes en un clic.</p>
-        </div>
-    </section>
+                    <div class="card">
+                        <h3>Plataforma KillBlock</h3>
+                        <p>Elimina al personaje de forma limpia al tocar la parte.</p>
+                        <pre><code>local part = script.Parent
 
+part.Touched:Connect(function(hit)
+    local humanoid = hit.Parent:FindFirstChildOfClass("Humanoid")
+    if humanoid then
+        humanoid.Health = 0
+    end
+end)</code></pre>
+                        <button class="btn-secondary copy-btn"><i class="fas fa-copy"></i> Copiar Código</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- VISTA: ERROR FIXER -->
+            <section id="view-fixer" class="view-section">
+                <header class="view-header">
+                    <h1>Depurador de Errores (Fixer)</h1>
+                    <p>Pega aquí el error del Output de Roblox Studio para encontrar la solución.</p>
+                </header>
+
+                <div class="fixer-container">
+                    <textarea id="fixer-input" rows="6" placeholder="Ej: ServerScriptService.Script:5: attempt to index nil with 'Humanoid'"></textarea>
+                    <button id="fixer-submit" class="btn-primary">Analizar Error</button>
+
+                    <div id="fixer-result" class="fixer-result-box hidden">
+                        <h3><i class="fas fa-lightbulb"></i> Análisis y Solución</h3>
+                        <div id="fixer-content"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- VISTA: CONFIGURACIÓN -->
+            <section id="view-settings" class="view-section">
+                <header class="view-header">
+                    <h1>Configuración</h1>
+                    <p>Ajustes de la herramienta y preferencias.</p>
+                </header>
+                
+                <div class="settings-card card">
+                    <h3>Estado del Sistema</h3>
+                    <p><strong>Motor:</strong> Luau v6.0 (Optimizado)</p>
+                    <p><strong>Estado:</strong> Conectado y Operativo</p>
+                    <p><strong>Acceso:</strong> Directo (Sin login)</p>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <script src="script.js?v=6.0"></script>
 </body>
 </html>
