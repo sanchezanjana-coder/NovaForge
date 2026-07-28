@@ -8,271 +8,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   
-  <style>
-    :root {
-      --bg-dark: #090514;
-      --panel-bg: rgba(255, 255, 255, 0.03);
-      --glass-border: rgba(255, 255, 255, 0.08);
-      --accent-purple: #7b3cff;
-      --accent-pink: #c43cff;
-      --accent-gradient: linear-gradient(135deg, #7b3cff, #c43cff);
-      --text-primary: #ffffff;
-      --text-secondary: #9a95b0;
-      --code-bg: #05030a;
-      --font-main: 'Inter', system-ui, sans-serif;
-      --font-mono: 'Fira Code', monospace;
-      --sidebar-width: 260px;
-    }
-
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-
-    body {
-      background-color: var(--bg-dark);
-      color: var(--text-primary);
-      font-family: var(--font-main);
-      height: 100vh;
-      overflow: hidden;
-    }
-
-    .app-layout {
-      display: flex;
-      width: 100vw;
-      height: 100vh;
-    }
-
-    /* SIDEBAR */
-    .sidebar {
-      width: var(--sidebar-width);
-      background: rgba(15, 10, 28, 0.95);
-      border-right: 1px solid var(--glass-border);
-      display: flex;
-      flex-direction: column;
-      padding: 20px;
-      gap: 20px;
-      flex-shrink: 0;
-    }
-
-    .sidebar-header {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .brand-logo {
-      width: 38px !important;
-      height: 38px !important;
-      object-fit: contain;
-      border-radius: 8px;
-    }
-
-    .brand-title {
-      font-weight: 700;
-      font-size: 1.2rem;
-      background: var(--accent-gradient);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
-    .btn-new-chat {
-      background: var(--accent-gradient);
-      border: none;
-      color: #fff;
-      padding: 10px;
-      border-radius: 8px;
-      font-weight: 600;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-    }
-
-    .nav-section {
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-    }
-
-    .nav-label {
-      font-size: 0.7rem;
-      color: var(--text-secondary);
-      font-weight: 700;
-      margin-bottom: 6px;
-      letter-spacing: 0.5px;
-    }
-
-    .tool-item {
-      background: transparent;
-      border: none;
-      color: var(--text-secondary);
-      padding: 10px 12px;
-      border-radius: 8px;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      cursor: pointer;
-      font-size: 0.9rem;
-      width: 100%;
-      text-align: left;
-    }
-
-    .tool-item:hover { background: rgba(255, 255, 255, 0.05); color: #fff; }
-
-    .tool-item.active {
-      background: rgba(123, 60, 255, 0.15);
-      color: var(--accent-pink);
-      border: 1px solid rgba(196, 60, 255, 0.3);
-    }
-
-    .user-profile {
-      margin-top: auto;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      padding-top: 15px;
-      border-top: 1px solid var(--glass-border);
-    }
-
-    .avatar {
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
-      background: var(--accent-gradient);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: bold;
-      font-size: 0.85rem;
-    }
-
-    /* MAIN CONTENT */
-    .main-content {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      overflow: hidden;
-    }
-
-    .top-header {
-      height: 60px;
-      border-bottom: 1px solid var(--glass-border);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 25px;
-    }
-
-    .status-badge {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 0.9rem;
-    }
-
-    .status-dot {
-      width: 8px;
-      height: 8px;
-      background: #00e676;
-      border-radius: 50%;
-      box-shadow: 0 0 10px #00e676;
-    }
-
-    .view-panel {
-      display: none;
-      flex: 1;
-      overflow-y: auto;
-      padding: 25px;
-    }
-
-    .view-panel.active {
-      display: flex;
-      flex-direction: column;
-    }
-
-    .panel-container {
-      max-width: 1000px;
-      width: 100%;
-      margin: 0 auto;
-    }
-
-    .glass-card {
-      background: var(--panel-bg);
-      border: 1px solid var(--glass-border);
-      border-radius: 12px;
-      padding: 20px;
-      margin-bottom: 15px;
-    }
-
-    /* CHAT */
-    .chat-container {
-      display: flex;
-      flex-direction: column;
-      height: 100%;
-      max-width: 900px;
-      margin: 0 auto;
-      width: 100%;
-    }
-
-    .messages-scroll {
-      flex: 1;
-      overflow-y: auto;
-      display: flex;
-      flex-direction: column;
-      gap: 15px;
-      padding-bottom: 20px;
-    }
-
-    .message-card {
-      background: var(--panel-bg);
-      border: 1px solid var(--glass-border);
-      border-radius: 10px;
-      padding: 15px;
-    }
-
-    .chat-input-wrapper {
-      display: flex;
-      gap: 10px;
-      background: rgba(15, 10, 28, 0.8);
-      border: 1px solid var(--glass-border);
-      border-radius: 10px;
-      padding: 10px;
-    }
-
-    .chat-input-wrapper textarea {
-      flex: 1;
-      background: transparent;
-      border: none;
-      color: #fff;
-      font-family: inherit;
-      resize: none;
-      outline: none;
-    }
-
-    .btn-primary {
-      background: var(--accent-gradient);
-      border: none;
-      color: #fff;
-      padding: 8px 16px;
-      border-radius: 6px;
-      cursor: pointer;
-      font-weight: 600;
-    }
-
-    .btn-secondary {
-      background: rgba(255,255,255,0.05);
-      border: 1px solid var(--glass-border);
-      color: #fff;
-      padding: 8px 16px;
-      border-radius: 6px;
-      cursor: pointer;
-    }
-
-    .cards-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 15px;
-    }
-  </style>
+  <!-- Estilos externos -->
+  <link rel="stylesheet" href="./style.css?v=3.0">
 </head>
 <body>
 
@@ -285,9 +22,7 @@
         <span class="brand-title">ForgerNova</span>
       </div>
 
-      <button class="btn-new-chat" id="btn-new-chat">
-        <span>+ Nuevo Chat</span>
-      </button>
+      <button class="btn-new-chat">+ Nuevo Chat</button>
 
       <div class="nav-section">
         <span class="nav-label">HERRAMIENTAS</span>
@@ -318,7 +53,7 @@
         <span style="font-size: 0.8rem; color: var(--text-secondary);">Roblox Studio 5.1</span>
       </header>
 
-      <!-- 1. VISTA CHAT -->
+      <!-- VISTA 1: CHAT -->
       <section class="view-panel active" id="view-chat">
         <div class="chat-container">
           <div class="messages-scroll" id="chat-messages">
@@ -328,13 +63,13 @@
             </div>
           </div>
           <div class="chat-input-wrapper">
-            <textarea id="chat-input" placeholder="Pide un script (ej: Sistema de Shift para correr)..." rows="1"></textarea>
+            <textarea id="chat-input" placeholder="Escribe un mensaje o pide un script..." rows="1"></textarea>
             <button class="btn-primary" id="btn-send-message">Enviar</button>
           </div>
         </div>
       </section>
 
-      <!-- 2. VISTA LIBRARY -->
+      <!-- VISTA 2: LIBRARY -->
       <section class="view-panel" id="view-library">
         <div class="panel-container">
           <h2>Librería de Componentes Esenciales</h2>
@@ -343,24 +78,24 @@
         </div>
       </section>
 
-      <!-- 3. VISTA SCRIPTS -->
+      <!-- VISTA 3: SCRIPTS -->
       <section class="view-panel" id="view-scripts">
         <div class="panel-container">
           <h2>Gestor de Scripts Guardados</h2>
-          <p style="color:var(--text-secondary); margin-bottom:20px;">Tus scripts guardados localmente.</p>
+          <p style="color:var(--text-secondary); margin-bottom:20px;">Tus módulos Luau organizados.</p>
           <div id="saved-scripts-list"></div>
         </div>
       </section>
 
-      <!-- 4. VISTA FAVORITES -->
+      <!-- VISTA 4: FAVORITES -->
       <section class="view-panel" id="view-favorites">
         <div class="panel-container">
           <h2>Mis Favoritos</h2>
-          <div class="glass-card"><p style="color:var(--text-secondary);">Aún no has añadido elementos a favoritos.</p></div>
+          <div class="glass-card"><p style="color:var(--text-secondary);">Aún no has marcado elementos como favoritos.</p></div>
         </div>
       </section>
 
-      <!-- 5. VISTA ERROR FIXER -->
+      <!-- VISTA 5: ERROR FIXER -->
       <section class="view-panel" id="view-error-fixer">
         <div class="panel-container">
           <h2>Error Fixer (Luau Debugger)</h2>
@@ -373,190 +108,18 @@
         </div>
       </section>
 
-      <!-- 6. VISTA SETTINGS -->
+      <!-- VISTA 6: SETTINGS -->
       <section class="view-panel" id="view-settings">
         <div class="panel-container">
           <h2>Configuración</h2>
-          <div class="glass-card"><p>Versión de Luau: <strong>Typed Luau 5.1 (Optimizado)</strong></p></div>
+          <div class="glass-card"><p>Motor: <strong>Luau 5.1 (Roblox Studio Standard)</strong></p></div>
         </div>
       </section>
 
     </main>
   </div>
 
-  <script>
-    // ESTADO
-    const libraryData = [
-      {
-        id: 'lib-1',
-        title: 'Shift to Sprint (Correr)',
-        category: 'Movimiento',
-        desc: 'Aumenta la velocidad al pulsar LeftShift.',
-        code: `-- LocalScript: Shift to Sprint
-local UserInputService = game:GetService("UserInputService")
-local Players = game:GetService("Players")
-
-local player = Players.LocalPlayer
-local character = player.Character or player.CharacterAdded:Wait()
-local humanoid = character:WaitForChild("Humanoid")
-
-UserInputService.InputBegan:Connect(function(input, gpe)
-    if gpe then return end
-    if input.KeyCode == Enum.KeyCode.LeftShift then
-        humanoid.WalkSpeed = 28
-    end
-end)
-
-UserInputService.InputEnded:Connect(function(input)
-    if input.KeyCode == Enum.KeyCode.LeftShift then
-        humanoid.WalkSpeed = 16
-    end
-end)`
-      },
-      {
-        id: 'lib-2',
-        title: 'Leaderstats & Coins',
-        category: 'Databases',
-        desc: 'Crea el marcador de monedas en el juego.',
-        code: `-- ServerScript: Leaderstats
-local Players = game:GetService("Players")
-
-Players.PlayerAdded:Connect(function(player)
-    local leaderstats = Instance.new("Folder")
-    leaderstats.Name = "leaderstats"
-    leaderstats.Parent = player
-
-    local coins = Instance.new("IntValue")
-    coins.Name = "Coins"
-    coins.Value = 100
-    coins.Parent = leaderstats
-end)`
-      }
-    ];
-
-    const savedScripts = [
-      {
-        title: 'UI_OnPlayerJoin.client.luau',
-        desc: 'Maneja la pantalla de inicio del jugador.',
-        code: `-- LocalScript: Pantalla de Inicio
-print("Jugador conectado con éxito")`
-      }
-    ];
-
-    // NAVEGACIÓN
-    const tools = document.querySelectorAll('.tool-item');
-    const panels = document.querySelectorAll('.view-panel');
-    const titleHeader = document.getElementById('current-view-title');
-
-    tools.forEach(btn => {
-      btn.addEventListener('click', () => {
-        tools.forEach(t => t.classList.remove('active'));
-        btn.classList.add('active');
-        
-        const target = btn.getAttribute('data-view');
-        panels.forEach(p => {
-          p.classList.remove('active');
-          if (p.id === `view-${target}`) p.classList.add('active');
-        });
-        
-        titleHeader.textContent = `${btn.textContent.trim()} (ForgerNova Engine)`;
-      });
-    });
-
-    // CHAT (PROTEGIDO CONTRA XSS)
-    const btnSend = document.getElementById('btn-send-message');
-    const inputChat = document.getElementById('chat-input');
-    const messagesBox = document.getElementById('chat-messages');
-
-    btnSend.addEventListener('click', () => {
-      const text = inputChat.value.trim();
-      if (!text) return;
-
-      // Mensaje Usuario
-      const uCard = document.createElement('div');
-      uCard.className = 'message-card';
-      uCard.style.background = 'rgba(123, 60, 255, 0.2)';
-      uCard.style.alignSelf = 'flex-end';
-      
-      const uTitle = document.createElement('strong');
-      uTitle.textContent = 'Tú';
-      const uText = document.createElement('p');
-      uText.style.marginTop = '4px';
-      uText.textContent = text; // SEGURIDAD XSS
-      
-      uCard.appendChild(uTitle);
-      uCard.appendChild(uText);
-      messagesBox.appendChild(uCard);
-
-      inputChat.value = '';
-      messagesBox.scrollTop = messagesBox.scrollHeight;
-
-      // Respuesta IA
-      setTimeout(() => {
-        const aiCard = document.createElement('div');
-        aiCard.className = 'message-card';
-        
-        const aiTitle = document.createElement('strong');
-        aiTitle.textContent = 'ForgerNova AI';
-        const aiText = document.createElement('p');
-        aiText.style.marginTop = '4px';
-        aiText.textContent = 'Procesando tu consulta en Luau... ¿Necesitas este script como ServerScript o LocalScript?';
-
-        aiCard.appendChild(aiTitle);
-        aiCard.appendChild(aiText);
-        messagesBox.appendChild(aiCard);
-        messagesBox.scrollTop = messagesBox.scrollHeight;
-      }, 700);
-    });
-
-    // RENDER LIBRARY
-    const libGrid = document.getElementById('library-grid');
-    libraryData.forEach(item => {
-      const card = document.createElement('div');
-      card.className = 'glass-card';
-      card.innerHTML = `
-        <span style="font-size:0.75rem; color:var(--accent-pink);">${item.category}</span>
-        <h3 style="margin:5px 0;">${item.title}</h3>
-        <p style="font-size:0.85rem; color:var(--text-secondary); margin-bottom:12px;">${item.desc}</p>
-        <button class="btn-primary" style="width:100%;" onclick="copySnippet(\`${item.code.replace(/`/g, '\\`')}\`)">📋 Copiar Script</button>
-      `;
-      libGrid.appendChild(card);
-    });
-
-    // RENDER SAVED SCRIPTS
-    const savedContainer = document.getElementById('saved-scripts-list');
-    savedScripts.forEach(s => {
-      const card = document.createElement('div');
-      card.className = 'glass-card';
-      card.style.display = 'flex';
-      card.style.justifyContent = 'space-between';
-      card.style.alignItems = 'center';
-      card.innerHTML = `
-        <div>
-          <strong>${s.title}</strong>
-          <p style="font-size:0.85rem; color:var(--text-secondary);">${s.desc}</p>
-        </div>
-        <button class="btn-secondary" onclick="copySnippet(\`${s.code}\`)">📋 Copiar</button>
-      `;
-      savedContainer.appendChild(card);
-    });
-
-    // ERROR FIXER
-    document.getElementById('btn-fix-error').addEventListener('click', () => {
-      const txt = document.getElementById('error-input').value.trim();
-      if(!txt) return;
-      document.getElementById('error-solution').innerHTML = `
-        <div class="glass-card" style="border-color:#00e676; margin-top:10px;">
-          <h4 style="color:#00e676;">✔ Solución Sugerida</h4>
-          <p style="font-size:0.85rem; margin-top:5px;">Asegúrate de usar <code>WaitForChild</code> para objetos que pueden tardar en cargar en el cliente.</p>
-        </div>
-      `;
-    });
-
-    function copySnippet(code) {
-      navigator.clipboard.writeText(code);
-      alert('📋 ¡Script copiado al portapapeles!');
-    }
-  </script>
+  <!-- Lógica externa -->
+  <script src="./script.js?v=3.0"></script>
 </body>
 </html>
