@@ -2,405 +2,189 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"><!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ForgerNova | Workbench Dashboard</title>
+  <title>ForgerNova - Roblox AI Studio</title>
   <link rel="stylesheet" href="style.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-
-  <div class="dashboard-container">
+  <div class="app-layout">
     
-    <!-- Sidebar -->
-    <aside class="sidebar" id="sidebar">
+    <!-- SIDEBAR / BARRA LATERAL -->
+    <aside class="sidebar">
       <div class="sidebar-header">
-        <a href="index.html" class="brand-logo">
-          <img src="logo.png" alt="ForgerNova Logo" class="brand-img-logo">
-          <span class="gradient-text">ForgerNova</span>
-        </a>
+        <img src="logo.png" alt="ForgerNova Logo" class="brand-logo">
+        <span class="brand-title">ForgerNova</span>
       </div>
 
-      <button class="btn-primary btn-new-chat" id="btn-new-chat">
+      <button class="btn-new-chat">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
-        Nuevo Chat
+        <span>Nuevo Chat</span>
       </button>
 
-      <nav class="sidebar-nav">
-        <div class="nav-group">
-          <span class="nav-group-title">Herramientas</span>
-          <ul class="tools-list">
-            <li class="tool-item active" data-view="chat">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
-              <span>Asistente IA</span>
-            </li>
-            <li class="tool-item" data-view="library">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 016.5 17H20M4 4.5A2.5 2.5 0 016.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15z"/></svg>
-              <span>Library</span>
-            </li>
-            <li class="tool-item" data-view="scripts">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8l-6-6z"/></svg>
-              <span>Scripts</span>
-            </li>
-            <li class="tool-item" data-view="favorites">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-              <span>Favorites</span>
-            </li>
-            <li class="tool-item" data-view="error-fixer">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0zM12 9v4m0 4h.01"/></svg>
-              <span>Error Fixer</span>
-            </li>
-            <li class="tool-item" data-view="settings">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-2 2 2 2 0 01-2-2v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83 0 2 2 0 010-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H3a2 2 0 01-2-2 2 2 0 012-2h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 010-2.83 2 2 0 012.83 0l.06.06a1.65 1.65 0 001.82.33H9a1.65 1.65 0 001-1.51V3a2 2 0 012-2 2 2 0 012 2v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 0 2 2 0 010 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9a1.65 1.65 0 001.51 1H21a2 2 0 012 2 2 2 0 01-2 2h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
-              <span>Settings</span>
-            </li>
-          </ul>
-        </div>
+      <div class="nav-section">
+        <span class="nav-label">HERRAMIENTAS</span>
+        <button class="tool-item active" data-view="chat">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          <span>Asistente IA</span>
+        </button>
+        <button class="tool-item" data-view="library">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+          <span>Library</span>
+        </button>
+        <button class="tool-item" data-view="scripts">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+          <span>Scripts</span>
+        </button>
+        <button class="tool-item" data-view="favorites">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <span>Favorites</span>
+        </button>
+        <button class="tool-item" data-view="error-fixer">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+          <span>Error Fixer</span>
+        </button>
+        <button class="tool-item" data-view="settings">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+          <span>Settings</span>
+        </button>
+      </div>
 
-        <div class="nav-group">
-          <span class="nav-group-title">Historial</span>
-          <ul class="history-list" id="history-list"></ul>
+      <div class="nav-section">
+        <span class="nav-label">HISTORIAL</span>
+        <div class="history-list">
+          <button class="history-item">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            <span>Interfaz al unirse</span>
+          </button>
         </div>
-      </nav>
+      </div>
 
-      <div class="sidebar-footer">
-        <div class="user-profile">
-          <div class="user-avatar">FN</div>
-          <div class="user-info">
-            <span class="user-name">Roblox Developer</span>
-            <span class="user-role">Pro Plan</span>
-          </div>
+      <div class="user-profile">
+        <div class="avatar">FN</div>
+        <div class="user-info">
+          <span class="user-name">Roblox Developer</span>
+          <span class="user-plan">Pro Plan</span>
         </div>
       </div>
     </aside>
 
-    <!-- Zona Central -->
-    <main class="main-workspace">
-      
-      <header class="workspace-header">
-        <div class="workspace-title">
-          <button class="btn-icon mobile-toggle" id="mobile-toggle">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
-          </button>
-          <span class="status-indicator"></span>
-          <span id="current-view-title">Chat Assistant (Luau Engine)</span>
+    <!-- MAIN CONTENT -->
+    <main class="main-content">
+      <header class="top-header">
+        <div class="status-badge">
+          <span class="status-dot"></span>
+          <span id="current-view-title">Asistente IA (ForgerNova Engine)</span>
         </div>
-        <div class="badge">Roblox Studio 5.1</div>
+        <div class="engine-version">Roblox Studio 5.1</div>
       </header>
 
+      <!-- PANELS DE CONTENIDO -->
+
+      <!-- 1. VISTA: CHAT (ASISTENTE IA) -->
       <section class="view-panel active" id="view-chat">
-        <div class="chat-screen">
-          <div class="chat-container" id="chat-messages"></div>
-          <div class="input-container">
-            <div class="input-box">
-              <div class="attachments-preview" id="attachments-preview"></div>
-              <textarea class="chat-textarea" id="chat-input" placeholder="Escribe tu consulta sobre Luau o describe el sistema que necesitas para Roblox..." rows="1"></textarea>
-              <div class="input-actions">
-                <div class="action-tools">
-                  <button class="btn-icon" id="btn-attach" title="Adjuntar Archivos / Scripts">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.44 11.05l-9.19 9.19a6 6 0 01-8.49-8.49l9.19-9.19a4 4 0 015.66 5.66l-9.2 9.19a2 2 0 01-2.83-2.83l8.49-8.48"/></svg>
-                  </button>
-                  <input type="file" id="file-input" multiple>
-                </div>
-                <button class="btn-primary" id="btn-send">
-                  <span>Enviar</span>
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg>
-                </button>
+        <div class="chat-container">
+          <div class="messages-scroll" id="chat-messages">
+            <div class="message-card ai-message">
+              <div class="message-header">
+                <strong>ForgerNova AI</strong>
               </div>
+              <p>¡Hola! Soy tu asistente especializado en Luau y desarrollo para Roblox Studio. ¿En qué script o sistema trabajaremos hoy?</p>
             </div>
+          </div>
+
+          <div class="chat-input-wrapper">
+            <textarea id="chat-input" placeholder="Escribe un mensaje o pide un script (ej: Sistema de inventario con DataStore)..." rows="1"></textarea>
+            <button class="btn-send" id="btn-send-message">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+            </button>
           </div>
         </div>
       </section>
 
+      <!-- 2. VISTA: LIBRARY (LIBRERÍA DE COMPONENTES ESNCIALES) -->
       <section class="view-panel" id="view-library">
         <div class="panel-container">
-          <h2>Librería de Componentes Luau</h2>
-          <p class="panel-subtitle">Colección de módulos y bibliotecas listas para importar a Roblox Studio.</p>
-          <div class="cards-grid">
-            <div class="glass-card">
-              <h3>📦 DataStore2 / ProfileService</h3>
-              <p>Módulo de almacenamiento seguro contra pérdida de datos.</p>
-              <button class="btn-secondary btn-sm">Copiar Módulo</button>
-            </div>
-            <div class="glass-card">
-              <h3>🎨 UI Spring Animation Engine</h3>
-              <p>Animaciones con físicas elásticas en GuiObjects.</p>
-              <button class="btn-secondary btn-sm">Copiar Módulo</button>
-            </div>
-            <div class="glass-card">
-              <h3>🛡️ FastCast Bullet System</h3>
-              <p>Manejo de proyectiles sin lag utilizando Raycasting.</p>
-              <button class="btn-secondary btn-sm">Copiar Módulo</button>
-            </div>
+          <div style="margin-bottom: var(--space-md);">
+            <h2>Librería de Componentes Esenciales</h2>
+            <p class="panel-subtitle">Snippets y módulos Luau de uso frecuente para acelerar tu desarrollo en Roblox Studio.</p>
           </div>
+
+          <!-- Filtro de Categorías -->
+          <div class="library-categories" style="display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap;">
+            <button class="btn-secondary btn-sm category-btn active" data-category="all">Todos</button>
+            <button class="btn-secondary btn-sm category-btn" data-category="Movimiento">Movimiento & Cámara</button>
+            <button class="btn-secondary btn-sm category-btn" data-category="Databases">DataStores</button>
+            <button class="btn-secondary btn-sm category-btn" data-category="UI">UI & Interacción</button>
+            <button class="btn-secondary btn-sm category-btn" data-category="Gameplay">Gameplay Base</button>
+          </div>
+
+          <!-- Grid de Scripts Predeterminados -->
+          <div class="cards-grid" id="library-grid"></div>
         </div>
       </section>
 
+      <!-- 3. VISTA: SCRIPTS (GESTOR DE SCRIPTS GUARDADOS) -->
       <section class="view-panel" id="view-scripts">
         <div class="panel-container">
           <h2>Gestor de Scripts Guardados</h2>
           <p class="panel-subtitle">Tus scripts generados y guardados localmente.</p>
+
           <div class="scripts-list">
-            <div class="glass-card script-item">
-              <div>
-                <strong>UI_OnPlayerJoin.client.luau</strong>
-                <p>Maneja la transición de la pantalla de carga al unirse un jugador.</p>
-              </div>
-              <button class="btn-primary btn-sm">Ver Script</button>
-            </div>
-            <div class="glass-card script-item">
-              <div>
-                <strong>LeaderstatsManager.server.luau</strong>
-                <p>Creación automática de Monedas y Nivel en el leaderboard.</p>
-              </div>
-              <button class="btn-primary btn-sm">Ver Script</button>
-            </div>
+            <!-- Renderizado dinámico desde script.js -->
           </div>
         </div>
       </section>
 
+      <!-- 4. VISTA: FAVORITES -->
       <section class="view-panel" id="view-favorites">
         <div class="panel-container">
-          <h2>Fragmentos Favoritos</h2>
-          <p class="panel-subtitle">Snippets de código guardados con estrella.</p>
+          <h2>Mis Favoritos</h2>
+          <p class="panel-subtitle">Guarda aquí los fragmentos de código que más utilices.</p>
           <div class="glass-card">
-            <h3>⭐ Smooth Camera Controller</h3>
-            <p>Añade movimiento suave de cámara en primera/tercera persona.</p>
+            <p style="color: var(--text-secondary);">Aún no has añadido elementos a tus favoritos.</p>
           </div>
         </div>
       </section>
 
+      <!-- 5. VISTA: ERROR FIXER -->
       <section class="view-panel" id="view-error-fixer">
         <div class="panel-container">
-          <h2>Roblox Output Error Fixer</h2>
-          <p class="panel-subtitle">Pega el mensaje o Stack Trace de la Output Window de Roblox Studio para depurarlo automáticamente.</p>
-          <div class="error-fixer-box glass-card">
-            <textarea id="error-input" class="error-textarea" placeholder="Ejemplo: ServerScriptService.Script:12: attempt to index nil with 'Parent'..."></textarea>
-            <button class="btn-primary" id="btn-fix-error">⚡ Analizar y Corregir Error</button>
+          <h2>Error Fixer (Luau Debugger)</h2>
+          <p class="panel-subtitle">Pega el mensaje de error de la Output de Roblox Studio para obtener la solución exacta.</p>
+
+          <div class="glass-card" style="margin-top: 15px;">
+            <textarea id="error-input" placeholder="Pega aquí el error de Output (ej: ServerScriptService.Script:5: attempt to index nil with 'WaitForChild')..." rows="4" style="width: 100%; background: var(--code-bg); border: 1px solid var(--glass-border); border-radius: 8px; color: #fff; padding: 12px; font-family: var(--font-mono); font-size: 0.85rem; resize: none; margin-bottom: 12px;"></textarea>
+            <button class="btn-primary" id="btn-fix-error">Depurar Error</button>
           </div>
-          <div id="error-solution" class="error-solution-area"></div>
+
+          <div id="error-solution"></div>
         </div>
       </section>
 
+      <!-- 6. VISTA: SETTINGS -->
       <section class="view-panel" id="view-settings">
         <div class="panel-container">
-          <h2>Configuración de ForgerNova</h2>
-          <div class="settings-group glass-card">
-            <div class="setting-row">
-              <label>Versión de Luau Target</label>
-              <select class="custom-select"><option>Luau 5.1 (Roblox Native)</option></select>
-            </div>
-            <div class="setting-row">
-              <label>Estilo de Tipado</label>
-              <select class="custom-select"><option>Strict (--!strict)</option><option>Non-strict</option></select>
-            </div>
-          </div>
-        </div>
-      </section>
-
-    </main>
-  </div>
-
-  <script src="script.js"></script>
-</body>
-</html>
-  <title>NovaForge | Workbench Dashboard</title>
-  <link rel="stylesheet" href="style.css">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
-</head>
-<body>
-
-  <div class="dashboard-container">
-    
-    <!-- Sidebar Izquierda con Logo -->
-    <aside class="sidebar" id="sidebar">
-      <div class="sidebar-header">
-        <a href="index.html" class="brand-logo">
-          <img src="logo.png" alt="NovaForge Logo" class="brand-img-logo">
-          <span class="gradient-text">NovaForge</span>
-        </a>
-      </div>
-
-      <button class="btn-primary btn-new-chat" id="btn-new-chat">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
-        Nuevo Chat
-      </button>
-
-      <nav class="sidebar-nav">
-        <div class="nav-group">
-          <span class="nav-group-title">Herramientas</span>
-          <ul class="tools-list">
-            <li class="tool-item active" data-view="chat">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
-              <span>Asistente IA</span>
-            </li>
-            <li class="tool-item" data-view="library">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 016.5 17H20M4 4.5A2.5 2.5 0 016.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15z"/></svg>
-              <span>Library</span>
-            </li>
-            <li class="tool-item" data-view="scripts">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8l-6-6z"/></svg>
-              <span>Scripts</span>
-            </li>
-            <li class="tool-item" data-view="favorites">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-              <span>Favorites</span>
-            </li>
-            <li class="tool-item" data-view="error-fixer">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0zM12 9v4m0 4h.01"/></svg>
-              <span>Error Fixer</span>
-            </li>
-            <li class="tool-item" data-view="settings">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-2 2 2 2 0 01-2-2v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83 0 2 2 0 010-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H3a2 2 0 01-2-2 2 2 0 012-2h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 010-2.83 2 2 0 012.83 0l.06.06a1.65 1.65 0 001.82.33H9a1.65 1.65 0 001-1.51V3a2 2 0 012-2 2 2 0 012 2v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 0 2 2 0 010 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9a1.65 1.65 0 001.51 1H21a2 2 0 012 2 2 2 0 01-2 2h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
-              <span>Settings</span>
-            </li>
-          </ul>
-        </div>
-
-        <div class="nav-group">
-          <span class="nav-group-title">Historial</span>
-          <ul class="history-list" id="history-list"></ul>
-        </div>
-      </nav>
-
-      <div class="sidebar-footer">
-        <div class="user-profile">
-          <div class="user-avatar">NF</div>
-          <div class="user-info">
-            <span class="user-name">Roblox Developer</span>
-            <span class="user-role">Pro Plan</span>
-          </div>
-        </div>
-      </div>
-    </aside>
-
-    <!-- Zona Central -->
-    <main class="main-workspace">
-      
-      <header class="workspace-header">
-        <div class="workspace-title">
-          <button class="btn-icon mobile-toggle" id="mobile-toggle">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
-          </button>
-          <span class="status-indicator"></span>
-          <span id="current-view-title">Chat Assistant (Luau Engine)</span>
-        </div>
-        <div class="badge">Roblox Studio 5.1</div>
-      </header>
-
-      <!-- VISTAS DE PANTALLA -->
-      <section class="view-panel active" id="view-chat">
-        <div class="chat-screen">
-          <div class="chat-container" id="chat-messages"></div>
-          <div class="input-container">
-            <div class="input-box">
-              <div class="attachments-preview" id="attachments-preview"></div>
-              <textarea class="chat-textarea" id="chat-input" placeholder="Escribe tu consulta sobre Luau o describe el sistema que necesitas para Roblox..." rows="1"></textarea>
-              <div class="input-actions">
-                <div class="action-tools">
-                  <button class="btn-icon" id="btn-attach" title="Adjuntar Archivos / Scripts">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.44 11.05l-9.19 9.19a6 6 0 01-8.49-8.49l9.19-9.19a4 4 0 015.66 5.66l-9.2 9.19a2 2 0 01-2.83-2.83l8.49-8.48"/></svg>
-                  </button>
-                  <input type="file" id="file-input" multiple>
-                </div>
-                <button class="btn-primary" id="btn-send">
-                  <span>Enviar</span>
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg>
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section class="view-panel" id="view-library">
-        <div class="panel-container">
-          <h2>Librería de Componentes Luau</h2>
-          <p class="panel-subtitle">Colección de módulos y bibliotecas listas para importar a Roblox Studio.</p>
-          <div class="cards-grid">
-            <div class="glass-card">
-              <h3>📦 DataStore2 / ProfileService</h3>
-              <p>Módulo de almacenamiento seguro contra pérdida de datos.</p>
-              <button class="btn-secondary btn-sm">Copiar Módulo</button>
-            </div>
-            <div class="glass-card">
-              <h3>🎨 UI Spring Animation Engine</h3>
-              <p>Animaciones con físicas elásticas en GuiObjects.</p>
-              <button class="btn-secondary btn-sm">Copiar Módulo</button>
-            </div>
-            <div class="glass-card">
-              <h3>🛡️ FastCast Bullet System</h3>
-              <p>Manejo de proyectiles sin lag utilizando Raycasting.</p>
-              <button class="btn-secondary btn-sm">Copiar Módulo</button>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section class="view-panel" id="view-scripts">
-        <div class="panel-container">
-          <h2>Gestor de Scripts Guardados</h2>
-          <p class="panel-subtitle">Tus scripts generados y guardados localmente.</p>
-          <div class="scripts-list">
-            <div class="glass-card script-item">
+          <h2>Configuración del Entorno</h2>
+          <p class="panel-subtitle">Ajustes generales de la aplicación.</p>
+          
+          <div class="glass-card" style="margin-top: 15px; display: flex; flex-direction: column; gap: 15px;">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
               <div>
-                <strong>UI_OnPlayerJoin.client.luau</strong>
-                <p>Maneja la transición de la pantalla de carga al unirse un jugador.</p>
+                <strong>Formato de Salida</strong>
+                <p style="font-size: 0.85rem; color: var(--text-secondary);">Generar comentarios explicativos en los scripts</p>
               </div>
-              <button class="btn-primary btn-sm">Ver Script</button>
+              <input type="checkbox" checked style="accent-color: #7b3cff; width: 18px; height: 18px;">
             </div>
-            <div class="glass-card script-item">
+            <hr style="border: 0; border-top: 1px solid var(--glass-border);">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
               <div>
-                <strong>LeaderstatsManager.server.luau</strong>
-                <p>Creación automática de Monedas y Nivel en el leaderboard.</p>
+                <strong>Versión de Luau</strong>
+                <p style="font-size: 0.85rem; color: var(--text-secondary);">Sintaxis optimizada para Typed Luau</p>
               </div>
-              <button class="btn-primary btn-sm">Ver Script</button>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section class="view-panel" id="view-favorites">
-        <div class="panel-container">
-          <h2>Fragmentos Favoritos</h2>
-          <p class="panel-subtitle">Snippets de código guardados con estrella.</p>
-          <div class="glass-card">
-            <h3>⭐ Smooth Camera Controller</h3>
-            <p>Añade movimiento suave de cámara en primera/tercera persona.</p>
-          </div>
-        </div>
-      </section>
-
-      <section class="view-panel" id="view-error-fixer">
-        <div class="panel-container">
-          <h2>Roblox Output Error Fixer</h2>
-          <p class="panel-subtitle">Pega el mensaje o Stack Trace de la Output Window de Roblox Studio para depurarlo automáticamente.</p>
-          <div class="error-fixer-box glass-card">
-            <textarea id="error-input" class="error-textarea" placeholder="Ejemplo: ServerScriptService.Script:12: attempt to index nil with 'Parent'..."></textarea>
-            <button class="btn-primary" id="btn-fix-error">⚡ Analizar y Corregir Error</button>
-          </div>
-          <div id="error-solution" class="error-solution-area"></div>
-        </div>
-      </section>
-
-      <section class="view-panel" id="view-settings">
-        <div class="panel-container">
-          <h2>Configuración de NovaForge</h2>
-          <div class="settings-group glass-card">
-            <div class="setting-row">
-              <label>Versión de Luau Target</label>
-              <select class="custom-select"><option>Luau 5.1 (Roblox Native)</option></select>
-            </div>
-            <div class="setting-row">
-              <label>Estilo de Tipado</label>
-              <select class="custom-select"><option>Strict (--!strict)</option><option>Non-strict</option></select>
+              <span style="font-size: 0.85rem; color: #00e676; font-weight: 600;">Habilitado</span>
             </div>
           </div>
         </div>
