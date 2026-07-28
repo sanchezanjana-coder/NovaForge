@@ -3,52 +3,70 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ForgerNova - Plataforma Luau para Roblox</title>
+    <title>NovaForge | Your Intelligent Developer Assistant</title>
     <link rel="stylesheet" href="style.css?v=6.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
-<body class="dashboard-body">
+<body class="dark-theme">
 
     <!-- ========================================== -->
-    <!-- PANTALLA 1: LANDING PAGE (PORTADA)         -->
+    <!-- PANTALLA 1: LANDING PAGE MODERNA          -->
     <!-- ========================================== -->
     <div id="landing-screen" class="view-screen active">
-        <header class="landing-header">
-            <div class="logo-container">
-                <img src="logo.png" alt="ForgerNova Logo" class="custom-logo">
-                <h2>ForgerNova</h2>
+        <!-- BARRA DE NAVEGACIÓN PRINCIPAL -->
+        <header class="navbar-container">
+            <div class="navbar">
+                <div class="nav-brand">
+                    <img src="logo.png" alt="NovaForge Logo" class="custom-logo">
+                    <span>NovaForge</span>
+                </div>
+                
+                <nav class="nav-links">
+                    <a href="#hero">Home</a>
+                    <a href="#features">Features</a>
+                    <a href="#about">About</a>
+                    <a href="#code">Examples</a>
+                </nav>
+
+                <button class="btn-purple" id="btn-enter-app-top">
+                    Get Started
+                </button>
             </div>
-            <button class="btn-primary" id="btn-enter-app-top">
-                Probar ForgerNova <i class="fas fa-arrow-right"></i>
-            </button>
         </header>
 
-        <main class="landing-content">
+        <main class="landing-body">
             <!-- HERO SECTION -->
-            <section class="hero-section">
-                <h1>Potencia tus juegos de Roblox con IA</h1>
-                <p class="hero-subtitle">Genera código Luau, depura errores del Output al instante y accede a módulos listos para usar.</p>
-                <button class="btn-primary btn-large" id="btn-enter-app-hero">
-                    Probar ForgerNova <i class="fas fa-rocket"></i>
-                </button>
+            <section id="hero" class="hero-section">
+                <h1 class="hero-title">Build Roblox Games<br>Smarter with AI.</h1>
+                <p class="hero-description">
+                    NovaForge helps Roblox developers generate scripts, solve errors, learn Luau and create better games faster than ever.
+                </p>
+                <div class="hero-actions">
+                    <button class="btn-purple btn-large" id="btn-enter-app-hero">
+                        Get Started
+                    </button>
+                    <a href="#features" class="btn-outline btn-large">
+                        Learn More
+                    </a>
+                </div>
             </section>
 
-            <!-- CARACTERÍSTICAS -->
-            <section class="features-section">
-                <h2>¿Qué puedes hacer con ForgerNova?</h2>
-                <div class="features-grid">
-                    <div class="card feature-card">
-                        <i class="fas fa-robot feature-icon"></i>
+            <!-- CARACTERÍSTICAS / FEATURES -->
+            <section id="features" class="section-container">
+                <h2 class="section-title">¿Qué puedes hacer con NovaForge?</h2>
+                <div class="cards-grid">
+                    <div class="glass-card">
+                        <i class="fas fa-robot card-icon"></i>
                         <h3>Asistente IA</h3>
                         <p>Genera scripts limpios y optimizados para Roblox Studio a partir de texto.</p>
                     </div>
-                    <div class="card feature-card">
-                        <i class="fas fa-book feature-icon"></i>
+                    <div class="glass-card">
+                        <i class="fas fa-book card-icon"></i>
                         <h3>Librería Módulo</h3>
                         <p>Módulos de código, Leaderstats y mecánicas básicas listos para copiar y pegar.</p>
                     </div>
-                    <div class="card feature-card">
-                        <i class="fas fa-bug feature-icon"></i>
+                    <div class="glass-card">
+                        <i class="fas fa-bug card-icon"></i>
                         <h3>Error Fixer</h3>
                         <p>Pega los errores de la consola de Roblox y obtén soluciones explicadas.</p>
                     </div>
@@ -56,10 +74,10 @@
             </section>
 
             <!-- EJEMPLO DE CÓDIGO LUAU -->
-            <section class="code-preview-section">
-                <h2>Ejemplo de Código Luau</h2>
-                <p>Nuestra IA genera scripts adaptados a las mejores prácticas de Roblox:</p>
-                <div class="card code-card">
+            <section id="code" class="section-container">
+                <h2 class="section-title">Ejemplo de Código Luau</h2>
+                <p class="section-subtitle">Nuestra IA genera scripts adaptados a las mejores prácticas de Roblox:</p>
+                <div class="glass-card code-block">
                     <pre><code>-- Ejemplo: Sistema Leaderstats Base
 local Players = game:GetService("Players")
 
@@ -75,20 +93,28 @@ Players.PlayerAdded:Connect(function(player)
 end)</code></pre>
                 </div>
             </section>
+
+            <!-- ABOUT SECTION -->
+            <section id="about" class="section-container text-center">
+                <h2 class="section-title">Acerca de NovaForge</h2>
+                <p class="section-subtitle">
+                    Diseñado especialmente para creadores de Roblox Studio. Acelera tu flujo de trabajo, resuelve errores en segundos y concéntrate en diseñar la mejor experiencia de juego.
+                </p>
+            </section>
         </main>
     </div>
 
 
     <!-- ========================================== -->
-    <!-- PANTALLA 2: APP / DASHBOARD (HERRAMIENTAS) -->
+    <!-- PANTALLA 2: APP / DASHBOARD INTERACTIVO    -->
     <!-- ========================================== -->
     <div id="app-screen" class="view-screen hidden">
         <div class="app-layout">
             <!-- BARRA LATERAL (SIDEBAR) -->
             <aside class="sidebar">
                 <div class="sidebar-brand">
-                    <img src="logo.png" alt="ForgerNova Logo" class="custom-logo">
-                    <h2>ForgerNova</h2>
+                    <img src="logo.png" alt="NovaForge Logo" class="custom-logo">
+                    <h2>NovaForge</h2>
                 </div>
                 
                 <nav class="sidebar-nav">
@@ -107,14 +133,14 @@ end)</code></pre>
                 </nav>
 
                 <div class="sidebar-footer">
-                    <button class="btn-secondary" id="btn-back-home" style="width: 100%; margin-bottom: 10px;">
+                    <button class="btn-outline" id="btn-back-home" style="width: 100%; margin-bottom: 12px; padding: 8px;">
                         <i class="fas fa-home"></i> Volver a Inicio
                     </button>
-                    <span style="font-size: 0.8rem; color: var(--text-secondary);">v6.0 Estable</span>
+                    <span style="font-size: 0.8rem; color: #94a3b8;">v6.0 Estable</span>
                 </div>
             </aside>
 
-            <!-- CONTENIDO PRINCIPAL -->
+            <!-- CONTENIDO PRINCIPAL DEL DASHBOARD -->
             <main class="main-content">
                 
                 <!-- VISTA: CHAT IA -->
@@ -129,14 +155,14 @@ end)</code></pre>
                             <div class="message ai-message">
                                 <i class="fas fa-robot avatar"></i>
                                 <div class="message-content">
-                                    ¡Hola! Soy el asistente de ForgerNova. ¿Qué script o sistema necesitas crear hoy para tu juego?
+                                    ¡Hola! Soy el asistente de NovaForge. ¿Qué script o sistema necesitas crear hoy para tu juego?
                                 </div>
                             </div>
                         </div>
                         
                         <form class="chat-input-area" id="chat-form">
                             <input type="text" id="chat-input" placeholder="Ej: Hazme un script para un bloque que daña al tocarlo..." required autocomplete="off">
-                            <button type="submit" class="btn-primary">
+                            <button type="submit" class="btn-purple">
                                 <i class="fas fa-paper-plane"></i>
                             </button>
                         </form>
@@ -151,7 +177,7 @@ end)</code></pre>
                     </header>
 
                     <div class="library-grid">
-                        <div class="card">
+                        <div class="glass-card">
                             <h3>Leaderstats Base</h3>
                             <p>Sistema básico de guardado de datos y monedas para jugadores.</p>
                             <pre><code>local Players = game:GetService("Players")
@@ -166,10 +192,10 @@ Players.PlayerAdded:Connect(function(player)
     coins.Value = 0
     coins.Parent = leaderstats
 end)</code></pre>
-                            <button class="btn-secondary copy-btn"><i class="fas fa-copy"></i> Copiar Código</button>
+                            <button class="btn-outline copy-btn"><i class="fas fa-copy"></i> Copiar Código</button>
                         </div>
 
-                        <div class="card">
+                        <div class="glass-card">
                             <h3>Plataforma KillBlock</h3>
                             <p>Elimina al personaje de forma limpia al tocar la parte.</p>
                             <pre><code>local part = script.Parent
@@ -180,7 +206,7 @@ part.Touched:Connect(function(hit)
         humanoid.Health = 0
     end
 end)</code></pre>
-                            <button class="btn-secondary copy-btn"><i class="fas fa-copy"></i> Copiar Código</button>
+                            <button class="btn-outline copy-btn"><i class="fas fa-copy"></i> Copiar Código</button>
                         </div>
                     </div>
                 </section>
@@ -194,7 +220,7 @@ end)</code></pre>
 
                     <div class="fixer-container">
                         <textarea id="fixer-input" rows="6" placeholder="Ej: ServerScriptService.Script:5: attempt to index nil with 'Humanoid'"></textarea>
-                        <button id="fixer-submit" class="btn-primary">Analizar Error</button>
+                        <button id="fixer-submit" class="btn-purple">Analizar Error</button>
 
                         <div id="fixer-result" class="fixer-result-box hidden">
                             <h3><i class="fas fa-lightbulb"></i> Análisis y Solución</h3>
@@ -210,11 +236,11 @@ end)</code></pre>
                         <p>Ajustes de la herramienta y preferencias.</p>
                     </header>
                     
-                    <div class="settings-card card">
+                    <div class="glass-card">
                         <h3>Ajustes de Tema</h3>
                         <p>Selecciona tu modo de preferencia:</p>
-                        <button id="theme-toggle-btn" class="btn-secondary" style="margin-top: 10px;">
-                            <i class="fas fa-moon"></i> <span id="theme-btn-text">Cambiar a Modo Claro</span>
+                        <button id="theme-toggle-btn" class="btn-outline" style="margin-top: 12px;">
+                            <i class="fas fa-sun"></i> <span id="theme-btn-text">Cambiar Modo de Tema</span>
                         </button>
                     </div>
                 </section>
