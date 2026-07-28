@@ -4,13 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NovaForge | Your Intelligent Developer Assistant</title>
-    <link rel="stylesheet" href="style.css?v=7.0">
+    <link rel="stylesheet" href="style.css?v=8.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body class="dark-theme theme-purple">
 
-    <!-- PANTALLA 1: LANDING PAGE -->
+    <!-- ========================================== -->
+    <!-- PANTALLA 1: LANDING PAGE INTACTA          -->
+    <!-- ========================================== -->
     <div id="landing-screen" class="view-screen active">
+        
+        <!-- BARRA DE NAVEGACIÓN FLOTANTE -->
         <header class="navbar-container">
             <div class="navbar">
                 <div class="nav-brand">
@@ -28,6 +32,7 @@
         </header>
 
         <main class="landing-body">
+            <!-- HERO PRINCIPAL -->
             <section id="hero" class="hero-section">
                 <h1 class="hero-title">Build Roblox Games<br>Smarter with AI.</h1>
                 <p class="hero-description">
@@ -39,6 +44,7 @@
                 </div>
             </section>
 
+            <!-- CARACTERÍSTICAS -->
             <section id="features" class="section-container">
                 <h2 class="section-title">¿Qué puedes hacer con NovaForge?</h2>
                 <div class="cards-grid">
@@ -60,12 +66,12 @@
                 </div>
             </section>
 
+            <!-- EJEMPLO DE CÓDIGO -->
             <section id="code" class="section-container">
                 <h2 class="section-title">Ejemplo de Código Luau</h2>
                 <p class="section-subtitle">Nuestra IA genera scripts adaptados a las mejores prácticas de Roblox:</p>
-                <div class="glass-card code-block">
-                    <pre><code>-- Ejemplo: Sistema Leaderstats Base
-local Players = game:GetService("Players")
+                <div class="glass-card preview-code">
+                    <pre><code>local Players = game:GetService("Players")
 
 Players.PlayerAdded:Connect(function(player)
     local leaderstats = Instance.new("Folder")
@@ -80,6 +86,7 @@ end)</code></pre>
                 </div>
             </section>
 
+            <!-- ACERCA DE -->
             <section id="about" class="section-container text-center">
                 <h2 class="section-title">Acerca de NovaForge</h2>
                 <p class="section-subtitle">
@@ -89,7 +96,9 @@ end)</code></pre>
         </main>
     </div>
 
-    <!-- PANTALLA 2: DASHBOARD APP -->
+    <!-- ========================================== -->
+    <!-- PANTALLA 2: DASHBOARD / INTERFAZ APP       -->
+    <!-- ========================================== -->
     <div id="app-screen" class="view-screen hidden">
         <div class="app-layout">
             <aside class="sidebar">
@@ -117,7 +126,7 @@ end)</code></pre>
                     <button class="btn-outline" id="btn-back-home" style="width: 100%; margin-bottom: 12px; padding: 8px;">
                         <i class="fas fa-home"></i> Volver a Inicio
                     </button>
-                    <span style="font-size: 0.8rem; color: var(--text-secondary);">v7.0 Estético</span>
+                    <span style="font-size: 0.8rem; color: var(--text-secondary);">v8.0 Perfeccionado</span>
                 </div>
             </aside>
 
@@ -148,7 +157,7 @@ end)</code></pre>
                     </div>
                 </section>
 
-                <!-- VISTA: LIBRERÍA DE COMPONENTES -->
+                <!-- VISTA: LIBRERÍA -->
                 <section id="view-library" class="view-section">
                     <header class="view-header">
                         <h1>Librería de Componentes</h1>
@@ -160,8 +169,7 @@ end)</code></pre>
                             <div class="card-badge">DataStore</div>
                             <h3>Leaderstats Base</h3>
                             <p>Guarda monedas y datos esenciales del jugador al entrar.</p>
-                            <div class="code-box">
-                                <pre><code>local Players = game:GetService("Players")
+                            <pre><code>local Players = game:GetService("Players")
 
 Players.PlayerAdded:Connect(function(player)
     local leaderstats = Instance.new("Folder")
@@ -173,7 +181,6 @@ Players.PlayerAdded:Connect(function(player)
     coins.Value = 0
     coins.Parent = leaderstats
 end)</code></pre>
-                            </div>
                             <button class="btn-outline copy-btn"><i class="fas fa-copy"></i> Copiar Código</button>
                         </div>
 
@@ -181,8 +188,7 @@ end)</code></pre>
                             <div class="card-badge badge-red">Mecánica</div>
                             <h3>KillBlock (Lava)</h3>
                             <p>Elimina instantáneamente al personaje al tocar la parte.</p>
-                            <div class="code-box">
-                                <pre><code>local part = script.Parent
+                            <pre><code>local part = script.Parent
 
 part.Touched:Connect(function(hit)
     local humanoid = hit.Parent:FindFirstChildOfClass("Humanoid")
@@ -190,16 +196,14 @@ part.Touched:Connect(function(hit)
         humanoid.Health = 0
     end
 end)</code></pre>
-                            </div>
                             <button class="btn-outline copy-btn"><i class="fas fa-copy"></i> Copiar Código</button>
                         </div>
 
                         <div class="glass-card library-card">
                             <div class="card-badge badge-blue">Interactuable</div>
-                            <h3>Door Touch Open</h3>
-                            <p>Puerta que se vuelve transparente y no colisiona durante unos segundos.</p>
-                            <div class="code-box">
-                                <pre><code>local door = script.Parent
+                            <h3>Puerta Transparente</h3>
+                            <p>Permite el paso temporalmente al tocar el bloque.</p>
+                            <pre><code>local door = script.Parent
 local db = false
 
 door.Touched:Connect(function(hit)
@@ -213,16 +217,14 @@ door.Touched:Connect(function(hit)
         db = false
     end
 end)</code></pre>
-                            </div>
                             <button class="btn-outline copy-btn"><i class="fas fa-copy"></i> Copiar Código</button>
                         </div>
 
                         <div class="glass-card library-card">
                             <div class="card-badge badge-green">Movimiento</div>
-                            <h3>Speed Pad</h3>
-                            <p>Aumenta la velocidad del jugador temporalmente al pisar la parte.</p>
-                            <div class="code-box">
-                                <pre><code>local pad = script.Parent
+                            <h3>Propulsor de Velocidad</h3>
+                            <p>Duplica la velocidad de caminata al pisar la parte.</p>
+                            <pre><code>local pad = script.Parent
 
 pad.Touched:Connect(function(hit)
     local hum = hit.Parent:FindFirstChildOfClass("Humanoid")
@@ -232,7 +234,6 @@ pad.Touched:Connect(function(hit)
         hum.WalkSpeed = 16
     end
 end)</code></pre>
-                            </div>
                             <button class="btn-outline copy-btn"><i class="fas fa-copy"></i> Copiar Código</button>
                         </div>
                     </div>
@@ -242,17 +243,17 @@ end)</code></pre>
                 <section id="view-fixer" class="view-section">
                     <header class="view-header">
                         <h1>Depurador de Errores (Fixer)</h1>
-                        <p>Pega aquí el error del Output de Roblox Studio para encontrar la solución.</p>
+                        <p>Pega el error del Output de Roblox Studio para obtener la solución.</p>
                     </header>
 
                     <div class="fixer-container glass-card">
-                        <textarea id="fixer-input" rows="5" placeholder="Pega el mensaje del Output aquí... Ej: ServerScriptService.Script:5: attempt to index nil with 'Humanoid'"></textarea>
-                        <button id="fixer-submit" class="btn-purple"><i class="fas fa-wrench"></i> Analizar y Corregir</button>
+                        <textarea id="fixer-input" rows="5" placeholder="Pega el mensaje de error aquí... Ej: ServerScriptService.Script:5: attempt to index nil with 'Humanoid'"></textarea>
+                        <button id="fixer-submit" class="btn-purple" style="margin-top: 10px;">
+                            <i class="fas fa-wrench"></i> Analizar y Resolver
+                        </button>
 
                         <div id="fixer-result" class="fixer-result-box hidden">
-                            <div class="solution-header">
-                                <i class="fas fa-check-circle"></i> <span>Diagnóstico completado</span>
-                            </div>
+                            <h3 style="margin-bottom: 10px;"><i class="fas fa-check-circle" style="color: #10b981;"></i> Diagnóstico</h3>
                             <div id="fixer-content"></div>
                         </div>
                     </div>
@@ -262,37 +263,27 @@ end)</code></pre>
                 <section id="view-settings" class="view-section">
                     <header class="view-header">
                         <h1>Configuración y Personalización</h1>
-                        <p>Ajusta la apariencia visual del entorno de desarrollo a tu gusto.</p>
+                        <p>Ajusta el tema y la apariencia del panel.</p>
                     </header>
 
                     <div class="settings-grid">
-                        <div class="glass-card setting-box">
+                        <div class="glass-card">
                             <h3><i class="fas fa-adjust"></i> Modo de Tema</h3>
-                            <p>Alterna entre una apariencia clara u oscura.</p>
-                            <button id="theme-toggle-btn" class="btn-outline" style="margin-top: 10px;">
+                            <p style="color: var(--text-secondary); margin: 8px 0 15px 0;">Alterna entre modo oscuro y claro.</p>
+                            <button id="theme-toggle-btn" class="btn-outline">
                                 <i class="fas fa-sun"></i> <span id="theme-btn-text">Cambiar a Modo Claro</span>
                             </button>
                         </div>
 
-                        <div class="glass-card setting-box">
+                        <div class="glass-card">
                             <h3><i class="fas fa-palette"></i> Color de Acento</h3>
-                            <p>Elige el color principal de la interfaz:</p>
+                            <p style="color: var(--text-secondary); margin: 8px 0 12px 0;">Elige tu color preferido:</p>
                             <div class="color-options">
-                                <button class="color-btn purple active" data-color="purple" title="Morado Nova"></button>
-                                <button class="color-btn blue" data-color="blue" title="Azul Eléctrico"></button>
-                                <button class="color-btn green" data-color="green" title="Verde Neón"></button>
-                                <button class="color-btn orange" data-color="orange" title="Naranja Fuego"></button>
+                                <button class="color-btn purple active" data-color="purple" title="Morado"></button>
+                                <button class="color-btn blue" data-color="blue" title="Azul"></button>
+                                <button class="color-btn green" data-color="green" title="Verde"></button>
+                                <button class="color-btn orange" data-color="orange" title="Naranja"></button>
                             </div>
-                        </div>
-
-                        <div class="glass-card setting-box">
-                            <h3><i class="fas fa-font"></i> Estilo de Fuente del Código</h3>
-                            <p>Familia tipográfica para bloques de código:</p>
-                            <select id="font-select" class="custom-select">
-                                <option value="Fira Code, monospace">Fira Code (Recomendado)</option>
-                                <option value="Courier New, monospace">Courier New</option>
-                                <option value="Consolas, monospace">Consolas</option>
-                            </select>
                         </div>
                     </div>
                 </section>
@@ -301,6 +292,6 @@ end)</code></pre>
         </div>
     </div>
 
-    <script src="script.js?v=7.0"></script>
+    <script src="script.js?v=8.0"></script>
 </body>
 </html>
