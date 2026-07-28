@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
     
-    // NAVEGACIÓN ENTRE LANDING Y APP
+    // NAVEGACIÓN PORTADA -> APP
     const landingScreen = document.getElementById("landing-screen");
     const appScreen = document.getElementById("app-screen");
     const btnEnterTop = document.getElementById("btn-enter-app-top");
@@ -41,7 +41,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    // IA CHAT - GENERADOR REAL DE CÓDIGO LUAU
+    // CHAT IA - CÓDIGO REAL LUAU
     const chatForm = document.getElementById("chat-form");
     const chatInput = document.getElementById("chat-input");
     const chatMessages = document.getElementById("chat-messages");
@@ -56,59 +56,39 @@ document.addEventListener("DOMContentLoaded", () => {
             chatInput.value = "";
 
             setTimeout(() => {
-                const generatedCode = processAIQuery(query);
-                appendMessage("ai", generatedCode);
-            }, 600);
+                const response = processAIQuery(query);
+                appendMessage("ai", response);
+            }, 500);
         });
     }
 
     function processAIQuery(query) {
         const lower = query.toLowerCase();
         let code = "";
-        let explanation = "";
+        let text = "";
 
-        if (lower.includes("baje vida") || lower.includes("daño") || lower.includes("dañar") || lower.includes("quitar vida")) {
-            explanation = "Aquí tienes el script para un bloque de lava/daño en Roblox Studio:";
+        if (lower.includes("baje vida") || lower.includes("daño") || lower.includes("quitar vida")) {
+            text = "Aquí tienes el script para reducir la vida del jugador al tocar el bloque:";
             code = `local part = script.Parent
-local damageAmount = 20
+local damage = 20
 
 part.Touched:Connect(function(hit)
     local humanoid = hit.Parent:FindFirstChildOfClass("Humanoid")
     if humanoid then
-        humanoid.Health = humanoid.Health - damageAmount
+        humanoid.Health = humanoid.Health - damage
     end
-end)`;
-        } else if (lower.includes("monedas") || lower.includes("leaderstats") || lower.includes("puntos")) {
-            explanation = "Este es el script de Leaderstats para guardar puntos o monedas:";
-            code = `local Players = game:GetService("Players")
-
-Players.PlayerAdded:Connect(function(player)
-    local leaderstats = Instance.new("Folder")
-    leaderstats.Name = "leaderstats"
-    leaderstats.Parent = player
-
-    local coins = Instance.new("IntValue")
-    coins.Name = "Monedas"
-    coins.Value = 0
-    coins.Parent = leaderstats
 end)`;
         } else {
-            explanation = `Script generado para: "${query}"`;
-            code = `-- Script Luau Generado para Roblox Studio
-local Part = script.Parent
+            text = `Aquí tienes el script generado para: "${query}"`;
+            code = `-- Script generado para Roblox Studio
+local part = script.Parent
 
-local function onAction(otherPart)
-    local character = otherPart.Parent
-    local humanoid = character:FindFirstChildOfClass("Humanoid")
-    if humanoid then
-        print("Acción ejecutada correctamente en " .. character.Name)
-    end
-end
-
-Part.Touched:Connect(onAction)`;
+part.Touched:Connect(function(hit)
+    print("Objeto tocado por: " .. hit.Name)
+end)`;
         }
 
-        return `${explanation}<br><br><pre><code>${code}</code></pre><button class="btn-outline copy-btn"><i class="fas fa-copy"></i> Copiar Código</button>`;
+        return `${text}<br><br><pre><code>${code}</code></pre><button class="btn-outline copy-btn"><i class="fas fa-copy"></i> Copiar Código</button>`;
     }
 
     function appendMessage(sender, content) {
@@ -126,7 +106,7 @@ Part.Touched:Connect(onAction)`;
         bindCopyButtons();
     }
 
-    // ERROR FIXER - ANÁLISIS REAL DE ERRORES
+    // ERROR FIXER
     const fixerSubmit = document.getElementById("fixer-submit");
     const fixerInput = document.getElementById("fixer-input");
     const fixerResult = document.getElementById("fixer-result");
@@ -138,28 +118,22 @@ Part.Touched:Connect(onAction)`;
             if (!err) return;
 
             fixerResult.classList.remove("hidden");
-            
             if (err.includes("attempt to index nil with 'Humanoid'")) {
                 fixerContent.innerHTML = `
-                    <p><strong>Causa del error:</strong> Intentaste acceder a la propiedad <code>Humanoid</code> en un objeto que era <code>nil</code> (no existe).</p>
-                    <p><strong>Solución:</strong> Asegúrate de comprobar con <code>FindFirstChildOfClass</code> antes de intentar modificarlo:</p>
-                    <pre><code>local humanoid = hit.Parent:FindFirstChildOfClass("Humanoid")
-if humanoid then
-    humanoid.Health = humanoid.Health - 10
+                    <p><strong>Problema:</strong> Se intentó acceder a <code>Humanoid</code> cuando la parte tocada no pertenecía a un personaje.</p>
+                    <p style="margin-top:8px;"><strong>Solución:</strong> Comprueba la existencia antes de restar vida:</p>
+                    <pre><code>local hum = hit.Parent:FindFirstChildOfClass("Humanoid")
+if hum then
+    hum.Health = hum.Health - 10
 end</code></pre>`;
-            } else if (err.includes("Infinite yield possible")) {
-                fixerContent.innerHTML = `
-                    <p><strong>Causa del error:</strong> <code>WaitForChild()</code> está esperando un objeto que nunca aparece o el nombre está mal escrito.</p>
-                    <p><strong>Solución:</strong> Revisa las mayúsculas/minúsculas exactas del objeto en la ventana Explorer de Roblox Studio.</p>`;
             } else {
                 fixerContent.innerHTML = `
-                    <p><strong>Análisis General:</strong> Se ha detectado un problema sintáctico o de referencia nula.</p>
-                    <p><strong>Recomendación:</strong> Usa <code>print()</code> antes de la línea señalada para verificar que las variables no sean <code>nil</code> y asegúrate de cerrar todas tus funciones con <code>end</code>.</p>`;
+                    <p><strong>Sugerencia de depuración:</strong> Revisa que no tengas variables declaradas sin asignar (<code>nil</code>) o que las funciones contengan su respectivo <code>end</code>.</p>`;
             }
         });
     }
 
-    // COPIAR CÓDIGO
+    // BOTONES DE COPIAR
     function bindCopyButtons() {
         document.querySelectorAll(".copy-btn").forEach(btn => {
             btn.onclick = () => {
@@ -182,15 +156,13 @@ end</code></pre>`;
     if (themeBtn) {
         themeBtn.addEventListener("click", () => {
             document.body.classList.toggle("light-mode");
-            document.body.classList.toggle("dark-theme");
             const isLight = document.body.classList.contains("light-mode");
-
             themeBtnText.textContent = isLight ? "Cambiar a Modo Oscuro" : "Cambiar a Modo Claro";
             themeBtn.querySelector("i").className = isLight ? "fas fa-moon" : "fas fa-sun";
         });
     }
 
-    // CAMBIO DE COLORES DE ACENTO
+    // BOTONES DE COLOR
     const colorBtns = document.querySelectorAll(".color-btn");
     colorBtns.forEach(btn => {
         btn.addEventListener("click", () => {
@@ -202,12 +174,4 @@ end</code></pre>`;
             document.body.classList.add(`theme-${color}`);
         });
     });
-
-    // CAMBIO DE FUENTE DE CÓDIGO
-    const fontSelect = document.getElementById("font-select");
-    if (fontSelect) {
-        fontSelect.addEventListener("change", (e) => {
-            document.documentElement.style.setProperty('--code-font', e.target.value);
-        });
-    }
 });
