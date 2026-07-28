@@ -1,16 +1,11 @@
-// --- ESTADO Y COLECCIÓN DE SCRIPTS ---
-const state = {
-  currentView: 'chat',
-  activeCategory: 'all',
-  
-  // Scripts esenciales para la Librería
-  essentialLibrary: [
-    {
-      id: 'lib-1',
-      title: 'Shift to Sprint (Correr)',
-      category: 'Movimiento',
-      description: 'Aumenta la velocidad del jugador al mantener presionada la tecla Shift.',
-      code: `-- LocalScript: Shift to Sprint
+// DATOS DE EJEMPLO PARA LA LIBRERÍA
+const libraryData = [
+  {
+    id: 'lib-1',
+    title: 'Shift to Sprint (Correr)',
+    category: 'Movimiento',
+    desc: 'Aumenta la velocidad del jugador al mantener pulsado LeftShift.',
+    code: `-- LocalScript: Shift to Sprint
 local UserInputService = game:GetService("UserInputService")
 local Players = game:GetService("Players")
 
@@ -18,64 +13,28 @@ local player = Players.LocalPlayer
 local character = player.Character or player.CharacterAdded:Wait()
 local humanoid = character:WaitForChild("Humanoid")
 
-local NORMAL_SPEED = 16
-local SPRINT_SPEED = 28
-
-UserInputService.InputBegan:Connect(function(input, gameProcessed)
-    if gameProcessed then return end
+UserInputService.InputBegan:Connect(function(input, gpe)
+    if gpe then return end
     if input.KeyCode == Enum.KeyCode.LeftShift then
-        humanoid.WalkSpeed = SPRINT_SPEED
+        humanoid.WalkSpeed = 28
     end
 end)
 
 UserInputService.InputEnded:Connect(function(input)
     if input.KeyCode == Enum.KeyCode.LeftShift then
-        humanoid.WalkSpeed = NORMAL_SPEED
+        humanoid.WalkSpeed = 16
     end
 end)`
-    },
-    {
-      id: 'lib-2',
-      title: 'Doble Salto (Double Jump)',
-      category: 'Movimiento',
-      description: 'Permite al personaje realizar un segundo salto en el aire.',
-      code: `-- LocalScript: Double Jump
-local UserInputService = game:GetService("UserInputService")
+  },
+  {
+    id: 'lib-2',
+    title: 'Leaderstats & Coins Base',
+    category: 'Databases',
+    desc: 'Crea el marcador global de monedas al unirse un jugador.',
+    code: `-- ServerScript: Leaderstats
 local Players = game:GetService("Players")
 
-local player = Players.LocalPlayer
-local character = player.Character or player.CharacterAdded:Wait()
-local humanoid = character:WaitForChild("Humanoid")
-
-local canDoubleJump = false
-local hasDoubleJumped = false
-
-humanoid.StateChanged:Connect(function(_, newState)
-    if newState == Enum.HumanoidStateType.Landed then
-        canDoubleJump = false
-        hasDoubleJumped = false
-    elseif newState == Enum.HumanoidStateType.Freefall then
-        task.wait(0.1)
-        canDoubleJump = true
-    end
-end)
-
-UserInputService.JumpRequest:Connect(function()
-    if canDoubleJump and not hasDoubleJumped then
-        hasDoubleJumped = true
-        humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
-    end
-end)`
-    },
-    {
-      id: 'lib-3',
-      title: 'Leaderstats & Coins Setup',
-      category: 'Databases',
-      description: 'Crea el marcador de monedas y nivel en el leaderboard global.',
-      code: `-- ServerScript: Leaderstats Base
-local Players = game:GetService("Players")
-
-local function onPlayerAdded(player)
+Players.PlayerAdded:Connect(function(player)
     local leaderstats = Instance.new("Folder")
     leaderstats.Name = "leaderstats"
     leaderstats.Parent = player
@@ -84,317 +43,146 @@ local function onPlayerAdded(player)
     coins.Name = "Coins"
     coins.Value = 100
     coins.Parent = leaderstats
+end)`
+  }
+];
 
-    local level = Instance.new("IntValue")
-    level.Name = "Level"
-    level.Value = 1
-    level.Parent = leaderstats
-end
+const savedScripts = [
+  {
+    title: 'UI_OnPlayerJoin.client.luau',
+    desc: 'Gestor de interfaz de bienvenida al jugador.',
+    code: `-- LocalScript: Inicio\nprint("Jugador conectado con éxito")`
+  }
+];
 
-Players.PlayerAdded:Connect(onPlayerAdded)`
-    }
-  ],
-
-  savedScripts: [
-    {
-      id: 'script-1',
-      title: 'UI_OnPlayerJoin.client.luau',
-      description: 'Maneja la transición de la pantalla de carga al unirse un jugador.',
-      code: `-- LocalScript: Interfaz al unirse
-local Players = game:GetService("Players")
-local localPlayer = Players.LocalPlayer
-
-print("Pantalla de inicio cargada correctamente para: " .. localPlayer.Name)`
-    }
-  ]
-};
-
-// --- INICIALIZACIÓN ---
 document.addEventListener('DOMContentLoaded', () => {
-  initNavigation();
-  initErrorFixer();
-  initLibrary();
-  initScriptManager();
-  initChat();
-});
 
-// --- NAVEGACIÓN ---
-function initNavigation() {
-  const toolItems = document.querySelectorAll('.tool-item');
-  const viewPanels = document.querySelectorAll('.view-panel');
-  const viewTitle = document.getElementById('current-view-title');
+  // NAVEGACIÓN EN LA SIDEBAR (DASHBOARD)
+  const tools = document.querySelectorAll('.tool-item');
+  const panels = document.querySelectorAll('.view-panel');
+  const titleHeader = document.getElementById('current-view-title');
 
-  toolItems.forEach(item => {
-    item.addEventListener('click', () => {
-      const targetView = item.getAttribute('data-view');
-      
-      toolItems.forEach(i => i.classList.remove('active'));
-      item.classList.add('active');
-
-      viewPanels.forEach(panel => {
-        panel.classList.remove('active');
-        if (panel.id === `view-${targetView}`) {
-          panel.classList.add('active');
+  if (tools.length > 0) {
+    tools.forEach(btn => {
+      btn.addEventListener('click', () => {
+        tools.forEach(t => t.classList.remove('active'));
+        btn.classList.add('active');
+        
+        const target = btn.getAttribute('data-view');
+        panels.forEach(p => {
+          p.classList.remove('active');
+          if (p.id === `view-${target}`) p.classList.add('active');
+        });
+        
+        if (titleHeader) {
+          titleHeader.textContent = `${btn.textContent.trim()} (ForgerNova Engine)`;
         }
       });
-
-      state.currentView = targetView;
-      const titleText = item.querySelector('span').innerText;
-      if (viewTitle) viewTitle.innerText = `${titleText} (ForgerNova Engine)`;
     });
-  });
-}
-
-// --- SEGURIDAD: FUNCIÓN PARA ESCAPAR TEXTO PLANO (PREVENIR XSS) ---
-function escapeHTML(str) {
-  const div = document.createElement('div');
-  div.textContent = str;
-  return div.innerHTML;
-}
-
-// --- NOTIFICACIONES TOAST ---
-function showToast(message) {
-  let toast = document.getElementById('fn-toast');
-  if (!toast) {
-    toast = document.createElement('div');
-    toast.id = 'fn-toast';
-    toast.style.cssText = `
-      position: fixed; bottom: 20px; right: 20px;
-      background: linear-gradient(135deg, #7b3cff, #c43cff); color: #fff;
-      padding: 12px 20px; border-radius: 8px; font-size: 0.9rem;
-      font-weight: 600; box-shadow: 0 4px 15px rgba(123,60,255,0.4);
-      z-index: 9999; transition: opacity 0.3s ease;
-    `;
-    document.body.appendChild(toast);
   }
-  toast.innerText = message;
-  toast.style.opacity = '1';
-  setTimeout(() => { toast.style.opacity = '0'; }, 2500);
-}
 
-// --- LIBRERÍA DE COMPONENTES ---
-function initLibrary() {
-  renderLibraryGrid();
-  createScriptModal();
-
-  const categoryBtns = document.querySelectorAll('.category-btn');
-  categoryBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      categoryBtns.forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      state.activeCategory = btn.getAttribute('data-category');
-      renderLibraryGrid();
-    });
-  });
-}
-
-function renderLibraryGrid() {
-  const grid = document.getElementById('library-grid');
-  if (!grid) return;
-
-  grid.innerHTML = '';
-
-  const filteredScripts = state.activeCategory === 'all' 
-    ? state.essentialLibrary 
-    : state.essentialLibrary.filter(s => s.category === state.activeCategory);
-
-  filteredScripts.forEach(script => {
-    const card = document.createElement('div');
-    card.className = 'glass-card';
-    card.style.cssText = 'display: flex; flex-direction: column; justify-content: space-between; gap: 10px;';
-    
-    card.innerHTML = `
-      <div>
-        <span style="font-size: 0.7rem; background: rgba(123,60,255,0.2); border: 1px solid var(--glass-border); padding: 2px 8px; border-radius: 4px; color: #c43cff;">${escapeHTML(script.category)}</span>
-        <h3 style="margin-top: 8px; font-size: 1.1rem; color: #fff;">${escapeHTML(script.title)}</h3>
-        <p style="color: var(--text-secondary); font-size: 0.85rem; margin-top: 6px;">${escapeHTML(script.description)}</p>
-      </div>
-      <div style="display: flex; gap: 8px; margin-top: 10px;">
-        <button class="btn-primary btn-sm" style="flex: 1;" onclick="openScriptModal('${script.id}', 'library')">Ver Script</button>
-        <button class="btn-secondary btn-sm" onclick="copyScriptCode('${script.id}', 'library')" title="Copiar Rápido">📋 Copiar</button>
-      </div>
-    `;
-    grid.appendChild(card);
-  });
-}
-
-// --- GESTOR DE SCRIPTS ---
-function initScriptManager() {
-  renderScriptsList();
-}
-
-function renderScriptsList() {
-  const container = document.querySelector('.scripts-list');
-  if (!container) return;
-
-  container.innerHTML = '';
-  state.savedScripts.forEach(script => {
-    const card = document.createElement('div');
-    card.className = 'glass-card script-item';
-    card.style.cssText = 'display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; border: 1px solid var(--glass-border); padding: 15px; border-radius: 8px;';
-    card.innerHTML = `
-      <div>
-        <strong style="color: #fff; font-size: 1rem;">${escapeHTML(script.title)}</strong>
-        <p style="color: var(--text-secondary); font-size: 0.85rem; margin-top: 4px;">${escapeHTML(script.description)}</p>
-      </div>
-      <button class="btn-primary btn-sm" onclick="openScriptModal('${script.id}', 'saved')">Ver Script</button>
-    `;
-    container.appendChild(card);
-  });
-}
-
-// --- MODAL PARA VISUALIZAR SCRIPTS ---
-function createScriptModal() {
-  if (document.getElementById('script-modal')) return;
-
-  const modal = document.createElement('div');
-  modal.id = 'script-modal';
-  modal.style.cssText = `
-    display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-    background: rgba(0,0,0,0.8); backdrop-filter: blur(8px); z-index: 2000;
-    align-items: center; justify-content: center;
-  `;
-
-  modal.innerHTML = `
-    <div class="glass-card" style="width: 90%; max-width: 700px; max-height: 85vh; display: flex; flex-direction: column; background: #0f0a1c; border: 1px solid var(--glass-border); padding: 20px; border-radius: 12px;">
-      <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--glass-border); padding-bottom: 12px; margin-bottom: 12px;">
-        <h3 id="modal-title" style="color: #fff;"></h3>
-        <button class="btn-icon" onclick="closeScriptModal()" style="background:none; border:none; color:#fff; cursor:pointer; font-size:1.2rem;">✕</button>
-      </div>
-      <pre style="flex: 1; overflow-y: auto; background: #06040a; padding: 15px; border-radius: 8px; font-family: var(--font-mono); color: #00e676; font-size: 0.85rem; margin-bottom: 15px;"><code id="modal-code"></code></pre>
-      <div style="display: flex; gap: 10px; justify-content: flex-end;">
-        <button class="btn-secondary" id="btn-copy-modal">📋 Copiar Código</button>
-        <button class="btn-primary" id="btn-download-modal">📥 Descargar .luau</button>
-      </div>
-    </div>
-  `;
-  document.body.appendChild(modal);
-}
-
-window.openScriptModal = function(scriptId, source) {
-  const collection = source === 'library' ? state.essentialLibrary : state.savedScripts;
-  const script = collection.find(s => s.id === scriptId);
-  if (!script) return;
-
-  document.getElementById('modal-title').textContent = script.title;
-  document.getElementById('modal-code').textContent = script.code;
-  
-  document.getElementById('script-modal').style.display = 'flex';
-
-  document.getElementById('btn-copy-modal').onclick = () => {
-    navigator.clipboard.writeText(script.code);
-    showToast('📋 ¡Script copiado al portapapeles!');
-  };
-
-  document.getElementById('btn-download-modal').onclick = () => {
-    const blob = new Blob([script.code], { type: 'text/plain' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = script.title.includes('.luau') ? script.title : `${script.title.replace(/\s+/g, '_')}.luau`;
-    a.click();
-    URL.revokeObjectURL(url);
-  };
-};
-
-window.copyScriptCode = function(scriptId, source) {
-  const collection = source === 'library' ? state.essentialLibrary : state.savedScripts;
-  const script = collection.find(s => s.id === scriptId);
-  if (script) {
-    navigator.clipboard.writeText(script.code);
-    showToast('📋 ¡Código copiado!');
-  }
-};
-
-window.closeScriptModal = function() {
-  document.getElementById('script-modal').style.display = 'none';
-};
-
-// --- CHAT INTERACTIVO (CON INSERCIÓN SEGURA PREVINIENDO XSS) ---
-function initChat() {
+  // ENVÍO DE MENSAJES EN EL CHAT (PROTEGIDO)
   const btnSend = document.getElementById('btn-send-message');
-  const input = document.getElementById('chat-input');
-  const messagesScroll = document.getElementById('chat-messages');
+  const inputChat = document.getElementById('chat-input');
+  const messagesBox = document.getElementById('chat-messages');
 
-  if (btnSend && input && messagesScroll) {
-    const sendMessage = () => {
-      const text = input.value.trim();
-      if (!text) return;
+  function handleSend() {
+    if (!inputChat) return;
+    const text = inputChat.value.trim();
+    if (!text) return;
 
-      // Mensaje Usuario - Seguro usando textContent
-      const userMsg = document.createElement('div');
-      userMsg.className = 'message-card user-message';
-      userMsg.style.cssText = 'background: rgba(123,60,255,0.15); margin-bottom: 15px; padding: 12px; border-radius: 8px; align-self: flex-end;';
+    // Crear mensaje del usuario
+    const uCard = document.createElement('div');
+    uCard.className = 'message-card';
+    uCard.style.background = 'rgba(123, 60, 255, 0.2)';
+    uCard.style.alignSelf = 'flex-end';
+    
+    const uTitle = document.createElement('strong');
+    uTitle.textContent = 'Tú';
+    const uText = document.createElement('p');
+    uText.style.marginTop = '4px';
+    uText.textContent = text; // Previene XSS
+    
+    uCard.appendChild(uTitle);
+    uCard.appendChild(uText);
+    messagesBox.appendChild(uCard);
+
+    inputChat.value = '';
+    messagesBox.scrollTop = messagesBox.scrollHeight;
+
+    // Respuesta IA
+    setTimeout(() => {
+      const aiCard = document.createElement('div');
+      aiCard.className = 'message-card';
       
-      const userHeader = document.createElement('strong');
-      userHeader.textContent = 'Tú';
-      
-      const userBody = document.createElement('p');
-      userBody.style.cssText = 'margin-top: 4px; color: #fff;';
-      userBody.textContent = text; // ESTO EVITA CUALQUIER ATAQUE XSS
+      const aiTitle = document.createElement('strong');
+      aiTitle.textContent = 'ForgerNova AI';
+      const aiText = document.createElement('p');
+      aiText.style.marginTop = '4px';
+      aiText.textContent = 'Procesando tu solicitud en Luau... ¿Necesitas este código en un ServerScript o LocalScript?';
 
-      userMsg.appendChild(userHeader);
-      userMsg.appendChild(userBody);
-      messagesScroll.appendChild(userMsg);
+      aiCard.appendChild(aiTitle);
+      aiCard.appendChild(aiText);
+      messagesBox.appendChild(aiCard);
+      messagesBox.scrollTop = messagesBox.scrollHeight;
+    }, 700);
+  }
 
-      input.value = '';
-      messagesScroll.scrollTop = messagesScroll.scrollHeight;
+  if (btnSend) btnSend.addEventListener('click', handleSend);
 
-      // Respuesta temporal antes de conectar el backend
-      setTimeout(() => {
-        const aiMsg = document.createElement('div');
-        aiMsg.className = 'message-card ai-message';
-        aiMsg.style.cssText = 'background: rgba(255,255,255,0.05); margin-bottom: 15px; padding: 12px; border-radius: 8px;';
-        
-        const aiHeader = document.createElement('strong');
-        aiHeader.textContent = 'ForgerNova AI';
-        
-        const aiBody = document.createElement('p');
-        aiBody.style.cssText = 'margin-top: 4px; color: #fff;';
-        aiBody.textContent = 'Procesando tu solicitud para Luau en Roblox Studio...';
-
-        aiMsg.appendChild(aiHeader);
-        aiMsg.appendChild(aiBody);
-        messagesScroll.appendChild(aiMsg);
-        messagesScroll.scrollTop = messagesScroll.scrollHeight;
-      }, 800);
-    };
-
-    btnSend.addEventListener('click', sendMessage);
-    input.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter' && !e.shiftKey) {
-        e.preventDefault();
-        sendMessage();
-      }
+  // RENDER LIBRERÍA
+  const libGrid = document.getElementById('library-grid');
+  if (libGrid) {
+    libraryData.forEach(item => {
+      const card = document.createElement('div');
+      card.className = 'glass-card';
+      card.innerHTML = `
+        <span style="font-size:0.75rem; color:var(--accent-pink);">${item.category}</span>
+        <h3 style="margin:5px 0;">${item.title}</h3>
+        <p style="font-size:0.85rem; color:var(--text-secondary); margin-bottom:12px;">${item.desc}</p>
+        <button class="btn-primary" style="width:100%;" onclick="copySnippet(\`${item.code.replace(/`/g, '\\`')}\`)">📋 Copiar Script</button>
+      `;
+      libGrid.appendChild(card);
     });
   }
-}
 
-// --- ERROR FIXER LOGIC ---
-function initErrorFixer() {
+  // RENDER SCRIPTS GUARDADOS
+  const savedContainer = document.getElementById('saved-scripts-list');
+  if (savedContainer) {
+    savedScripts.forEach(s => {
+      const card = document.createElement('div');
+      card.className = 'glass-card';
+      card.style.display = 'flex';
+      card.style.justifyContent = 'space-between';
+      card.style.alignItems = 'center';
+      card.innerHTML = `
+        <div>
+          <strong>${s.title}</strong>
+          <p style="font-size:0.85rem; color:var(--text-secondary);">${s.desc}</p>
+        </div>
+        <button class="btn-secondary" onclick="copySnippet(\`${s.code}\`)">📋 Copiar</button>
+      `;
+      savedContainer.appendChild(card);
+    });
+  }
+
+  // ERROR FIXER
   const btnFix = document.getElementById('btn-fix-error');
-  const input = document.getElementById('error-input');
-  const solutionArea = document.getElementById('error-solution');
-
-  if (btnFix && input && solutionArea) {
+  if (btnFix) {
     btnFix.addEventListener('click', () => {
-      const text = input.value.trim();
-      if (!text) {
-        showToast('⚠️ Por favor pega un mensaje de error primero.');
-        return;
-      }
-
-      solutionArea.innerHTML = `
-        <div class="glass-card" style="margin-top: 15px; border-color: #00e676; padding: 15px; border-radius: 8px; background: rgba(0,230,118,0.05);">
-          <h4 style="color: #00e676; margin-bottom: 8px;">✔ Análisis Finalizado</h4>
-          <p style="color: var(--text-primary); font-size: 0.9rem;">Se analizó el error en tu script Luau. La causa probable es una llamada/indexación inválida o la falta de espera por un objeto no replicado.</p>
-          <pre style="background: #06040a; padding: 10px; border-radius: 6px; margin-top: 10px; font-family: var(--font-mono); color: #00e676; font-size: 0.85rem;"><code>-- Solución Sugerida
-local element = parent:WaitForChild("TargetName", 5)
-if element then
-    -- Operación segura
-end</code></pre>
+      const txt = document.getElementById('error-input').value.trim();
+      if(!txt) return;
+      document.getElementById('error-solution').innerHTML = `
+        <div class="glass-card" style="border-color:#00e676; margin-top:10px;">
+          <h4 style="color:#00e676;">✔ Solución Sugerida</h4>
+          <p style="font-size:0.85rem; margin-top:5px;">Asegúrate de utilizar <code>WaitForChild</code> para objetos que cargan de forma asíncrona en el cliente.</p>
         </div>
       `;
     });
   }
+});
+
+function copySnippet(code) {
+  navigator.clipboard.writeText(code);
+  alert('📋 ¡Script copiado al portapapeles!');
 }
