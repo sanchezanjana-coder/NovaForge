@@ -1,435 +1,562 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NovaForge - Dashboard & Asistente IA</title>
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    
-    <style>
-        /* === ESTILOS GLOBALES Y VARIABLES === */
-        :root {
-            --bg-dark: #0B0E14;
-            --panel-bg: #121824;
-            --panel-border: #1E2638;
-            --accent-purple: #7C3AED;
-            --accent-purple-hover: #6D28D9;
-            --accent-glow: rgba(124, 58, 237, 0.25);
-            --text-main: #F3F4F6;
-            --text-muted: #9CA3AF;
-            --code-bg: #0A0D12;
-            --success-color: #10B981;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ForgerNova - Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --bg-dark: #090514;
+      --panel-bg: rgba(255, 255, 255, 0.03);
+      --glass-border: rgba(255, 255, 255, 0.08);
+      --accent-purple: #7b3cff;
+      --accent-pink: #c43cff;
+      --accent-gradient: linear-gradient(135deg, #7b3cff, #c43cff);
+      --text-primary: #ffffff;
+      --text-secondary: #9a95b0;
+      --code-bg: #05030a;
+      --font-main: 'Inter', system-ui, sans-serif;
+      --font-mono: 'Fira Code', monospace;
+      --sidebar-width: 260px;
+    }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Inter', sans-serif;
-        }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
 
-        body {
-            background-color: var(--bg-dark);
-            color: var(--text-main);
-            display: flex;
-            flex-direction: column;
-            height: 100vh;
-            overflow: hidden;
-        }
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-primary);
+      font-family: var(--font-main);
+      height: 100vh;
+      overflow: hidden;
+    }
 
-        /* === HEADER === */
-        header {
-            background-color: var(--panel-bg);
-            border-bottom: 1px solid var(--panel-border);
-            padding: 12px 24px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            height: 64px;
-        }
+    .app-layout {
+      display: flex;
+      width: 100vw;
+      height: 100vh;
+    }
 
-        .brand {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
+    /* SIDEBAR */
+    .sidebar {
+      width: var(--sidebar-width);
+      background: rgba(15, 10, 28, 0.95);
+      border-right: 1px solid var(--glass-border);
+      display: flex;
+      flex-direction: column;
+      padding: 20px;
+      gap: 20px;
+      flex-shrink: 0;
+    }
 
-        /* Control estricto del tamaño del logo */
-        .brand-logo {
-            width: 38px !important;
-            height: 38px !important;
-            max-width: 38px !important;
-            max-height: 38px !important;
-            object-fit: contain;
-            border-radius: 8px;
-        }
+    .sidebar-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
 
-        .brand-title {
-            font-size: 1.25rem;
-            font-weight: 700;
-            letter-spacing: -0.5px;
-            background: linear-gradient(135deg, #FFF 0%, #A7F3D0 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
+    .brand-logo {
+      width: 38px !important;
+      height: 38px !important;
+      object-fit: contain;
+      border-radius: 8px;
+    }
 
-        .engine-tag {
-            font-size: 0.75rem;
-            background: var(--accent-glow);
-            color: #C4B5FD;
-            border: 1px solid var(--accent-purple);
-            padding: 2px 8px;
-            border-radius: 12px;
-            font-family: 'Fira Code', monospace;
-        }
+    .brand-title {
+      font-weight: 700;
+      font-size: 1.2rem;
+      background: var(--accent-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
 
-        /* === LAYOUT PRINCIPAL === */
-        .main-container {
-            display: flex;
-            flex: 1;
-            height: calc(100vh - 64px);
-            overflow: hidden;
-        }
+    .btn-new-chat {
+      background: var(--accent-gradient);
+      border: none;
+      color: #fff;
+      padding: 10px;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
 
-        /* COLUMNA IZQUIERDA: ASISTENTE IA */
-        .ai-sidebar {
-            width: 380px;
-            background-color: var(--panel-bg);
-            border-right: 1px solid var(--panel-border);
-            display: flex;
-            flex-direction: column;
-        }
+    .nav-section {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
 
-        .ai-header {
-            padding: 16px;
-            border-bottom: 1px solid var(--panel-border);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
+    .nav-label {
+      font-size: 0.7rem;
+      color: var(--text-secondary);
+      font-weight: 700;
+      margin-bottom: 6px;
+      letter-spacing: 0.5px;
+    }
 
-        .ai-header h2 {
-            font-size: 1rem;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
+    .tool-item {
+      background: transparent;
+      border: none;
+      color: var(--text-secondary);
+      padding: 10px 12px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      width: 100%;
+      text-align: left;
+    }
 
-        .chat-messages {
-            flex: 1;
-            padding: 16px;
-            overflow-y: auto;
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
+    .tool-item:hover { background: rgba(255, 255, 255, 0.05); color: #fff; }
 
-        .message {
-            padding: 12px;
-            border-radius: 8px;
-            font-size: 0.9rem;
-            line-height: 1.5;
-        }
+    .tool-item.active {
+      background: rgba(123, 60, 255, 0.15);
+      color: var(--accent-pink);
+      border: 1px solid rgba(196, 60, 255, 0.3);
+    }
 
-        .message.bot {
-            background-color: #1A2234;
-            border: 1px solid var(--panel-border);
-            color: var(--text-main);
-        }
+    .user-profile {
+      margin-top: auto;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding-top: 15px;
+      border-top: 1px solid var(--glass-border);
+    }
 
-        .chat-input-area {
-            padding: 16px;
-            border-top: 1px solid var(--panel-border);
-            display: flex;
-            gap: 8px;
-        }
+    .avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--accent-gradient);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 0.85rem;
+    }
 
-        .chat-input-area input {
-            flex: 1;
-            background-color: var(--bg-dark);
-            border: 1px solid var(--panel-border);
-            padding: 10px 14px;
-            border-radius: 6px;
-            color: var(--text-main);
-            outline: none;
-            font-size: 0.9rem;
-        }
+    /* MAIN CONTENT */
+    .main-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
 
-        .chat-input-area input:focus {
-            border-color: var(--accent-purple);
-        }
+    .top-header {
+      height: 60px;
+      border-bottom: 1px solid var(--glass-border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 25px;
+    }
 
-        .btn-send {
-            background-color: var(--accent-purple);
-            color: white;
-            border: none;
-            padding: 10px 16px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: background 0.2s;
-        }
+    .status-badge {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.9rem;
+    }
 
-        .btn-send:hover {
-            background-color: var(--accent-purple-hover);
-        }
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      background: #00e676;
+      border-radius: 50%;
+      box-shadow: 0 0 10px #00e676;
+    }
 
-        /* COLUMNA DERECHA: LIBRERÍA DE SCRIPTS */
-        .content-area {
-            flex: 1;
-            padding: 24px;
-            overflow-y: auto;
-            background-color: var(--bg-dark);
-        }
+    .view-panel {
+      display: none;
+      flex: 1;
+      overflow-y: auto;
+      padding: 25px;
+    }
 
-        .section-title {
-            font-size: 1.5rem;
-            font-weight: 700;
-            margin-bottom: 8px;
-        }
+    .view-panel.active {
+      display: flex;
+      flex-direction: column;
+    }
 
-        .section-subtitle {
-            color: var(--text-muted);
-            font-size: 0.95rem;
-            margin-bottom: 20px;
-        }
+    .panel-container {
+      max-width: 1000px;
+      width: 100%;
+      margin: 0 auto;
+    }
 
-        .filter-tags {
-            display: flex;
-            gap: 8px;
-            margin-bottom: 24px;
-            flex-wrap: wrap;
-        }
+    .glass-card {
+      background: var(--panel-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 15px;
+    }
 
-        .tag-btn {
-            background-color: var(--panel-bg);
-            border: 1px solid var(--panel-border);
-            color: var(--text-muted);
-            padding: 6px 14px;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
+    /* CHAT */
+    .chat-container {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      max-width: 900px;
+      margin: 0 auto;
+      width: 100%;
+    }
 
-        .tag-btn.active, .tag-btn:hover {
-            background-color: var(--accent-purple);
-            color: white;
-            border-color: var(--accent-purple);
-        }
+    .messages-scroll {
+      flex: 1;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      padding-bottom: 20px;
+    }
 
-        /* CARDS DE COMPONENTES */
-        .components-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-            gap: 20px;
-        }
+    .message-card {
+      background: var(--panel-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: 10px;
+      padding: 15px;
+    }
 
-        .card {
-            background-color: var(--panel-bg);
-            border: 1px solid var(--panel-border);
-            border-radius: 10px;
-            padding: 18px;
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            transition: transform 0.2s, border-color 0.2s;
-        }
+    .chat-input-wrapper {
+      display: flex;
+      gap: 10px;
+      background: rgba(15, 10, 28, 0.8);
+      border: 1px solid var(--glass-border);
+      border-radius: 10px;
+      padding: 10px;
+    }
 
-        .card:hover {
-            transform: translateY(-2px);
-            border-color: var(--accent-purple);
-        }
+    .chat-input-wrapper textarea {
+      flex: 1;
+      background: transparent;
+      border: none;
+      color: #fff;
+      font-family: inherit;
+      resize: none;
+      outline: none;
+    }
 
-        .card-category {
-            font-size: 0.75rem;
-            color: #C4B5FD;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            font-weight: 600;
-        }
+    .btn-primary {
+      background: var(--accent-gradient);
+      border: none;
+      color: #fff;
+      padding: 8px 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 600;
+    }
 
-        .card-title {
-            font-size: 1.1rem;
-            font-weight: 600;
-        }
+    .btn-secondary {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid var(--glass-border);
+      color: #fff;
+      padding: 8px 16px;
+      border-radius: 6px;
+      cursor: pointer;
+    }
 
-        .card-desc {
-            font-size: 0.875rem;
-            color: var(--text-muted);
-            line-height: 1.4;
-        }
-
-        .card-actions {
-            display: flex;
-            gap: 8px;
-            margin-top: auto;
-        }
-
-        .btn-action {
-            flex: 1;
-            background-color: var(--bg-dark);
-            border: 1px solid var(--panel-border);
-            color: var(--text-main);
-            padding: 8px 12px;
-            border-radius: 6px;
-            font-size: 0.85rem;
-            cursor: pointer;
-            font-weight: 500;
-            text-align: center;
-            transition: background 0.2s;
-        }
-
-        .btn-action:hover {
-            background-color: var(--panel-border);
-        }
-
-        .btn-action.copy {
-            background-color: rgba(16, 185, 129, 0.1);
-            color: var(--success-color);
-            border-color: rgba(16, 185, 129, 0.3);
-        }
-
-        .btn-action.copy:hover {
-            background-color: rgba(16, 185, 129, 0.2);
-        }
-    </style>
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 15px;
+    }
+  </style>
 </head>
 <body>
 
-    <!-- NAVEGACIÓN Y HEADER -->
-    <header>
-        <div class="brand">
-            <img src="logo.png" alt="NovaForge Logo" class="brand-logo">
-            <span class="brand-title">NovaForge</span>
-            <span class="engine-tag">Roblox Studio 5.1</span>
+  <div class="app-layout">
+    
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <img src="logo.png" alt="ForgerNova Logo" class="brand-logo">
+        <span class="brand-title">ForgerNova</span>
+      </div>
+
+      <button class="btn-new-chat" id="btn-new-chat">
+        <span>+ Nuevo Chat</span>
+      </button>
+
+      <div class="nav-section">
+        <span class="nav-label">HERRAMIENTAS</span>
+        <button class="tool-item active" data-view="chat">🤖 Asistente IA</button>
+        <button class="tool-item" data-view="library">📚 Library</button>
+        <button class="tool-item" data-view="scripts">💻 Scripts</button>
+        <button class="tool-item" data-view="favorites">⭐ Favorites</button>
+        <button class="tool-item" data-view="error-fixer">⚠️ Error Fixer</button>
+        <button class="tool-item" data-view="settings">⚙️ Settings</button>
+      </div>
+
+      <div class="user-profile">
+        <div class="avatar">FN</div>
+        <div>
+          <div style="font-size:0.85rem; font-weight:600;">Roblox Developer</div>
+          <div style="font-size:0.75rem; color:var(--accent-pink);">Pro Plan</div>
         </div>
-    </header>
+      </div>
+    </aside>
 
-    <!-- CONTENEDOR PRINCIPAL -->
-    <div class="main-container">
+    <!-- MAIN CONTENT -->
+    <main class="main-content">
+      <header class="top-header">
+        <div class="status-badge">
+          <span class="status-dot"></span>
+          <span id="current-view-title">Asistente IA (ForgerNova Engine)</span>
+        </div>
+        <span style="font-size: 0.8rem; color: var(--text-secondary);">Roblox Studio 5.1</span>
+      </header>
+
+      <!-- 1. VISTA CHAT -->
+      <section class="view-panel active" id="view-chat">
+        <div class="chat-container">
+          <div class="messages-scroll" id="chat-messages">
+            <div class="message-card">
+              <strong>ForgerNova AI</strong>
+              <p style="margin-top:6px;">¡Hola! Soy tu asistente especializado en Luau para Roblox Studio. ¿En qué script o sistema trabajaremos hoy?</p>
+            </div>
+          </div>
+          <div class="chat-input-wrapper">
+            <textarea id="chat-input" placeholder="Pide un script (ej: Sistema de Shift para correr)..." rows="1"></textarea>
+            <button class="btn-primary" id="btn-send-message">Enviar</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- 2. VISTA LIBRARY -->
+      <section class="view-panel" id="view-library">
+        <div class="panel-container">
+          <h2>Librería de Componentes Esenciales</h2>
+          <p style="color:var(--text-secondary); margin-bottom:20px;">Snippets Luau de uso frecuente para tu juego.</p>
+          <div class="cards-grid" id="library-grid"></div>
+        </div>
+      </section>
+
+      <!-- 3. VISTA SCRIPTS -->
+      <section class="view-panel" id="view-scripts">
+        <div class="panel-container">
+          <h2>Gestor de Scripts Guardados</h2>
+          <p style="color:var(--text-secondary); margin-bottom:20px;">Tus scripts guardados localmente.</p>
+          <div id="saved-scripts-list"></div>
+        </div>
+      </section>
+
+      <!-- 4. VISTA FAVORITES -->
+      <section class="view-panel" id="view-favorites">
+        <div class="panel-container">
+          <h2>Mis Favoritos</h2>
+          <div class="glass-card"><p style="color:var(--text-secondary);">Aún no has añadido elementos a favoritos.</p></div>
+        </div>
+      </section>
+
+      <!-- 5. VISTA ERROR FIXER -->
+      <section class="view-panel" id="view-error-fixer">
+        <div class="panel-container">
+          <h2>Error Fixer (Luau Debugger)</h2>
+          <p style="color:var(--text-secondary); margin-bottom:15px;">Pega el error del Output de Roblox Studio:</p>
+          <div class="glass-card">
+            <textarea id="error-input" placeholder="ServerScriptService.Script:5: attempt to index nil with..." rows="3" style="width:100%; background:var(--code-bg); border:1px solid var(--glass-border); color:#fff; padding:10px; border-radius:6px; resize:none; font-family:var(--font-mono);"></textarea>
+            <button class="btn-primary" id="btn-fix-error" style="margin-top:10px;">Depurar Error</button>
+          </div>
+          <div id="error-solution"></div>
+        </div>
+      </section>
+
+      <!-- 6. VISTA SETTINGS -->
+      <section class="view-panel" id="view-settings">
+        <div class="panel-container">
+          <h2>Configuración</h2>
+          <div class="glass-card"><p>Versión de Luau: <strong>Typed Luau 5.1 (Optimizado)</strong></p></div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <script>
+    // ESTADO
+    const libraryData = [
+      {
+        id: 'lib-1',
+        title: 'Shift to Sprint (Correr)',
+        category: 'Movimiento',
+        desc: 'Aumenta la velocidad al pulsar LeftShift.',
+        code: `-- LocalScript: Shift to Sprint
+local UserInputService = game:GetService("UserInputService")
+local Players = game:GetService("Players")
+
+local player = Players.LocalPlayer
+local character = player.Character or player.CharacterAdded:Wait()
+local humanoid = character:WaitForChild("Humanoid")
+
+UserInputService.InputBegan:Connect(function(input, gpe)
+    if gpe then return end
+    if input.KeyCode == Enum.KeyCode.LeftShift then
+        humanoid.WalkSpeed = 28
+    end
+end)
+
+UserInputService.InputEnded:Connect(function(input)
+    if input.KeyCode == Enum.KeyCode.LeftShift then
+        humanoid.WalkSpeed = 16
+    end
+end)`
+      },
+      {
+        id: 'lib-2',
+        title: 'Leaderstats & Coins',
+        category: 'Databases',
+        desc: 'Crea el marcador de monedas en el juego.',
+        code: `-- ServerScript: Leaderstats
+local Players = game:GetService("Players")
+
+Players.PlayerAdded:Connect(function(player)
+    local leaderstats = Instance.new("Folder")
+    leaderstats.Name = "leaderstats"
+    leaderstats.Parent = player
+
+    local coins = Instance.new("IntValue")
+    coins.Name = "Coins"
+    coins.Value = 100
+    coins.Parent = leaderstats
+end)`
+      }
+    ];
+
+    const savedScripts = [
+      {
+        title: 'UI_OnPlayerJoin.client.luau',
+        desc: 'Maneja la pantalla de inicio del jugador.',
+        code: `-- LocalScript: Pantalla de Inicio
+print("Jugador conectado con éxito")`
+      }
+    ];
+
+    // NAVEGACIÓN
+    const tools = document.querySelectorAll('.tool-item');
+    const panels = document.querySelectorAll('.view-panel');
+    const titleHeader = document.getElementById('current-view-title');
+
+    tools.forEach(btn => {
+      btn.addEventListener('click', () => {
+        tools.forEach(t => t.classList.remove('active'));
+        btn.classList.add('active');
         
-        <!-- SIDEBAR IZQUIERDA: ASISTENTE IA -->
-        <aside class="ai-sidebar">
-            <div class="ai-header">
-                <h2>🤖 ForgerNova AI</h2>
-            </div>
-            <div class="chat-messages" id="chatMessages">
-                <div class="message bot">
-                    ¡Hola! Soy tu asistente especializado en Luau y desarrollo para Roblox Studio. ¿En qué script o sistema trabajaremos hoy?
-                </div>
-            </div>
-            <div class="chat-input-area">
-                <input type="text" id="userInput" placeholder="Escribe un mensaje o pregunta sobre Luau..." onkeydown="if(event.key==='Enter') sendMessage()">
-                <button class="btn-send" onclick="sendMessage()">Enviar</button>
-            </div>
-        </aside>
+        const target = btn.getAttribute('data-view');
+        panels.forEach(p => {
+          p.classList.remove('active');
+          if (p.id === `view-${target}`) p.classList.add('active');
+        });
+        
+        titleHeader.textContent = `${btn.textContent.trim()} (ForgerNova Engine)`;
+      });
+    });
 
-        <!-- ÁREA DERECHA: LIBRERÍA DE COMPONENTES -->
-        <main class="content-area">
-            <h1 class="section-title">Librería de Componentes Esenciales</h1>
-            <p class="section-subtitle">Snippets y módulos Luau de uso frecuente para acelerar tu desarrollo en Roblox Studio.</p>
+    // CHAT (PROTEGIDO CONTRA XSS)
+    const btnSend = document.getElementById('btn-send-message');
+    const inputChat = document.getElementById('chat-input');
+    const messagesBox = document.getElementById('chat-messages');
 
-            <!-- FILTROS -->
-            <div class="filter-tags">
-                <button class="tag-btn active">Todos</button>
-                <button class="tag-btn">Movimiento & Cámara</button>
-                <button class="tag-btn">DataStores</button>
-                <button class="tag-btn">UI & Interacción</button>
-                <button class="tag-btn">Gameplay Base</button>
-            </div>
+    btnSend.addEventListener('click', () => {
+      const text = inputChat.value.trim();
+      if (!text) return;
 
-            <!-- GRID DE SCRIPTS -->
-            <div class="components-grid">
-                
-                <!-- CARD 1 -->
-                <div class="card">
-                    <span class="card-category">Movimiento</span>
-                    <h3 class="card-title">Sprint System (Shift para correr)</h3>
-                    <p class="card-desc">Aumenta la velocidad del jugador al mantener presionada la tecla Shift con transición suave.</p>
-                    <div class="card-actions">
-                        <button class="btn-action">Ver Script</button>
-                        <button class="btn-action copy" onclick="copyCode(this, 'sprint')">Copiar Script</button>
-                    </div>
-                </div>
+      // Mensaje Usuario
+      const uCard = document.createElement('div');
+      uCard.className = 'message-card';
+      uCard.style.background = 'rgba(123, 60, 255, 0.2)';
+      uCard.style.alignSelf = 'flex-end';
+      
+      const uTitle = document.createElement('strong');
+      uTitle.textContent = 'Tú';
+      const uText = document.createElement('p');
+      uText.style.marginTop = '4px';
+      uText.textContent = text; // SEGURIDAD XSS
+      
+      uCard.appendChild(uTitle);
+      uCard.appendChild(uText);
+      messagesBox.appendChild(uCard);
 
-                <!-- CARD 2 -->
-                <div class="card">
-                    <span class="card-category">Movimiento</span>
-                    <h3 class="card-title">Double Jump (Doble Salto)</h3>
-                    <p class="card-desc">Permite al personaje realizar un segundo salto en el aire utilizando HumanoidStateType.</p>
-                    <div class="card-actions">
-                        <button class="btn-action">Ver Script</button>
-                        <button class="btn-action copy" onclick="copyCode(this, 'doublejump')">Copiar Script</button>
-                    </div>
-                </div>
+      inputChat.value = '';
+      messagesBox.scrollTop = messagesBox.scrollHeight;
 
-                <!-- CARD 3 -->
-                <div class="card">
-                    <span class="card-category">Databases</span>
-                    <h3 class="card-title">Leaderstats Base</h3>
-                    <p class="card-desc">Crea el marcador de monedas y nivel en el leaderboard global del juego al unirse un jugador.</p>
-                    <div class="card-actions">
-                        <button class="btn-action">Ver Script</button>
-                        <button class="btn-action copy" onclick="copyCode(this, 'leaderstats')">Copiar Script</button>
-                    </div>
-                </div>
+      // Respuesta IA
+      setTimeout(() => {
+        const aiCard = document.createElement('div');
+        aiCard.className = 'message-card';
+        
+        const aiTitle = document.createElement('strong');
+        aiTitle.textContent = 'ForgerNova AI';
+        const aiText = document.createElement('p');
+        aiText.style.marginTop = '4px';
+        aiText.textContent = 'Procesando tu consulta en Luau... ¿Necesitas este script como ServerScript o LocalScript?';
 
-            </div>
-        </main>
-    </div>
+        aiCard.appendChild(aiTitle);
+        aiCard.appendChild(aiText);
+        messagesBox.appendChild(aiCard);
+        messagesBox.scrollTop = messagesBox.scrollHeight;
+      }, 700);
+    });
 
-    <!-- SCRIPTS JS DE INTERACCIÓN -->
-    <script>
-        function sendMessage() {
-            const input = document.getElementById('userInput');
-            const messageText = input.value.trim();
-            if (messageText === '') return;
+    // RENDER LIBRARY
+    const libGrid = document.getElementById('library-grid');
+    libraryData.forEach(item => {
+      const card = document.createElement('div');
+      card.className = 'glass-card';
+      card.innerHTML = `
+        <span style="font-size:0.75rem; color:var(--accent-pink);">${item.category}</span>
+        <h3 style="margin:5px 0;">${item.title}</h3>
+        <p style="font-size:0.85rem; color:var(--text-secondary); margin-bottom:12px;">${item.desc}</p>
+        <button class="btn-primary" style="width:100%;" onclick="copySnippet(\`${item.code.replace(/`/g, '\\`')}\`)">📋 Copiar Script</button>
+      `;
+      libGrid.appendChild(card);
+    });
 
-            const chatMessages = document.getElementById('chatMessages');
+    // RENDER SAVED SCRIPTS
+    const savedContainer = document.getElementById('saved-scripts-list');
+    savedScripts.forEach(s => {
+      const card = document.createElement('div');
+      card.className = 'glass-card';
+      card.style.display = 'flex';
+      card.style.justifyContent = 'space-between';
+      card.style.alignItems = 'center';
+      card.innerHTML = `
+        <div>
+          <strong>${s.title}</strong>
+          <p style="font-size:0.85rem; color:var(--text-secondary);">${s.desc}</p>
+        </div>
+        <button class="btn-secondary" onclick="copySnippet(\`${s.code}\`)">📋 Copiar</button>
+      `;
+      savedContainer.appendChild(card);
+    });
 
-            // Mensaje usuario
-            const userMsg = document.createElement('div');
-            userMsg.className = 'message user';
-            userMsg.style.backgroundColor = 'var(--accent-purple)';
-            userMsg.style.color = 'white';
-            userMsg.style.alignSelf = 'flex-end';
-            userMsg.style.borderRadius = '8px';
-            userMsg.style.padding = '12px';
-            userMsg.innerText = messageText;
-            chatMessages.appendChild(userMsg);
+    // ERROR FIXER
+    document.getElementById('btn-fix-error').addEventListener('click', () => {
+      const txt = document.getElementById('error-input').value.trim();
+      if(!txt) return;
+      document.getElementById('error-solution').innerHTML = `
+        <div class="glass-card" style="border-color:#00e676; margin-top:10px;">
+          <h4 style="color:#00e676;">✔ Solución Sugerida</h4>
+          <p style="font-size:0.85rem; margin-top:5px;">Asegúrate de usar <code>WaitForChild</code> para objetos que pueden tardar en cargar en el cliente.</p>
+        </div>
+      `;
+    });
 
-            input.value = '';
-            chatMessages.scrollTop = chatMessages.scrollHeight;
-
-            // Respuesta automática simulada
-            setTimeout(() => {
-                const botMsg = document.createElement('div');
-                botMsg.className = 'message bot';
-                botMsg.innerText = 'Procesando tu solicitud en Luau... ¿Necesitas este código en un Script de Servidor o en un LocalScript?';
-                chatMessages.appendChild(botMsg);
-                chatMessages.scrollTop = chatMessages.scrollHeight;
-            }, 800);
-        }
-
-        function copyCode(btn, scriptType) {
-            let code = "";
-            if(scriptType === 'sprint') {
-                code = `-- LocalScript en StarterPlayerScripts\nconst UserInputService = game:GetService("UserInputService")\nconst Players = game:GetService("Players")\nconst player = Players.LocalPlayer\nconst character = player.Character or player.CharacterAdded:Wait()\nconst humanoid = character:WaitForChild("Humanoid")\n\nUserInputService.InputBegan:Connect(function(input, gpe)\n\tif gpe then return end\n\tif input.KeyCode == Enum.KeyCode.LeftShift then\n\t\thumanoid.WalkSpeed = 24\n\tend\nend)\n\nUserInputService.InputEnded:Connect(function(input)\n\tif input.KeyCode == Enum.KeyCode.LeftShift then\n\t\thumanoid.WalkSpeed = 16\n\tend\nend)`;
-            } else {
-                code = `-- Script de ejemplo Luau\nprint("Script copiado correctamente")`;
-            }
-
-            navigator.clipboard.writeText(code).then(() => {
-                const originalText = btn.innerText;
-                btn.innerText = "¡Copiado! ✓";
-                setTimeout(() => btn.innerText = originalText, 2000);
-            });
-        }
-    </script>
+    function copySnippet(code) {
+      navigator.clipboard.writeText(code);
+      alert('📋 ¡Script copiado al portapapeles!');
+    }
+  </script>
 </body>
 </html>
