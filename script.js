@@ -135,3 +135,51 @@ main()</code></pre>
 
     bindCopyButtons();
 });
+// ==========================================
+// TRANSICIÓN ENTRE INICIO Y DASHBOARD
+// ==========================================
+const landingScreen = document.getElementById("landing-screen");
+const appScreen = document.getElementById("app-screen");
+
+const btnEnterTop = document.getElementById("btn-enter-app-top");
+const btnEnterHero = document.getElementById("btn-enter-app-hero");
+const btnBackHome = document.getElementById("btn-back-home");
+
+function goToApp() {
+    landingScreen.classList.add("hidden");
+    landingScreen.classList.remove("active");
+    appScreen.classList.remove("hidden");
+    appScreen.classList.add("active");
+}
+
+function goToLanding() {
+    appScreen.classList.add("hidden");
+    appScreen.classList.remove("active");
+    landingScreen.classList.remove("hidden");
+    landingScreen.classList.add("active");
+}
+
+if (btnEnterTop) btnEnterTop.addEventListener("click", goToApp);
+if (btnEnterHero) btnEnterHero.addEventListener("click", goToApp);
+if (btnBackHome) btnBackHome.addEventListener("click", goToLanding);
+
+// ==========================================
+// CAMBIO DE TEMA: MODOS OSCURO / CLARO
+// ==========================================
+const themeBtn = document.getElementById("theme-toggle-btn");
+const themeBtnText = document.getElementById("theme-btn-text");
+
+if (themeBtn) {
+    themeBtn.addEventListener("click", () => {
+        document.body.classList.toggle("light-mode");
+        const isLight = document.body.classList.contains("light-mode");
+        
+        if (isLight) {
+            themeBtnText.textContent = "Cambiar a Modo Oscuro";
+            themeBtn.querySelector("i").className = "fas fa-sun";
+        } else {
+            themeBtnText.textContent = "Cambiar a Modo Claro";
+            themeBtn.querySelector("i").className = "fas fa-moon";
+        }
+    });
+}
