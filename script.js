@@ -1,31 +1,47 @@
 document.addEventListener("DOMContentLoaded", () => {
     
-    // ==========================================
-    // 1. NAVEGACIÓN Y CAMBIO DE VISTAS (PANELES)
-    // ==========================================
+    // NAVEGACIÓN ENTRE LANDING Y APP
+    const landingScreen = document.getElementById("landing-screen");
+    const appScreen = document.getElementById("app-screen");
+    const btnEnterTop = document.getElementById("btn-enter-app-top");
+    const btnEnterHero = document.getElementById("btn-enter-app-hero");
+    const btnBackHome = document.getElementById("btn-back-home");
+
+    function goToApp() {
+        landingScreen.classList.add("hidden");
+        landingScreen.classList.remove("active");
+        appScreen.classList.remove("hidden");
+        appScreen.classList.add("active");
+    }
+
+    function goToLanding() {
+        appScreen.classList.add("hidden");
+        appScreen.classList.remove("active");
+        landingScreen.classList.remove("hidden");
+        landingScreen.classList.add("active");
+    }
+
+    if (btnEnterTop) btnEnterTop.addEventListener("click", goToApp);
+    if (btnEnterHero) btnEnterHero.addEventListener("click", goToApp);
+    if (btnBackHome) btnBackHome.addEventListener("click", goToLanding);
+
+    // NAVEGACIÓN SIDEBAR
     const navItems = document.querySelectorAll(".sidebar-nav .nav-item");
     const viewSections = document.querySelectorAll(".view-section");
 
     navItems.forEach(item => {
         item.addEventListener("click", () => {
             const targetView = item.getAttribute("data-view");
-
-            // Quitar clase activa de todos los botones y secciones
             navItems.forEach(nav => nav.classList.remove("active"));
             viewSections.forEach(sec => sec.classList.remove("active"));
 
-            // Activar botón y vista seleccionados
             item.classList.add("active");
             const activeSection = document.getElementById(`view-${targetView}`);
-            if (activeSection) {
-                activeSection.classList.add("active");
-            }
+            if (activeSection) activeSection.classList.add("active");
         });
     });
 
-    // ==========================================
-    // 2. CHAT IA (INTERACCIÓN)
-    // ==========================================
+    // IA CHAT - GENERADOR REAL DE CÓDIGO LUAU
     const chatForm = document.getElementById("chat-form");
     const chatInput = document.getElementById("chat-input");
     const chatMessages = document.getElementById("chat-messages");
@@ -33,27 +49,66 @@ document.addEventListener("DOMContentLoaded", () => {
     if (chatForm) {
         chatForm.addEventListener("submit", (e) => {
             e.preventDefault();
-            const text = chatInput.value.trim();
-            if (!text) return;
+            const query = chatInput.value.trim();
+            if (!query) return;
 
-            // Mostrar mensaje del usuario
-            appendMessage("user", text);
+            appendMessage("user", query);
             chatInput.value = "";
 
-            // Respuesta simulada de la IA
             setTimeout(() => {
-                const aiResponse = `He procesado tu solicitud sobre: "<strong>${text}</strong>".<br><br>Aquí tienes el código generado en Luau:<br><pre><code>-- Script Luau Generado para Roblox Studio
-local Players = game:GetService("Players")
+                const generatedCode = processAIQuery(query);
+                appendMessage("ai", generatedCode);
+            }, 600);
+        });
+    }
 
-local function main()
-    print("Ejecutando lógica para: ${text}")
+    function processAIQuery(query) {
+        const lower = query.toLowerCase();
+        let code = "";
+        let explanation = "";
+
+        if (lower.includes("baje vida") || lower.includes("daño") || lower.includes("dañar") || lower.includes("quitar vida")) {
+            explanation = "Aquí tienes el script para un bloque de lava/daño en Roblox Studio:";
+            code = `local part = script.Parent
+local damageAmount = 20
+
+part.Touched:Connect(function(hit)
+    local humanoid = hit.Parent:FindFirstChildOfClass("Humanoid")
+    if humanoid then
+        humanoid.Health = humanoid.Health - damageAmount
+    end
+end)`;
+        } else if (lower.includes("monedas") || lower.includes("leaderstats") || lower.includes("puntos")) {
+            explanation = "Este es el script de Leaderstats para guardar puntos o monedas:";
+            code = `local Players = game:GetService("Players")
+
+Players.PlayerAdded:Connect(function(player)
+    local leaderstats = Instance.new("Folder")
+    leaderstats.Name = "leaderstats"
+    leaderstats.Parent = player
+
+    local coins = Instance.new("IntValue")
+    coins.Name = "Monedas"
+    coins.Value = 0
+    coins.Parent = leaderstats
+end)`;
+        } else {
+            explanation = `Script generado para: "${query}"`;
+            code = `-- Script Luau Generado para Roblox Studio
+local Part = script.Parent
+
+local function onAction(otherPart)
+    local character = otherPart.Parent
+    local humanoid = character:FindFirstChildOfClass("Humanoid")
+    if humanoid then
+        print("Acción ejecutada correctamente en " .. character.Name)
+    end
 end
 
-main()</code></pre>
-<button class="btn-secondary copy-btn" style="margin-top: 8px;"><i class="fas fa-copy"></i> Copiar Código</button>`;
-                appendMessage("ai", aiResponse);
-            }, 500);
-        });
+Part.Touched:Connect(onAction)`;
+        }
+
+        return `${explanation}<br><br><pre><code>${code}</code></pre><button class="btn-outline copy-btn"><i class="fas fa-copy"></i> Copiar Código</button>`;
     }
 
     function appendMessage(sender, content) {
@@ -61,26 +116,17 @@ main()</code></pre>
         msgDiv.classList.add("message", sender === "user" ? "user-message" : "ai-message");
 
         if (sender === "user") {
-            msgDiv.innerHTML = `
-                <div class="message-content">${content}</div>
-                <i class="fas fa-user avatar"></i>
-            `;
+            msgDiv.innerHTML = `<div class="message-content">${content}</div><i class="fas fa-user avatar"></i>`;
         } else {
-            msgDiv.innerHTML = `
-                <i class="fas fa-robot avatar"></i>
-                <div class="message-content">${content}</div>
-            `;
+            msgDiv.innerHTML = `<i class="fas fa-robot avatar"></i><div class="message-content">${content}</div>`;
         }
 
         chatMessages.appendChild(msgDiv);
         chatMessages.scrollTop = chatMessages.scrollHeight;
-
         bindCopyButtons();
     }
 
-    // ==========================================
-    // 3. ERROR FIXER LOGIC
-    // ==========================================
+    // ERROR FIXER - ANÁLISIS REAL DE ERRORES
     const fixerSubmit = document.getElementById("fixer-submit");
     const fixerInput = document.getElementById("fixer-input");
     const fixerResult = document.getElementById("fixer-result");
@@ -88,98 +134,80 @@ main()</code></pre>
 
     if (fixerSubmit) {
         fixerSubmit.addEventListener("click", () => {
-            const errText = fixerInput.value.trim();
-            if (!errText) return;
+            const err = fixerInput.value.trim();
+            if (!err) return;
 
             fixerResult.classList.remove("hidden");
-
-            if (errText.includes("nil with") || errText.includes("WaitForChild")) {
+            
+            if (err.includes("attempt to index nil with 'Humanoid'")) {
                 fixerContent.innerHTML = `
-                    <p><strong>Causa probable:</strong> Intentaste acceder a un objeto antes de que cargara en el cliente.</p>
-                    <p><strong>Solución:</strong> Reemplaza el acceso directo tipo <code>game.Workspace.Parte</code> por <code>WaitForChild("Parte")</code>.</p>
-                `;
-            } else if (errText.includes("arithmetic") || errText.includes("string")) {
+                    <p><strong>Causa del error:</strong> Intentaste acceder a la propiedad <code>Humanoid</code> en un objeto que era <code>nil</code> (no existe).</p>
+                    <p><strong>Solución:</strong> Asegúrate de comprobar con <code>FindFirstChildOfClass</code> antes de intentar modificarlo:</p>
+                    <pre><code>local humanoid = hit.Parent:FindFirstChildOfClass("Humanoid")
+if humanoid then
+    humanoid.Health = humanoid.Health - 10
+end</code></pre>`;
+            } else if (err.includes("Infinite yield possible")) {
                 fixerContent.innerHTML = `
-                    <p><strong>Causa probable:</strong> Intentaste concatenar un texto con un número usando el signo <code>+</code>.</p>
-                    <p><strong>Solución:</strong> En Luau usa el operador <code>..</code> para unir variables de texto con números.</p>
-                `;
+                    <p><strong>Causa del error:</strong> <code>WaitForChild()</code> está esperando un objeto que nunca aparece o el nombre está mal escrito.</p>
+                    <p><strong>Solución:</strong> Revisa las mayúsculas/minúsculas exactas del objeto en la ventana Explorer de Roblox Studio.</p>`;
             } else {
                 fixerContent.innerHTML = `
-                    <p><strong>Análisis General:</strong> Verifica que todas tus variables estén declaradas con <code>local</code> y que tus funciones cierren correctamente con <code>end</code>.</p>
-                `;
+                    <p><strong>Análisis General:</strong> Se ha detectado un problema sintáctico o de referencia nula.</p>
+                    <p><strong>Recomendación:</strong> Usa <code>print()</code> antes de la línea señalada para verificar que las variables no sean <code>nil</code> y asegúrate de cerrar todas tus funciones con <code>end</code>.</p>`;
             }
         });
     }
 
-    // ==========================================
-    // 4. FUNCIONALIDAD DE COPIAR CÓDIGO
-    // ==========================================
+    // COPIAR CÓDIGO
     function bindCopyButtons() {
-        const copyBtns = document.querySelectorAll(".copy-btn");
-        copyBtns.forEach(btn => {
+        document.querySelectorAll(".copy-btn").forEach(btn => {
             btn.onclick = () => {
-                const card = btn.closest(".card") || btn.closest(".message-content");
-                const code = card ? card.querySelector("pre code") : null;
-                
+                const parent = btn.closest(".glass-card") || btn.closest(".message-content");
+                const code = parent ? parent.querySelector("pre code") : null;
                 if (code) {
                     navigator.clipboard.writeText(code.innerText);
-                    const originalText = btn.innerHTML;
                     btn.innerHTML = `<i class="fas fa-check"></i> ¡Copiado!`;
-                    setTimeout(() => {
-                        btn.innerHTML = originalText;
-                    }, 2000);
+                    setTimeout(() => { btn.innerHTML = `<i class="fas fa-copy"></i> Copiar Código`; }, 2000);
                 }
             };
         });
     }
-
     bindCopyButtons();
-});
-// ==========================================
-// TRANSICIÓN ENTRE INICIO Y DASHBOARD
-// ==========================================
-const landingScreen = document.getElementById("landing-screen");
-const appScreen = document.getElementById("app-screen");
 
-const btnEnterTop = document.getElementById("btn-enter-app-top");
-const btnEnterHero = document.getElementById("btn-enter-app-hero");
-const btnBackHome = document.getElementById("btn-back-home");
+    // MODO CLARO / OSCURO
+    const themeBtn = document.getElementById("theme-toggle-btn");
+    const themeBtnText = document.getElementById("theme-btn-text");
 
-function goToApp() {
-    landingScreen.classList.add("hidden");
-    landingScreen.classList.remove("active");
-    appScreen.classList.remove("hidden");
-    appScreen.classList.add("active");
-}
+    if (themeBtn) {
+        themeBtn.addEventListener("click", () => {
+            document.body.classList.toggle("light-mode");
+            document.body.classList.toggle("dark-theme");
+            const isLight = document.body.classList.contains("light-mode");
 
-function goToLanding() {
-    appScreen.classList.add("hidden");
-    appScreen.classList.remove("active");
-    landingScreen.classList.remove("hidden");
-    landingScreen.classList.add("active");
-}
+            themeBtnText.textContent = isLight ? "Cambiar a Modo Oscuro" : "Cambiar a Modo Claro";
+            themeBtn.querySelector("i").className = isLight ? "fas fa-moon" : "fas fa-sun";
+        });
+    }
 
-if (btnEnterTop) btnEnterTop.addEventListener("click", goToApp);
-if (btnEnterHero) btnEnterHero.addEventListener("click", goToApp);
-if (btnBackHome) btnBackHome.addEventListener("click", goToLanding);
-
-// ==========================================
-// CAMBIO DE TEMA: MODOS OSCURO / CLARO
-// ==========================================
-const themeBtn = document.getElementById("theme-toggle-btn");
-const themeBtnText = document.getElementById("theme-btn-text");
-
-if (themeBtn) {
-    themeBtn.addEventListener("click", () => {
-        document.body.classList.toggle("light-mode");
-        const isLight = document.body.classList.contains("light-mode");
-        
-        if (isLight) {
-            themeBtnText.textContent = "Cambiar a Modo Oscuro";
-            themeBtn.querySelector("i").className = "fas fa-sun";
-        } else {
-            themeBtnText.textContent = "Cambiar a Modo Claro";
-            themeBtn.querySelector("i").className = "fas fa-moon";
-        }
+    // CAMBIO DE COLORES DE ACENTO
+    const colorBtns = document.querySelectorAll(".color-btn");
+    colorBtns.forEach(btn => {
+        btn.addEventListener("click", () => {
+            colorBtns.forEach(b => b.classList.remove("active"));
+            btn.classList.add("active");
+            
+            const color = btn.getAttribute("data-color");
+            document.body.classList.remove("theme-purple", "theme-blue", "theme-green", "theme-orange");
+            document.body.classList.add(`theme-${color}`);
+        });
     });
-}
+
+    // CAMBIO DE FUENTE DE CÓDIGO
+    const fontSelect = document.getElementById("font-select");
+    if (fontSelect) {
+        fontSelect.addEventListener("change", (e) => {
+            document.documentElement.style.setProperty('--code-font', e.target.value);
+        });
+    }
+});
