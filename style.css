@@ -6,23 +6,22 @@
     --text-primary: #ffffff;
     --text-secondary: #94a3b8;
     --border-color: #272a3b;
-    --code-bg: #090a0e;
-    --code-font: 'Fira Code', Consolas, monospace;
+    --code-bg: #0d0e15;
 }
 
-/* TEMAS DE COLOR DINÁMICOS */
+/* COLORES DE TEMAS */
 body.theme-purple { --accent-color: #7c3aed; --accent-hover: #6d28d9; }
 body.theme-blue { --accent-color: #2563eb; --accent-hover: #1d4ed8; }
 body.theme-green { --accent-color: #10b981; --accent-hover: #059669; }
 body.theme-orange { --accent-color: #f97316; --accent-hover: #ea580c; }
 
-/* MODO CLARO COMPLETO */
+/* MODO CLARO INTEGRAL */
 body.light-mode {
     --bg-dark: #f8fafc;
     --card-bg: #ffffff;
     --text-primary: #0f172a;
     --text-secondary: #64748b;
-    --border-color: #e2e8f0;
+    --border-color: #cbd5e1;
     --code-bg: #1e293b;
 }
 
@@ -37,19 +36,19 @@ body {
     background-color: var(--bg-dark);
     color: var(--text-primary);
     min-height: 100vh;
-    transition: background 0.3s, color 0.3s;
 }
 
 .view-screen.hidden { display: none !important; }
+.view-screen.active { display: block; }
 
-/* NAVBAR LANDING */
+/* LANDING NAVBAR */
 .navbar-container {
     padding: 1.5rem 2rem;
     position: sticky;
     top: 0;
     z-index: 100;
-    background: rgba(11, 12, 16, 0.8);
-    backdrop-filter: blur(10px);
+    background: rgba(11, 12, 16, 0.85);
+    backdrop-filter: blur(12px);
 }
 
 .navbar {
@@ -79,12 +78,14 @@ body {
     color: var(--text-secondary);
     text-decoration: none;
     font-size: 0.95rem;
+    transition: color 0.2s;
 }
+.nav-links a:hover { color: var(--text-primary); }
 
 /* BOTONES */
 .btn-purple {
     background: var(--accent-color);
-    color: #fff;
+    color: #ffffff;
     border: none;
     padding: 0.6rem 1.2rem;
     border-radius: 8px;
@@ -107,29 +108,90 @@ body {
 
 .btn-large { padding: 0.8rem 1.8rem; font-size: 1rem; }
 
-/* HERO */
+/* HERO SECTION DE LA PORTADA */
 .hero-section {
     text-align: center;
-    padding: 5rem 1rem 3rem 1rem;
+    padding: 6rem 1rem 4rem 1rem;
     max-width: 900px;
     margin: 0 auto;
 }
-.hero-title { font-size: 3.5rem; font-weight: 800; line-height: 1.15; margin-bottom: 1.2rem; }
-.hero-description { font-size: 1.2rem; color: var(--text-secondary); margin-bottom: 2rem; }
-.hero-actions { display: flex; justify-content: center; gap: 1rem; }
 
-/* REJILLA DE LIBRERÍA (ESTÉTICA MEJORADA) */
-.library-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    gap: 1.5rem;
+.hero-title {
+    font-size: 3.8rem;
+    font-weight: 800;
+    line-height: 1.15;
+    margin-bottom: 1.2rem;
+    letter-spacing: -1px;
 }
 
-.library-card {
+.hero-description {
+    font-size: 1.2rem;
+    color: var(--text-secondary);
+    margin-bottom: 2.5rem;
+    line-height: 1.6;
+}
+
+.hero-actions { display: flex; justify-content: center; gap: 1rem; }
+
+/* SECCIONES Y REJILLAS DE TARJETAS */
+.section-container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 3rem 1.5rem;
+}
+
+.section-title {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    text-align: center;
+}
+
+.section-subtitle {
+    color: var(--text-secondary);
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.text-center { text-align: center; }
+
+.cards-grid, .library-grid, .settings-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+}
+
+.glass-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 1.8rem;
     position: relative;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+}
+
+.card-icon {
+    font-size: 2rem;
+    color: var(--accent-color);
+    margin-bottom: 1rem;
+}
+
+/* REGLAS DE CÓDIGO - LIMPIAS Y UNIFORMES */
+pre {
+    background: var(--code-bg) !important;
+    border-radius: 8px;
+    padding: 1.2rem;
+    overflow-x: auto;
+    margin: 1rem 0;
+    border: 1px solid var(--border-color);
+}
+
+code {
+    background: transparent !important;
+    color: #38bdf8 !important;
+    font-family: 'Fira Code', Consolas, monospace;
+    font-size: 0.9rem;
+    line-height: 1.5;
 }
 
 .card-badge {
@@ -146,25 +208,6 @@ body {
 .badge-red { background: #ef4444; }
 .badge-blue { background: #3b82f6; }
 .badge-green { background: #10b981; }
-
-.glass-card {
-    background: var(--card-bg);
-    border: 1px solid var(--border-color);
-    border-radius: 12px;
-    padding: 1.5rem;
-}
-
-.code-box pre, pre code {
-    font-family: var(--code-font);
-    background: var(--code-bg);
-    color: #38bdf8;
-    padding: 1rem;
-    border-radius: 8px;
-    overflow-x: auto;
-    margin: 1rem 0;
-    font-size: 0.88rem;
-    white-space: pre-wrap;
-}
 
 /* APP LAYOUT */
 .app-layout { display: flex; min-height: 100vh; }
@@ -193,6 +236,7 @@ body {
     display: flex;
     align-items: center;
     gap: 10px;
+    font-size: 0.95rem;
 }
 
 .nav-item.active, .nav-item:hover {
@@ -203,8 +247,9 @@ body {
 .main-content { flex: 1; padding: 2rem; background: var(--bg-dark); }
 .view-section { display: none; }
 .view-section.active { display: block; }
+.view-header { margin-bottom: 2rem; }
 
-/* CHAT */
+/* CHAT INTERACTION */
 .chat-container {
     background: var(--card-bg);
     border: 1px solid var(--border-color);
@@ -230,7 +275,8 @@ body {
     gap: 10px;
     border-top: 1px solid var(--border-color);
 }
-.chat-input-area input, .fixer-container textarea, .custom-select {
+
+.chat-input-area input, .fixer-container textarea {
     flex: 1;
     background: var(--bg-dark);
     border: 1px solid var(--border-color);
@@ -239,14 +285,8 @@ body {
     border-radius: 8px;
 }
 
-/* CONFIGURACIÓN Y COLORES */
-.settings-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 1.5rem;
-}
-
-.color-options { display: flex; gap: 10px; margin-top: 12px; }
+/* OPCIONES DE COLOR */
+.color-options { display: flex; gap: 10px; }
 .color-btn {
     width: 32px;
     height: 32px;
@@ -259,3 +299,9 @@ body {
 .color-btn.blue { background: #2563eb; }
 .color-btn.green { background: #10b981; }
 .color-btn.orange { background: #f97316; }
+
+.fixer-result-box {
+    margin-top: 1.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border-color);
+}
