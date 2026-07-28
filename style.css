@@ -419,3 +419,8 @@ body.landing-body {
 .fn { color: #50fa7b; }
 .str { color: #f1fa8c; }
 .com { color: #6272a4; }
+.custom-logo {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+}
