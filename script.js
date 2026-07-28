@@ -24,7 +24,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     // ==========================================
-    // 2. CHAT IA (SIMULACIÓN DE RESPUESTA)
+    // 2. CHAT IA (INTERACCIÓN)
     // ==========================================
     const chatForm = document.getElementById("chat-form");
     const chatInput = document.getElementById("chat-input");
@@ -40,18 +40,19 @@ document.addEventListener("DOMContentLoaded", () => {
             appendMessage("user", text);
             chatInput.value = "";
 
-            // Respuesta automatizada de la IA
+            // Respuesta simulada de la IA
             setTimeout(() => {
-                const aiResponse = `He procesado tu solicitud sobre: "<strong>${text}</strong>".<br><br>Aquí tienes una estructura recomendada:<br><pre><code>-- Script Luau Generado
+                const aiResponse = `He procesado tu solicitud sobre: "<strong>${text}</strong>".<br><br>Aquí tienes el código generado en Luau:<br><pre><code>-- Script Luau Generado para Roblox Studio
 local Players = game:GetService("Players")
 
 local function main()
-    print("Ejecutando acción para: ${text}")
+    print("Ejecutando lógica para: ${text}")
 end
 
-main()</code></pre>`;
+main()</code></pre>
+<button class="btn-secondary copy-btn" style="margin-top: 8px;"><i class="fas fa-copy"></i> Copiar Código</button>`;
                 appendMessage("ai", aiResponse);
-            }, 600);
+            }, 500);
         });
     }
 
@@ -74,7 +75,6 @@ main()</code></pre>`;
         chatMessages.appendChild(msgDiv);
         chatMessages.scrollTop = chatMessages.scrollHeight;
 
-        // Re-vincular botones de copia dinámicos
         bindCopyButtons();
     }
 
@@ -95,17 +95,17 @@ main()</code></pre>`;
 
             if (errText.includes("nil with") || errText.includes("WaitForChild")) {
                 fixerContent.innerHTML = `
-                    <p><strong>Causa probable:</strong> Intentaste acceder a una instancia antes de que cargara en la jerarquía.</p>
-                    <p><strong>Solución:</strong> Sustituye los accesos directos por <code>WaitForChild("Nombre")</code>.</p>
+                    <p><strong>Causa probable:</strong> Intentaste acceder a un objeto antes de que cargara en el cliente.</p>
+                    <p><strong>Solución:</strong> Reemplaza el acceso directo tipo <code>game.Workspace.Parte</code> por <code>WaitForChild("Parte")</code>.</p>
                 `;
             } else if (errText.includes("arithmetic") || errText.includes("string")) {
                 fixerContent.innerHTML = `
-                    <p><strong>Causa probable:</strong> Intentaste concatenar un texto con un número usando <code>+</code> en vez de <code>..</code>.</p>
-                    <p><strong>Solución:</strong> En Luau usa el operador <code>..</code> para unir cadenas de texto.</p>
+                    <p><strong>Causa probable:</strong> Intentaste concatenar un texto con un número usando el signo <code>+</code>.</p>
+                    <p><strong>Solución:</strong> En Luau usa el operador <code>..</code> para unir variables de texto con números.</p>
                 `;
             } else {
                 fixerContent.innerHTML = `
-                    <p><strong>Análisis General:</strong> Revisa que todas las funciones tengan sus cierres <code>end</code> correspondientes y que las variables locales estén declaradas arriba.</p>
+                    <p><strong>Análisis General:</strong> Verifica que todas tus variables estén declaradas con <code>local</code> y que tus funciones cierren correctamente con <code>end</code>.</p>
                 `;
             }
         });
