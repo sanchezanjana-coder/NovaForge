@@ -4,54 +4,41 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NovaForge | Your Intelligent Developer Assistant</title>
-    <link rel="stylesheet" href="style.css?v=6.0">
+    <link rel="stylesheet" href="style.css?v=7.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
-<body class="dark-theme">
+<body class="dark-theme theme-purple">
 
-    <!-- ========================================== -->
-    <!-- PANTALLA 1: LANDING PAGE MODERNA          -->
-    <!-- ========================================== -->
+    <!-- PANTALLA 1: LANDING PAGE -->
     <div id="landing-screen" class="view-screen active">
-        <!-- BARRA DE NAVEGACIÓN PRINCIPAL -->
         <header class="navbar-container">
             <div class="navbar">
                 <div class="nav-brand">
                     <img src="logo.png" alt="NovaForge Logo" class="custom-logo">
                     <span>NovaForge</span>
                 </div>
-                
                 <nav class="nav-links">
                     <a href="#hero">Home</a>
                     <a href="#features">Features</a>
                     <a href="#about">About</a>
                     <a href="#code">Examples</a>
                 </nav>
-
-                <button class="btn-purple" id="btn-enter-app-top">
-                    Get Started
-                </button>
+                <button class="btn-purple" id="btn-enter-app-top">Get Started</button>
             </div>
         </header>
 
         <main class="landing-body">
-            <!-- HERO SECTION -->
             <section id="hero" class="hero-section">
                 <h1 class="hero-title">Build Roblox Games<br>Smarter with AI.</h1>
                 <p class="hero-description">
                     NovaForge helps Roblox developers generate scripts, solve errors, learn Luau and create better games faster than ever.
                 </p>
                 <div class="hero-actions">
-                    <button class="btn-purple btn-large" id="btn-enter-app-hero">
-                        Get Started
-                    </button>
-                    <a href="#features" class="btn-outline btn-large">
-                        Learn More
-                    </a>
+                    <button class="btn-purple btn-large" id="btn-enter-app-hero">Get Started</button>
+                    <a href="#features" class="btn-outline btn-large">Learn More</a>
                 </div>
             </section>
 
-            <!-- CARACTERÍSTICAS / FEATURES -->
             <section id="features" class="section-container">
                 <h2 class="section-title">¿Qué puedes hacer con NovaForge?</h2>
                 <div class="cards-grid">
@@ -73,7 +60,6 @@
                 </div>
             </section>
 
-            <!-- EJEMPLO DE CÓDIGO LUAU -->
             <section id="code" class="section-container">
                 <h2 class="section-title">Ejemplo de Código Luau</h2>
                 <p class="section-subtitle">Nuestra IA genera scripts adaptados a las mejores prácticas de Roblox:</p>
@@ -94,23 +80,18 @@ end)</code></pre>
                 </div>
             </section>
 
-            <!-- ABOUT SECTION -->
             <section id="about" class="section-container text-center">
                 <h2 class="section-title">Acerca de NovaForge</h2>
                 <p class="section-subtitle">
-                    Diseñado especialmente para creadores de Roblox Studio. Acelera tu flujo de trabajo, resuelve errores en segundos y concéntrate en diseñar la mejor experiencia de juego.
+                    Diseñado especialmente para creadores de Roblox Studio. Acelera tu flujo de trabajo y resuelve errores en segundos.
                 </p>
             </section>
         </main>
     </div>
 
-
-    <!-- ========================================== -->
-    <!-- PANTALLA 2: APP / DASHBOARD INTERACTIVO    -->
-    <!-- ========================================== -->
+    <!-- PANTALLA 2: DASHBOARD APP -->
     <div id="app-screen" class="view-screen hidden">
         <div class="app-layout">
-            <!-- BARRA LATERAL (SIDEBAR) -->
             <aside class="sidebar">
                 <div class="sidebar-brand">
                     <img src="logo.png" alt="NovaForge Logo" class="custom-logo">
@@ -136,13 +117,11 @@ end)</code></pre>
                     <button class="btn-outline" id="btn-back-home" style="width: 100%; margin-bottom: 12px; padding: 8px;">
                         <i class="fas fa-home"></i> Volver a Inicio
                     </button>
-                    <span style="font-size: 0.8rem; color: #94a3b8;">v6.0 Estable</span>
+                    <span style="font-size: 0.8rem; color: var(--text-secondary);">v7.0 Estético</span>
                 </div>
             </aside>
 
-            <!-- CONTENIDO PRINCIPAL DEL DASHBOARD -->
             <main class="main-content">
-                
                 <!-- VISTA: CHAT IA -->
                 <section id="view-chat" class="view-section active">
                     <header class="view-header">
@@ -169,7 +148,7 @@ end)</code></pre>
                     </div>
                 </section>
 
-                <!-- VISTA: LIBRERÍA -->
+                <!-- VISTA: LIBRERÍA DE COMPONENTES -->
                 <section id="view-library" class="view-section">
                     <header class="view-header">
                         <h1>Librería de Componentes</h1>
@@ -177,10 +156,12 @@ end)</code></pre>
                     </header>
 
                     <div class="library-grid">
-                        <div class="glass-card">
+                        <div class="glass-card library-card">
+                            <div class="card-badge">DataStore</div>
                             <h3>Leaderstats Base</h3>
-                            <p>Sistema básico de guardado de datos y monedas para jugadores.</p>
-                            <pre><code>local Players = game:GetService("Players")
+                            <p>Guarda monedas y datos esenciales del jugador al entrar.</p>
+                            <div class="code-box">
+                                <pre><code>local Players = game:GetService("Players")
 
 Players.PlayerAdded:Connect(function(player)
     local leaderstats = Instance.new("Folder")
@@ -192,13 +173,16 @@ Players.PlayerAdded:Connect(function(player)
     coins.Value = 0
     coins.Parent = leaderstats
 end)</code></pre>
+                            </div>
                             <button class="btn-outline copy-btn"><i class="fas fa-copy"></i> Copiar Código</button>
                         </div>
 
-                        <div class="glass-card">
-                            <h3>Plataforma KillBlock</h3>
-                            <p>Elimina al personaje de forma limpia al tocar la parte.</p>
-                            <pre><code>local part = script.Parent
+                        <div class="glass-card library-card">
+                            <div class="card-badge badge-red">Mecánica</div>
+                            <h3>KillBlock (Lava)</h3>
+                            <p>Elimina instantáneamente al personaje al tocar la parte.</p>
+                            <div class="code-box">
+                                <pre><code>local part = script.Parent
 
 part.Touched:Connect(function(hit)
     local humanoid = hit.Parent:FindFirstChildOfClass("Humanoid")
@@ -206,6 +190,49 @@ part.Touched:Connect(function(hit)
         humanoid.Health = 0
     end
 end)</code></pre>
+                            </div>
+                            <button class="btn-outline copy-btn"><i class="fas fa-copy"></i> Copiar Código</button>
+                        </div>
+
+                        <div class="glass-card library-card">
+                            <div class="card-badge badge-blue">Interactuable</div>
+                            <h3>Door Touch Open</h3>
+                            <p>Puerta que se vuelve transparente y no colisiona durante unos segundos.</p>
+                            <div class="code-box">
+                                <pre><code>local door = script.Parent
+local db = false
+
+door.Touched:Connect(function(hit)
+    if hit.Parent:FindFirstChild("Humanoid") and not db then
+        db = true
+        door.Transparency = 0.8
+        door.CanCollide = false
+        task.wait(3)
+        door.Transparency = 0
+        door.CanCollide = true
+        db = false
+    end
+end)</code></pre>
+                            </div>
+                            <button class="btn-outline copy-btn"><i class="fas fa-copy"></i> Copiar Código</button>
+                        </div>
+
+                        <div class="glass-card library-card">
+                            <div class="card-badge badge-green">Movimiento</div>
+                            <h3>Speed Pad</h3>
+                            <p>Aumenta la velocidad del jugador temporalmente al pisar la parte.</p>
+                            <div class="code-box">
+                                <pre><code>local pad = script.Parent
+
+pad.Touched:Connect(function(hit)
+    local hum = hit.Parent:FindFirstChildOfClass("Humanoid")
+    if hum and hum.WalkSpeed == 16 then
+        hum.WalkSpeed = 32
+        task.wait(5)
+        hum.WalkSpeed = 16
+    end
+end)</code></pre>
+                            </div>
                             <button class="btn-outline copy-btn"><i class="fas fa-copy"></i> Copiar Código</button>
                         </div>
                     </div>
@@ -218,12 +245,14 @@ end)</code></pre>
                         <p>Pega aquí el error del Output de Roblox Studio para encontrar la solución.</p>
                     </header>
 
-                    <div class="fixer-container">
-                        <textarea id="fixer-input" rows="6" placeholder="Ej: ServerScriptService.Script:5: attempt to index nil with 'Humanoid'"></textarea>
-                        <button id="fixer-submit" class="btn-purple">Analizar Error</button>
+                    <div class="fixer-container glass-card">
+                        <textarea id="fixer-input" rows="5" placeholder="Pega el mensaje del Output aquí... Ej: ServerScriptService.Script:5: attempt to index nil with 'Humanoid'"></textarea>
+                        <button id="fixer-submit" class="btn-purple"><i class="fas fa-wrench"></i> Analizar y Corregir</button>
 
                         <div id="fixer-result" class="fixer-result-box hidden">
-                            <h3><i class="fas fa-lightbulb"></i> Análisis y Solución</h3>
+                            <div class="solution-header">
+                                <i class="fas fa-check-circle"></i> <span>Diagnóstico completado</span>
+                            </div>
                             <div id="fixer-content"></div>
                         </div>
                     </div>
@@ -232,16 +261,39 @@ end)</code></pre>
                 <!-- VISTA: CONFIGURACIÓN -->
                 <section id="view-settings" class="view-section">
                     <header class="view-header">
-                        <h1>Configuración</h1>
-                        <p>Ajustes de la herramienta y preferencias.</p>
+                        <h1>Configuración y Personalización</h1>
+                        <p>Ajusta la apariencia visual del entorno de desarrollo a tu gusto.</p>
                     </header>
-                    
-                    <div class="glass-card">
-                        <h3>Ajustes de Tema</h3>
-                        <p>Selecciona tu modo de preferencia:</p>
-                        <button id="theme-toggle-btn" class="btn-outline" style="margin-top: 12px;">
-                            <i class="fas fa-sun"></i> <span id="theme-btn-text">Cambiar Modo de Tema</span>
-                        </button>
+
+                    <div class="settings-grid">
+                        <div class="glass-card setting-box">
+                            <h3><i class="fas fa-adjust"></i> Modo de Tema</h3>
+                            <p>Alterna entre una apariencia clara u oscura.</p>
+                            <button id="theme-toggle-btn" class="btn-outline" style="margin-top: 10px;">
+                                <i class="fas fa-sun"></i> <span id="theme-btn-text">Cambiar a Modo Claro</span>
+                            </button>
+                        </div>
+
+                        <div class="glass-card setting-box">
+                            <h3><i class="fas fa-palette"></i> Color de Acento</h3>
+                            <p>Elige el color principal de la interfaz:</p>
+                            <div class="color-options">
+                                <button class="color-btn purple active" data-color="purple" title="Morado Nova"></button>
+                                <button class="color-btn blue" data-color="blue" title="Azul Eléctrico"></button>
+                                <button class="color-btn green" data-color="green" title="Verde Neón"></button>
+                                <button class="color-btn orange" data-color="orange" title="Naranja Fuego"></button>
+                            </div>
+                        </div>
+
+                        <div class="glass-card setting-box">
+                            <h3><i class="fas fa-font"></i> Estilo de Fuente del Código</h3>
+                            <p>Familia tipográfica para bloques de código:</p>
+                            <select id="font-select" class="custom-select">
+                                <option value="Fira Code, monospace">Fira Code (Recomendado)</option>
+                                <option value="Courier New, monospace">Courier New</option>
+                                <option value="Consolas, monospace">Consolas</option>
+                            </select>
+                        </div>
                     </div>
                 </section>
 
@@ -249,6 +301,6 @@ end)</code></pre>
         </div>
     </div>
 
-    <script src="script.js?v=6.0"></script>
+    <script src="script.js?v=7.0"></script>
 </body>
 </html>
